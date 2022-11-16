@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="CustomControlsWPF.TicketListViewItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CustomControlsWPF"
+             mc:Ignorable="d" Height="112" Width="350" BorderBrush="#FFC7C7C7" BorderThickness="1,1,1,1">
+    <Grid Background="White">
+        <Label x:Name="lblPrice" Content="Label" Margin="10,10,10,0" VerticalAlignment="Top" FontSize="22" FontWeight="Normal" FontFamily="Segoe UI Semibold"/>
+        <Label x:Name="lblDurationTitle" Content="В ПУТИ" Margin="110,50,110,0" VerticalAlignment="Top" Foreground="#FF999194" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lblTransferTitle" Content="ПЕРЕСАДКИ" Margin="0,50,10,0" VerticalAlignment="Top" Foreground="#FF999194" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Width="100"/>
+        <Label x:Name="lblFromToValue" Content="Label" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top" Foreground="Black" Width="100"/>
+        <Label x:Name="lblFromToTitle" Content="ОТКУДА - КУДА" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Foreground="#FF999194" Width="100"/>
+        <Label x:Name="lblDurationValue" Content="Label" Margin="110,76,110,0" VerticalAlignment="Top" Foreground="Black" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lblTransferValue" Content="Label" Margin="0,76,10,0" VerticalAlignment="Top" Foreground="Black" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Width="100"/>
+
+    </Grid>
+</UserControl>
