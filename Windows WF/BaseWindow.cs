@@ -19,7 +19,9 @@ namespace BaseWindow
         #endregion
 
         #region Методы
-        public string GetForlderPath()
+
+        #region Загрузка файлов
+        public string GetFolderPath()
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog
             {
@@ -33,12 +35,12 @@ namespace BaseWindow
 
             return String.Empty;
         }
-        public List<string> GetFilesPath()
+        public List<string> GetFilesPath(string filter = "Все файлы (*.*)|*.*")
         {
             List<string> filesList = new List<string>();
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "Все файлы (*.*)|*.*",
+                Filter = filter,
                 Multiselect = true,
                 RestoreDirectory = true
             };
@@ -52,7 +54,35 @@ namespace BaseWindow
 
             return filesList;
         }
-        public String GetSaveFilePath()
+        public string GetLoadFilePath(
+            string filter = "Все файлы (*.*)|*.*",
+            int filterIndex = 1,
+            string defaultExtension = "txt",
+            bool checkFileExists = false,
+            bool checkPathExists = true,
+            string Title = "Сохранение файла"
+            )
+        {
+            OpenFileDialog saveFileDialog = new OpenFileDialog
+            {
+                Title = Title,
+                CheckFileExists = checkFileExists,
+                CheckPathExists = checkPathExists,
+                DefaultExt = defaultExtension,
+                Filter = filter,
+                FilterIndex = filterIndex,
+                RestoreDirectory = true
+            };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                return saveFileDialog.FileName;
+            }
+            return null;
+        }
+        #endregion
+
+        #region Сохранение файлов
+        public string GetSaveFilePath()
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog
             {
@@ -71,25 +101,9 @@ namespace BaseWindow
 
             return String.Empty;
         }
-        public String GetLoadFilePath()
-        {
-            OpenFileDialog saveFileDialog1 = new OpenFileDialog
-            {
-                Title = "Сохранения файла",
-                CheckFileExists = false,
-                CheckPathExists = true,
-                DefaultExt = "txt",
-                Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
-                FilterIndex = 2,
-                RestoreDirectory = true
-            };
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                return saveFileDialog1.FileName;
-            }
+        #endregion
 
-            return String.Empty;
-        }
+        #region Уведомления
         public void ShowError(Exception ex)
         {
             MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -98,12 +112,18 @@ namespace BaseWindow
         {
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+        public void ShowWarning(string message, string title = "Предупреждение")
+        {
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+        #endregion
+
         #endregion
 
         #region Конструкторы/Деструкторы
         public BaseWindow()
         {
-            StartPosition = FormStartPosition.CenterScreen;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
         #endregion
 

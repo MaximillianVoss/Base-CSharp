@@ -1,0 +1,13 @@
+﻿[*.{cs,vb}]
+
+# IDE0003: Удалить квалификацию
+dotnet_style_qualification_for_event = true
+
+# IDE0003: Удалить квалификацию
+dotnet_style_qualification_for_method = true
+
+# IDE0003: Удалить квалификацию
+dotnet_style_qualification_for_property = true
+
+# IDE0003: Удалить квалификацию
+dotnet_style_qualification_for_field = true

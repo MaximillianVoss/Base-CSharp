@@ -9,7 +9,7 @@ namespace BaseWindow_WPF
     {
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

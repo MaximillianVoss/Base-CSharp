@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -13,10 +14,21 @@ namespace CustomControlsWPF
     {
 
         #region Поля
+        public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent("SelectionChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TabItem));
+        public event RoutedEventHandler SelectionChanged
+        {
+            add => this.AddHandler(SelectionChangedEvent, value);
+            remove => this.RemoveHandler(SelectionChangedEvent, value);
+        }
+
+        private void ClickHadler(object sender, RoutedEventArgs e)
+        {
+            this.RaiseEvent(new RoutedEventArgs(SelectionChangedEvent));
+        }
         public string Title
         {
-            set => lblTitle.Content = value;
-            get => lblTitle.Content.ToString();
+            set => this.lblTitle.Content = value;
+            get => this.lblTitle.Content.ToString();
         }
         public List<String> Items
         {
@@ -26,11 +38,11 @@ namespace CustomControlsWPF
                 {
                     foreach (var item in value)
                     {
-                        cbItems.Items.Add(item);
+                        this.cbItems.Items.Add(item);
                     }
                 }
             }
-            get => cbItems.Items.OfType<string>().ToList();
+            get => this.cbItems.Items.OfType<string>().ToList();
         }
         public string Error
         {
@@ -38,46 +50,60 @@ namespace CustomControlsWPF
             {
                 if (value == null || value == String.Empty)
                 {
-                    lblError.Content = String.Empty;
+                    this.lblError.Content = String.Empty;
                 }
                 else
                 {
-                    lblError.Content = value;
+                    this.lblError.Content = value;
                 }
             }
-            get => lblError.Content.ToString();
+            get => this.lblError.Content.ToString();
         }
         public Brush BackgroundColor
         {
-            set => gMain.Background = value;
-            get => gMain.Background;
+            set => this.gMain.Background = value;
+            get => this.gMain.Background;
         }
 
         public bool IsEditable
         {
-            set => cbItems.IsEditable = value;
-            get => cbItems.IsEditable;
+            set => this.cbItems.IsEditable = value;
+            get => this.cbItems.IsEditable;
         }
         public Object DataContext
         {
-            set => cbItems.DataContext = value;
-            get => cbItems.DataContext;
+            set => this.cbItems.DataContext = value;
+            get => this.cbItems.DataContext;
         }
         public int SelectedIndex
         {
             set
             {
-                if (value < cbItems.Items.Count)
+                if (value < this.cbItems.Items.Count)
                 {
-                    cbItems.SelectedIndex = value;
+                    this.cbItems.SelectedIndex = value;
                 }
             }
-            get => cbItems.SelectedIndex;
+            get => this.cbItems.SelectedIndex;
+        }
+        public string SelectedItem
+        {
+            get
+            {
+                if (this.cbItems.SelectedIndex >= 0)
+                {
+                    return this.cbItems.SelectedItem.ToString();
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
         public string Text
         {
-            set => cbItems.Text = value;
-            get => cbItems.Text;
+            set => this.cbItems.Text = value;
+            get => this.cbItems.Text;
         }
         #endregion
 
@@ -88,25 +114,29 @@ namespace CustomControlsWPF
         #region Методы
         public void Add(object item)
         {
-            cbItems.Items.Add(item);
+            this.cbItems.Items.Add(item);
         }
         #endregion
 
         #region Конструкторы/Деструкторы
         public LabeledComboBox() : this("Заголовок")
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         public LabeledComboBox(string title, List<string> items = null, string error = null, Brush backgroundColor = null, bool isEditable = false)
         {
-            InitializeComponent();
-            Title = title;
-            Items = items;
-            Error = error;
-            BackgroundColor = backgroundColor;
-            IsEditable = isEditable;
-            SelectedIndex = -1;
+            this.InitializeComponent();
+            this.Title = title;
+            this.Items = items;
+            this.Error = error;
+            this.BackgroundColor = backgroundColor;
+            this.IsEditable = isEditable;
+            this.SelectedIndex = -1;
+            if (this.cbItems != null)
+            {
+                this.cbItems.SelectionChanged += this.ClickHadler;
+            }
         }
 
 
@@ -120,7 +150,7 @@ namespace CustomControlsWPF
 
         private void cbItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SelectedIndex = cbItems.SelectedIndex;
+            this.SelectedIndex = this.cbItems.SelectedIndex;
         }
         private void cbItems_DragOver(object sender, System.Windows.DragEventArgs e)
         {

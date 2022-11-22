@@ -24,59 +24,41 @@ namespace CustomControlsWPF
     /// </summary>
     public partial class ButtonPrimary : UserControl
     {
+        #region Поля
         public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TabItem));
+        private readonly Dictionary<Colors, SolidColorBrush> brushes;
+        #endregion
 
+        #region Свойства
         public event RoutedEventHandler Click
         {
-            add => AddHandler(ClickEvent, value);
-            remove => RemoveHandler(ClickEvent, value);
+            add => this.AddHandler(ClickEvent, value);
+            remove => this.RemoveHandler(ClickEvent, value);
         }
-
-        private void ClickHadler(object sender, RoutedEventArgs e)
-        {
-            RaiseEvent(new RoutedEventArgs(ClickEvent));
-        }
-
-        private readonly Dictionary<Colors, SolidColorBrush> brushes;
-
-        public Double ButtonFontSize { set => btn.FontSize = value; get => btn.FontSize; }
-
-        public String Text { set => btn.Content = value; get => btn.Content.ToString(); }
-
+        public Double ButtonFontSize { set => this.btn.FontSize = value; get => this.btn.FontSize; }
+        public String Text { set => this.btn.Content = value; get => this.btn.Content.ToString(); }
         public Colors Color
         {
             set
             {
                 try
                 {
-                    btn.Background = brushes[value];
+                    this.btn.Background = this.brushes[value];
                 }
                 catch (Exception ex)
                 {
-                    btn.Background = brushes[Colors.primary];
-                    btn.Content = ex.Message;
+                    this.btn.Background = this.brushes[Colors.primary];
+                    this.btn.Content = ex.Message;
                 }
             }
         }
 
+        #endregion
 
-        public ButtonPrimary()
+        #region Методы
+        private void ClickHadler(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-            brushes = new Dictionary<Colors, SolidColorBrush>() {
-                { Colors.primary,GetColorBrush("#ff0d6efd")},
-                { Colors.secondary,GetColorBrush("#6c757d")},
-                { Colors.success,GetColorBrush("#198754")},
-                { Colors.danger,GetColorBrush("#dc3545")},
-                { Colors.warning,GetColorBrush("#ffc107")},
-                { Colors.info,GetColorBrush("#0dcaf0")},
-                { Colors.light,GetColorBrush("#f8f9fa")},
-                { Colors.dark,GetColorBrush("#212529")}
-            };
-            if (btn != null)
-            {
-                btn.Click += ClickHadler;
-            }
+            this.RaiseEvent(new RoutedEventArgs(ClickEvent));
         }
 
         /// <summary>
@@ -88,5 +70,35 @@ namespace CustomControlsWPF
         {
             return new SolidColorBrush((Color)ColorConverter.ConvertFromString(hexStr.ToLower()));
         }
+        #endregion
+
+        #region Конструкторы/Деструкторы
+        public ButtonPrimary()
+        {
+            this.InitializeComponent();
+            this.brushes = new Dictionary<Colors, SolidColorBrush>() {
+                { Colors.primary,this.GetColorBrush("#ff0d6efd")},
+                { Colors.secondary,this.GetColorBrush("#6c757d")},
+                { Colors.success,this.GetColorBrush("#198754")},
+                { Colors.danger,this.GetColorBrush("#dc3545")},
+                { Colors.warning,this.GetColorBrush("#ffc107")},
+                { Colors.info,this.GetColorBrush("#0dcaf0")},
+                { Colors.light,this.GetColorBrush("#f8f9fa")},
+                { Colors.dark,this.GetColorBrush("#212529")}
+            };
+            if (this.btn != null)
+            {
+                this.btn.Click += this.ClickHadler;
+            }
+        }
+        #endregion
+
+        #region Операторы
+
+        #endregion
+
+        #region Обработчики событий
+
+        #endregion
     }
 }

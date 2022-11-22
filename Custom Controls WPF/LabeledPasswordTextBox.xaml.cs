@@ -19,13 +19,13 @@ namespace CustomControlsWPF
         #region Свойства
         public string Title
         {
-            set => lblTitle.Content = value;
-            get => lblTitle.Content.ToString();
+            set => this.lblTitle.Content = value;
+            get => this.lblTitle.Content.ToString();
         }
         public string Text
         {
-            set => txbValue.Password = value;
-            get => txbValue.Password;
+            set => this.txbValue.Password = value;
+            get => this.txbValue.Password;
         }
         /// <summary>
         /// Строка, которая будет показана при ошибке валидации
@@ -34,32 +34,32 @@ namespace CustomControlsWPF
         {
             set
             {
-                validationText = value;
-                isValidCheck();
+                this.validationText = value;
+                this.isValidCheck();
             }
-            get => validationText;
+            get => this.validationText;
         }
         public string Error
         {
             set
             {
-                if (lblError != null)
+                if (this.lblError != null)
                 {
                     if (value == null || value == String.Empty)
                     {
-                        lblError.Content = String.Empty;
+                        this.lblError.Content = String.Empty;
                     }
                     else
                     {
-                        lblError.Content = value;
+                        this.lblError.Content = value;
                     }
                 }
             }
             get
             {
-                if (lblError != null)
+                if (this.lblError != null)
                 {
-                    return lblError.Content.ToString();
+                    return this.lblError.Content.ToString();
                 }
 
                 return null;
@@ -75,10 +75,10 @@ namespace CustomControlsWPF
         {
             set
             {
-                regex = value;
-                isValidCheck();
+                this.regex = value;
+                this.isValidCheck();
             }
-            get => regex;
+            get => this.regex;
         }
         /// <summary>
         /// Является ли введеное значение корректным,
@@ -88,19 +88,19 @@ namespace CustomControlsWPF
         {
             get
             {
-                if (RegEx == null || RegEx == String.Empty || txbValue.Password == null)
+                if (this.RegEx == null || this.RegEx == String.Empty || this.txbValue.Password == null)
                 {
                     return true;
                 }
 
-                Regex regex = new Regex(RegEx);
-                return regex.IsMatch(txbValue.Password);
+                Regex regex = new Regex(this.RegEx);
+                return regex.IsMatch(this.txbValue.Password);
             }
         }
         public Brush BackgroundColor
         {
-            set => gMain.Background = value;
-            get => gMain.Background;
+            set => this.gMain.Background = value;
+            get => this.gMain.Background;
         }
 
         #endregion
@@ -108,13 +108,13 @@ namespace CustomControlsWPF
         #region Методы
         private void isValidCheck()
         {
-            if (!IsValid && ValidationText != null && Error != null)
+            if (!this.IsValid && this.ValidationText != null && this.Error != null)
             {
-                Error = ValidationText;
+                this.Error = this.ValidationText;
             }
             else
             {
-                Error = String.Empty;
+                this.Error = String.Empty;
             }
         }
         #endregion
@@ -122,16 +122,16 @@ namespace CustomControlsWPF
         #region Конструкторы/Деструкторы
         public LabeledPasswordTextBox() : this("Заголовок", "Значение")
         {
-            InitializeComponent();
-            Error = String.Empty;
+            this.InitializeComponent();
+            this.Error = String.Empty;
         }
         public LabeledPasswordTextBox(string title, string text, string error = null, Brush backgroundColor = null)
         {
-            InitializeComponent();
-            Title = title ?? throw new ArgumentNullException(nameof(title));
-            Text = text ?? throw new ArgumentNullException(nameof(text));
-            BackgroundColor = backgroundColor;
-            Error = error;
+            this.InitializeComponent();
+            this.Title = title ?? throw new ArgumentNullException(nameof(title));
+            this.Text = text ?? throw new ArgumentNullException(nameof(text));
+            this.BackgroundColor = backgroundColor;
+            this.Error = error;
         }
 
         #endregion
@@ -143,7 +143,7 @@ namespace CustomControlsWPF
         #region Обработчики событий
         private void txbValue_PasswordChanged(object sender, System.Windows.RoutedEventArgs e)
         {
-            isValidCheck();
+            this.isValidCheck();
         }
 
         #endregion

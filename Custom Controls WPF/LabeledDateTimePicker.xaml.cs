@@ -15,13 +15,13 @@ namespace CustomControlsWPF
         #region Поля
         public string Title
         {
-            set => lblTitle.Content = value;
-            get => lblTitle.Content.ToString();
+            set => this.lblTitle.Content = value;
+            get => this.lblTitle.Content.ToString();
         }
         public DateTime? Date
         {
-            set => dtpDate.SelectedDate = value;
-            get => dtpDate.SelectedDate;
+            set => this.dtpDate.SelectedDate = value;
+            get => this.dtpDate.SelectedDate;
         }
         public string Error
         {
@@ -29,29 +29,29 @@ namespace CustomControlsWPF
             {
                 if (value == null || value == String.Empty)
                 {
-                    lblError.Content = String.Empty;
+                    this.lblError.Content = String.Empty;
                 }
                 else
                 {
-                    lblError.Content = value;
+                    this.lblError.Content = value;
                 }
             }
-            get => lblError.Content.ToString();
+            get => this.lblError.Content.ToString();
         }
         public Brush BackgroundColor
         {
-            set => gMain.Background = value;
-            get => gMain.Background;
+            set => this.gMain.Background = value;
+            get => this.gMain.Background;
         }
         public DateTime? StartDate
         {
-            set => dtpDate.DisplayDateStart = value;
-            get => dtpDate.DisplayDateStart;
+            set => this.dtpDate.DisplayDateStart = value;
+            get => this.dtpDate.DisplayDateStart;
         }
         public DateTime? EndDate
         {
-            set => dtpDate.DisplayDateEnd = value;
-            get => dtpDate.DisplayDateEnd;
+            set => this.dtpDate.DisplayDateEnd = value;
+            get => this.dtpDate.DisplayDateEnd;
         }
         #endregion
 
@@ -66,15 +66,15 @@ namespace CustomControlsWPF
         #region Конструкторы/Деструкторы
         public LabeledDateTimePicker() : this("Заголовок", DateTime.Now)
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
         public LabeledDateTimePicker(string title, DateTime date, string error = null, Brush backgroundColor = null)
         {
-            InitializeComponent();
-            Title = title;
-            Date = date;
-            Error = error;
-            BackgroundColor = backgroundColor;
+            this.InitializeComponent();
+            this.Title = title;
+            this.Date = date;
+            this.Error = error;
+            this.BackgroundColor = backgroundColor;
         }
         #endregion
 

@@ -20,7 +20,7 @@
         #region Конструкторы/Деструкторы
         public LoginWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         #endregion

@@ -15,31 +15,31 @@ namespace CustomControlsWPF
         #region Свойства
         public string Price
         {
-            get => (string)lblPrice.Content;
-            set => lblPrice.Content = value;
+            get => (string)this.lblPrice.Content;
+            set => this.lblPrice.Content = value;
         }
         public string FromTo
         {
-            get => (string)lblFromToTitle.Content;
-            set => lblFromToTitle.Content = value;
+            get => (string)this.lblFromToTitle.Content;
+            set => this.lblFromToTitle.Content = value;
         }
         public string FromToTime
         {
-            get => (string)lblFromToValue.Content;
-            set => lblFromToValue.Content = value;
+            get => (string)this.lblFromToValue.Content;
+            set => this.lblFromToValue.Content = value;
         }
         public string Duration
         {
-            get => (string)lblDurationValue.Content;
-            set => lblDurationValue.Content = value;
+            get => (string)this.lblDurationValue.Content;
+            set => this.lblDurationValue.Content = value;
         }
         public string Transfer
         {
-            get => (string)lblTransferValue.Content;
-            set => lblTransferValue.Content = value;
+            get => (string)this.lblTransferValue.Content;
+            set => this.lblTransferValue.Content = value;
         }
 
-        public int IdTicket { get => idTicket; set => idTicket = value; }
+        public int IdTicket { get => this.idTicket; set => this.idTicket = value; }
         #endregion
 
         #region Методы
@@ -49,17 +49,17 @@ namespace CustomControlsWPF
         #region Конструкторы/Деструкторы
         public TicketListViewItem() : this("Не указана цена", "XXX-XXX", "XXч. XXмин.", "Без пересадок")
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         public TicketListViewItem(string price, string fromTo, string fromToTime, string duration, string transfer = "Без пересадок")
         {
-            InitializeComponent();
-            Price = price;
-            FromTo = fromTo;
-            FromToTime = fromToTime;
-            Duration = duration;
-            Transfer = transfer;
+            this.InitializeComponent();
+            this.Price = price;
+            this.FromTo = fromTo;
+            this.FromToTime = fromToTime;
+            this.Duration = duration;
+            this.Transfer = transfer;
         }
         #endregion
 

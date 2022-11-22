@@ -21,7 +21,7 @@ namespace BaseWindow_WPF
 
         public void ShowError(Exception ex)
         {
-            ShowError(ex.Message);
+            this.ShowError(ex.Message);
         }
 
         public void ShowError(string message)
@@ -31,7 +31,7 @@ namespace BaseWindow_WPF
 
         public void SetCenter()
         {
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         #endregion
@@ -39,7 +39,7 @@ namespace BaseWindow_WPF
         #region Конструкторы/Деструкторы
         public BaseWindow()
         {
-            SetCenter();
+            this.SetCenter();
         }
         #endregion
 

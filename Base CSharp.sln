@@ -11,7 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows WPF", "Windows WPF\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Custom Controls WPF", "Custom Controls WPF\Custom Controls WPF.csproj", "{CECDF44D-9DEB-4A2C-837C-234A867D03A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSV Reader", "Reader CSV\CSV Reader.csproj", "{8BEEBFB5-53CA-488C-8F4E-223AE0F4EBC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excel Reader", "Excel Reader\Excel Reader.csproj", "{8BEEBFB5-53CA-488C-8F4E-223AE0F4EBC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{99578402-39B5-4678-BA46-70F436044CC7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

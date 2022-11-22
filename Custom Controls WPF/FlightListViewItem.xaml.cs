@@ -18,32 +18,32 @@ namespace CustomControlsWPF
         #region Свойства
         public string Price
         {
-            get => (string)lblPrice.Content;
-            set => lblPrice.Content = value;
+            get => (string)this.lblPrice.Content;
+            set => this.lblPrice.Content = value;
         }
         public string FromTo
         {
-            get => (string)lblFromToTitle.Content;
-            set => lblFromToTitle.Content = value;
+            get => (string)this.lblFromToTitle.Content;
+            set => this.lblFromToTitle.Content = value;
         }
         public string FromToTime
         {
-            get => (string)lblFromToValue.Content;
-            set => lblFromToValue.Content = value;
+            get => (string)this.lblFromToValue.Content;
+            set => this.lblFromToValue.Content = value;
         }
         public string Duration
         {
-            get => (string)lblDurationValue.Content;
-            set => lblDurationValue.Content = value;
+            get => (string)this.lblDurationValue.Content;
+            set => this.lblDurationValue.Content = value;
         }
         public string Transfer
         {
-            get => (string)lblTransferValue.Content;
-            set => lblTransferValue.Content = value;
+            get => (string)this.lblTransferValue.Content;
+            set => this.lblTransferValue.Content = value;
         }
-        public bool IsBuyClicked { get => isBuyClicked; set => isBuyClicked = value; }
-        public int IdFlight { get => idFlight; set => idFlight = value; }
-        public DateTime DepartureDate { get => departureDate; set => departureDate = value; }
+        public bool IsBuyClicked { get => this.isBuyClicked; set => this.isBuyClicked = value; }
+        public int IdFlight { get => this.idFlight; set => this.idFlight = value; }
+        public DateTime DepartureDate { get => this.departureDate; set => this.departureDate = value; }
         #endregion
 
         #region Методы
@@ -53,18 +53,18 @@ namespace CustomControlsWPF
         #region Конструкторы/Деструкторы
         public FlightListViewItem() : this(-1, "Не указана цена", "XXX-XXX", "XXч. XXмин.", "Без пересадок", DateTime.Now)
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
         public FlightListViewItem(int idFlight, string price, string fromTo, string fromToTime, string duration, DateTime departureDate, string transfer = "Без пересадок")
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.idFlight = idFlight;
-            Price = price;
-            FromTo = fromTo;
-            FromToTime = fromToTime;
-            DepartureDate = departureDate;
-            Duration = duration;
-            Transfer = transfer;
+            this.Price = price;
+            this.FromTo = fromTo;
+            this.FromToTime = fromToTime;
+            this.DepartureDate = departureDate;
+            this.Duration = duration;
+            this.Transfer = transfer;
         }
 
         #endregion
@@ -76,7 +76,7 @@ namespace CustomControlsWPF
         #region Обработчики событий
         private void btnBuy_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            isBuyClicked = true;
+            this.isBuyClicked = true;
         }
         #endregion
 
