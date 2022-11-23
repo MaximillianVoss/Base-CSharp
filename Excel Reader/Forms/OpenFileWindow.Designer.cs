@@ -152,7 +152,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "OpenFileWindow";
-            this.Text = "Просмотр CSVFile";
+            this.Text = "Просмотр содержимого файла";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvTable)).EndInit();

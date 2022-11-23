@@ -1,4 +1,5 @@
 ﻿using ExcelReader.CSVFile;
+using ExcelReader.XLSXFile;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -71,7 +72,8 @@ namespace ExcelReader.Forms
         {
             if (path != null)
             {
-
+                ExcelDocument xlsx = new ExcelDocument(path);
+                this.gvTable.DataSource = xlsx.GetTable();
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 
@@ -201,6 +202,21 @@ namespace ExcelReader.XLSXFile
                 }
                 return queries;
             }
+        }
+
+        internal DataTable GetTable()
+        {
+            DataTable dataTable = new DataTable();
+            foreach (var columnName in this.Headers)
+            {
+                dataTable.Columns.Add(columnName);
+            }
+            this.currentRowIndex = 0;
+            while (this.IsNextRowAvailiable())
+            {
+                dataTable.Rows.Add(this.GetNextRow().ToArray());
+            }
+            return dataTable;
         }
         #endregion
 
