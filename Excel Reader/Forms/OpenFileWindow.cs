@@ -1,8 +1,9 @@
-﻿using ExcelReader.CSVFile;
-using ExcelReader.XLSXFile;
+﻿using CSV_Reader.Common;
+using ExcelReader.Parser;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using ED = ExcelReader.ExcelDocument.ExcelDocument;
 
 namespace ExcelReader.Forms
 {
@@ -19,7 +20,7 @@ namespace ExcelReader.Forms
         #endregion
 
         #region Методы
-        private void UpdateCheckBox()
+        private void UpdateHeadersCheckBox()
         {
             if (this.chbIsHasHeaders.Checked)
             {
@@ -28,6 +29,17 @@ namespace ExcelReader.Forms
             else
             {
                 this.chbIsHasHeaders.Text = "В таблице нет заголовка";
+            }
+        }
+        private void UpdateDescriptionCheckBox()
+        {
+            if (this.chbIsHasDescriptions.Checked)
+            {
+                this.chbIsHasDescriptions.Text = "В таблице есть строка с описанием";
+            }
+            else
+            {
+                this.chbIsHasDescriptions.Text = "В таблице нет строки с описанием";
             }
         }
         private void UpdateComboBox()
@@ -54,35 +66,17 @@ namespace ExcelReader.Forms
             else
             {
                 this.currentPath = path;
-                if (Path.GetExtension(path) == ".xlsx")
-                {
-                    this.cbSeparatorType.Enabled = false;
-                    this.OpenXlsx(path);
-                }
-                if (Path.GetExtension(path) == ".csv")
-                {
-                    //this.ShowMessage("Выберите разделитель");
-                    this.cbSeparatorType.Enabled = true;
-                    this.OpenCSV(path);
-                }
-            }
-        }
-
-        private void OpenXlsx(string path)
-        {
-            if (path != null)
-            {
-                ExcelDocument xlsx = new ExcelDocument(path);
-                this.gvTable.DataSource = xlsx.GetTable();
-            }
-        }
-
-        private void OpenCSV(string path)
-        {
-            if (path != null)
-            {
-                CSVDocument csv = new CSVDocument(path, this.chbIsHasHeaders.Checked, this.separators[this.cbSeparatorType.SelectedItem.ToString()]);
-                this.gvTable.DataSource = csv.GetTable();
+                string extension = Path.GetExtension(path);
+                this.cbSeparatorType.Enabled = (extension == Common.Strings.Extensions.csv);
+                ExcelParser excelParser = new ExcelParser();
+                ED document = excelParser.Parse(
+                    path,
+                    this.separators[this.cbSeparatorType.SelectedItem.ToString()],
+                    "Лист1",
+                    this.chbIsHasHeaders.Checked,
+                    this.chbIsHasDescriptions.Checked
+                    );
+                this.gvTable.DataSource = document.GetTable();
             }
         }
 
@@ -99,7 +93,7 @@ namespace ExcelReader.Forms
             { "Точка с запятой",';'}
         };
             this.UpdateComboBox();
-            this.UpdateCheckBox();
+            this.UpdateHeadersCheckBox();
         }
 
         #endregion
@@ -111,22 +105,9 @@ namespace ExcelReader.Forms
         #region Обработчики событий
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //OpenFileDialog openFileDialog = new OpenFileDialog
-            //{
-            //    Filter = "csv files (*.csv)|*.csv|Книга Excel|*.xlsx",
-            //    RestoreDirectory = true
-            //};
-            //if (openFileDialog.ShowDialog() == DialogResult.OK)
-            //{
-            //    if (this.separators.ContainsKey(this.cbSeparatorType.SelectedItem.ToString()))
-            //    {
-            //        CSVDocument csv = new CSVDocument(openFileDialog.FileName, this.chbIsHasHeaders.Checked, this.separators[this.cbSeparatorType.SelectedItem.ToString()]);
-            //        this.gvTable.DataSource = csv.GetTable();
-            //    }
-            //}
             try
             {
-                this.OpenFile(this.GetLoadFilePath("CSV файл|*.csv|Книга Excel|*.xlsx"));
+                this.OpenFile(this.GetLoadFilePath("Книга Excel|*.xlsx|CSV файл|*.csv"));
             }
             catch (Exception ex)
             {
@@ -135,14 +116,32 @@ namespace ExcelReader.Forms
         }
         private void cbSeparatorType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.OpenCSV(this.currentPath);
+            if (!String.IsNullOrEmpty(this.currentPath))
+            {
+                this.OpenFile(this.currentPath);
+            }
         }
         private void chbIsHasHeaders_CheckedChanged(object sender, EventArgs e)
         {
-            this.UpdateCheckBox();
-            this.OpenFile(this.currentPath);
+            this.UpdateHeadersCheckBox();
+            if (!String.IsNullOrEmpty(this.currentPath))
+            {
+                this.OpenFile(this.currentPath);
+            }
         }
-
+        private void chbIsHasDescriptions_CheckedChanged(object sender, EventArgs e)
+        {
+            this.UpdateDescriptionCheckBox();
+            if (!String.IsNullOrEmpty(this.currentPath))
+            {
+                this.OpenFile(this.currentPath);
+            }
+        }
+        private void OpenFileWindow_Load(object sender, EventArgs e)
+        {
+            this.UpdateHeadersCheckBox();
+            this.UpdateDescriptionCheckBox();
+        }
         #endregion
 
     }

@@ -60,7 +60,7 @@ namespace BaseWindow
             string defaultExtension = "txt",
             bool checkFileExists = false,
             bool checkPathExists = true,
-            string Title = "Сохранение файла"
+            string Title = "Открытие файла"
             )
         {
             OpenFileDialog saveFileDialog = new OpenFileDialog

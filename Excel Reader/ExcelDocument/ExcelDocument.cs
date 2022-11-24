@@ -1,15 +1,15 @@
-﻿using System;
+﻿using CSV_Reader.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
 
-namespace ExcelReader.CSVFile
+namespace ExcelReader.ExcelDocument
 {
     /// <summary>
     /// Содержит строки из файла .csv в виде объектов
     /// </summary>
-    public class CSVDocument
+    public class ExcelDocument
     {
 
         #region Поля
@@ -28,22 +28,52 @@ namespace ExcelReader.CSVFile
         /// <summary>
         /// Список колонок
         /// </summary>
-        private List<CSVField> headers { set; get; }
+        public List<ExcelField> Headers { set; get; }
         /// <summary>
         /// Список записей таблицы
         /// </summary>
-        private List<CSVObject> rows { set; get; }
-
+        public List<ExcelObject> Rows { set; get; }
+        /// <summary>
+        /// Количество столбцов
+        /// </summary>
+        public int HeadersCount { get { if (this.Headers == null) { return 0; } return this.Headers.Count; } }
+        /// <summary>
+        /// Количество строк 
+        /// </summary>
+        public int RowsCount { get { if (this.Rows == null) { return 0; } return this.Rows.Count; } }
         #endregion
 
         #region Методы
-        private void Add(CSVObject @object)
+        /// <summary>
+        /// Добавляет объект как строку в документ. 
+        /// Число полей должно совпадать.
+        /// </summary>
+        /// <param name="object"></param>
+        /// <exception cref="Exception"></exception>
+        public void Add(ExcelObject @object)
         {
-            this.rows.Add(@object);
+            if (this.HeadersCount != @object.FieldsCount)
+            {
+                throw new Exception(Common.Strings.Errors.fieldsCountNotEqual);
+            }
+            this.Rows.Add(@object);
         }
+        /// <summary>
+        /// Добавляет заголовок в документ
+        /// </summary>
+        /// <param name="field"></param>
+        public void Add(ExcelField field)
+        {
+            this.Headers.Add(field);
+        }
+        /// <summary>
+        /// Проверяет находится ли указанное поле(столбец) в документе
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
         private bool IsContainsKey(string fieldName)
         {
-            return this.headers.Any(x => x.Title == fieldName);
+            return this.Headers.Any(x => x.Title == fieldName);
         }
         /// <summary>
         /// Получает объект DataTable из текущей таблицы CSV
@@ -52,11 +82,11 @@ namespace ExcelReader.CSVFile
         public DataTable GetTable()
         {
             DataTable dataTable = new DataTable();
-            foreach (var columnName in this.headers)
+            foreach (var columnName in this.Headers)
             {
                 dataTable.Columns.Add(columnName.Title);
             }
-            foreach (var value in this.rows)
+            foreach (var value in this.Rows)
             {
                 dataTable.Rows.Add(value.GetFieldValues());
             }
@@ -65,7 +95,7 @@ namespace ExcelReader.CSVFile
         public List<string> ToSQLScript(List<string> dbTableColumnNames, int startRowIndex = 0, int limit = 10)
         {
             List<string> queries = new List<string>();
-            for (int i = startRowIndex; i < this.rows.Count; i += limit)
+            for (int i = startRowIndex; i < this.Rows.Count; i += limit)
             {
                 string query = string.Format("INSERT INTO dbo.[{0}] ", this.Title);
                 string columnsNames = string.Empty;
@@ -83,14 +113,14 @@ namespace ExcelReader.CSVFile
                 columnsNames = String.Format("({0})", columnsNames.Substring(0, columnsNames.Length - 1));
                 query = String.Format("{0} {1}", query, columnsNames);
                 string valuesStr = String.Empty;
-                for (int j = 0; j < limit && i + j < this.rows.Count; j++)
+                for (int j = 0; j < limit && i + j < this.Rows.Count; j++)
                 {
                     string subValuesStr = String.Empty;
                     foreach (var column in dbTableColumnNames)
                     {
-                        if (this.rows[i + j].IsContainsKey(column))
+                        if (this.Rows[i + j].IsContainsKey(column))
                         {
-                            subValuesStr += String.Format("'{0}',", this.rows[i + j][column].Value);
+                            subValuesStr += String.Format("'{0}',", this.Rows[i + j][column].Value);
                         }
                     }
                     valuesStr += String.Format("({0}),", subValuesStr.Substring(0, subValuesStr.Length - 1));
@@ -111,41 +141,11 @@ namespace ExcelReader.CSVFile
         /// </summary>
         /// <param Title="path">путь до файла</param>
         /// <param Title="separatorType">тип разделителя, по умолчанию точка с запятой</param>
-        public CSVDocument(String path, bool isHasHeaders = true, char separator = ';')
+        public ExcelDocument(String path)
         {
             this.path = path;
-            this.headers = new List<CSVField>();
-            this.rows = new List<CSVObject>();
-            using (var reader = new StreamReader(path))
-            {
-                for (int i = 0; !reader.EndOfStream; i++)
-                {
-                    List<string> values = new List<string>();
-                    values = reader.ReadLine().Split(separator).ToList();
-                    if (i == 0)
-                    {
-                        if (isHasHeaders)
-                        {
-                            foreach (var value in values)
-                            {
-                                this.headers.Add(new CSVField(value));
-                            }
-                        }
-                        else
-                        {
-                            for (int j = 0; j < values.Count; j++)
-                            {
-                                this.headers.Add(new CSVField(String.Format("Столбец #{0}", j), String.Empty, "Это автоматически сгенерированное название столбца"));
-                            }
-                            this.Add(new CSVObject(this.headers, values));
-                        }
-                    }
-                    else
-                    {
-                        this.Add(new CSVObject(this.headers, values));
-                    }
-                }
-            }
+            this.Headers = new List<ExcelField>();
+            this.Rows = new List<ExcelObject>();
         }
         #endregion
 

@@ -9,6 +9,7 @@ namespace BaseWindow_WPF
 {
     public class BaseWindow : Window
     {
+
         #region Поля
 
         #endregion

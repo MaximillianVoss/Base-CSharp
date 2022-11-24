@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace ExcelReader.CSVFile
+namespace ExcelReader.ExcelDocument
 {
     /// <summary>
     /// Поле объекта из таблицы
     /// </summary>
-    public class CSVField
+    public class ExcelField
     {
 
         #region Поля
@@ -35,7 +35,7 @@ namespace ExcelReader.CSVFile
         /// <summary>
         /// Создает поле по умолчанию
         /// </summary>
-        public CSVField()
+        public ExcelField()
         {
 
         }
@@ -44,7 +44,7 @@ namespace ExcelReader.CSVFile
         /// </summary>
         /// <param name="title">название</param>
         /// <param name="value">значение</param>
-        public CSVField(String title = "", String value = "", string description = "") : this()
+        public ExcelField(String title = "", String value = "", string description = "") : this()
         {
             this.Title = title;
             this.Value = value;

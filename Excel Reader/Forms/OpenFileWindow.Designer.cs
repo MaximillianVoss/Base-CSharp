@@ -38,11 +38,14 @@
             this.chbIsHasHeaders = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.chbIsHasDescriptions = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvTable)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -87,7 +90,7 @@
             this.gvTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gvTable.Location = new System.Drawing.Point(3, 16);
             this.gvTable.Name = "gvTable";
-            this.gvTable.Size = new System.Drawing.Size(770, 300);
+            this.gvTable.Size = new System.Drawing.Size(770, 337);
             this.gvTable.TabIndex = 3;
             // 
             // groupBox1
@@ -96,9 +99,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.gvTable);
-            this.groupBox1.Location = new System.Drawing.Point(12, 119);
+            this.groupBox1.Location = new System.Drawing.Point(12, 162);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(776, 319);
+            this.groupBox1.Size = new System.Drawing.Size(776, 356);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Таблица";
@@ -141,11 +144,38 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Заголовок";
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.chbIsHasDescriptions);
+            this.groupBox4.Location = new System.Drawing.Point(12, 119);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(773, 40);
+            this.groupBox4.TabIndex = 8;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Описание столбцов (2 строка)";
+            // 
+            // chbIsHasDescriptions
+            // 
+            this.chbIsHasDescriptions.AutoSize = true;
+            this.chbIsHasDescriptions.Checked = true;
+            this.chbIsHasDescriptions.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbIsHasDescriptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chbIsHasDescriptions.Location = new System.Drawing.Point(3, 16);
+            this.chbIsHasDescriptions.Name = "chbIsHasDescriptions";
+            this.chbIsHasDescriptions.Size = new System.Drawing.Size(767, 21);
+            this.chbIsHasDescriptions.TabIndex = 5;
+            this.chbIsHasDescriptions.Text = "Отсутствует";
+            this.chbIsHasDescriptions.UseVisualStyleBackColor = true;
+            this.chbIsHasDescriptions.CheckedChanged += new System.EventHandler(this.chbIsHasDescriptions_CheckedChanged);
+            // 
             // OpenFileWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 530);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -153,6 +183,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "OpenFileWindow";
             this.Text = "Просмотр содержимого файла";
+            this.Load += new System.EventHandler(this.OpenFileWindow_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvTable)).EndInit();
@@ -160,6 +191,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,6 +210,8 @@
         private System.Windows.Forms.CheckBox chbIsHasHeaders;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.CheckBox chbIsHasDescriptions;
     }
 }
 
