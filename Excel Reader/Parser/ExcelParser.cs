@@ -37,12 +37,10 @@ namespace ExcelReader.Parser
             this.workbooks = this.xlApp.Workbooks;
             this.workbook = this.workbooks.Open(path);
             this.sheets = new Hashtable();
-            int count = 1;
             #region Сохраняем имена листов в хэш таблицу
             foreach (Worksheet sheet in this.workbook.Sheets)
             {
-                this.sheets[count] = sheet.Name;
-                count++;
+                this.sheets[sheet.Name] = sheet.Name;
             }
             #endregion
         }
@@ -65,20 +63,11 @@ namespace ExcelReader.Parser
             this.OpenExcel(path);
 
             string value = string.Empty;
-            int sheetValue = 0;
             int colNumber = 0;
 
             if (this.sheets.ContainsValue(sheetName))
             {
-                foreach (DictionaryEntry sheet in this.sheets)
-                {
-                    if (sheet.Value.Equals(sheetName))
-                    {
-                        sheetValue = (int)sheet.Key;
-                    }
-                }
-                Worksheet worksheet = null;
-                worksheet = this.workbook.Worksheets[sheetValue] as Worksheet;
+                Worksheet worksheet = this.workbook.Worksheets[sheetName] as Worksheet;
                 Range range = worksheet.UsedRange;
 
                 for (int i = 1; i <= range.Columns.Count; i++)
@@ -173,24 +162,8 @@ namespace ExcelReader.Parser
             this.OpenExcel(path);
             if (this.sheets.ContainsValue(sheetName))
             {
-                int sheetValue = 0;
-                foreach (DictionaryEntry sheet in this.sheets)
-                {
-                    if (sheet.Value.Equals(sheetName))
-                    {
-                        sheetValue = (int)sheet.Key;
-                    }
-                }
-                Worksheet worksheet = this.workbook.Worksheets[sheetValue] as Worksheet;
+                Worksheet worksheet = this.workbook.Worksheets[sheetName] as Worksheet;
                 Range range = worksheet.UsedRange;
-                if (range.Columns.Count < 1)
-                {
-                    throw new Exception("В таблице с данными должно быть как минимум один столбец!");
-                }
-                if (range.Rows.Count < 2)
-                {
-                    throw new Exception("В таблице с данными должно быть как минимум две строки с название столбцов и описанием!");
-                }
                 #region Подсчет прогресса выполнения
                 this.totalCells = range.Columns.Count * range.Rows.Count;
                 this.readCells = 0;
@@ -212,42 +185,38 @@ namespace ExcelReader.Parser
                         }
                     }
                 }
-                if (range.Rows.Count > 1)
-                {
-                }
                 #endregion
                 Parallel.For(2, range.Rows.Count + 1, i =>
-            {
-
-                #region Получение описаний столбцов
-                if (i == 2 && isHasFieldsDescription)
                 {
-                    if (range.Columns.Count != document.HeadersCount)
+                    #region Получение описаний столбцов
+                    if (i == 2 && isHasFieldsDescription)
                     {
-                        throw new Exception(Common.Strings.Errors.headersCountNotMatch);
+                        if (range.Columns.Count != document.HeadersCount)
+                        {
+                            throw new Exception(Common.Strings.Errors.headersCountNotMatch);
+                        }
+                        for (int j = 1; j <= range.Columns.Count; j++)
+                        {
+                            document.Headers[j - 1].Description = this.GetCellData(range, i, j);
+                        }
                     }
-                    for (int j = 1; j <= range.Columns.Count; j++)
+                    #endregion
+                    #region Вставка обычной строки
+                    else
                     {
-                        document.Headers[j - 1].Description = this.GetCellData(range, i, j);
+                        if (range.Columns.Count != document.HeadersCount)
+                        {
+                            throw new Exception(Common.Strings.Errors.headersCountNotMatch);
+                        }
+                        ExcelObject @object = new ExcelObject(i - 2);
+                        for (int j = 1; j <= range.Columns.Count; j++)
+                        {
+                            @object.Add(new ExcelField(document.Headers[j - 1].Title, this.GetCellData(range, i, j), document.Headers[j - 1].Description));
+                        }
+                        document.Add(@object);
                     }
-                }
-                #endregion
-                #region Вставка обычной строки
-                else
-                {
-                    if (range.Columns.Count != document.HeadersCount)
-                    {
-                        throw new Exception(Common.Strings.Errors.headersCountNotMatch);
-                    }
-                    ExcelObject @object = new ExcelObject();
-                    for (int j = 1; j <= range.Columns.Count; j++)
-                    {
-                        @object.Add(new ExcelField(document.Headers[j - 1].Title, this.GetCellData(range, i, j), document.Headers[j - 1].Description));
-                    }
-                    document.Add(@object);
-                }
-                #endregion
-            });
+                    #endregion
+                });
                 #endregion
                 Marshal.FinalReleaseComObject(worksheet);
             }

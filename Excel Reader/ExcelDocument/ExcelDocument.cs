@@ -133,6 +133,66 @@ namespace ExcelReader.ExcelDocument
             }
             return queries;
         }
+        public void Sort(string fieldName = "", bool isAscending = true)
+        {
+            if (!String.IsNullOrEmpty(fieldName))
+            {
+                this.Rows.Sort(
+                    delegate (ExcelObject l, ExcelObject r)
+                    {
+                        if (l[fieldName] == null && l[fieldName] == null)
+                        {
+                            return 0;
+                        }
+                        else if (l[fieldName] == null)
+                        {
+                            return -1;
+                        }
+                        else if (r[fieldName] == null)
+                        {
+                            return 1;
+                        }
+                        else
+                        {
+                            if (isAscending)
+                            {
+                                return l[fieldName].Value.CompareTo(r[fieldName].Value);
+                            }
+                            else
+                            {
+                                return r[fieldName].Value.CompareTo(l[fieldName].Value);
+                            }
+                        }
+                    });
+            }
+            else
+            {
+                this.Rows.Sort(
+                   delegate (ExcelObject l, ExcelObject r)
+                   {
+                       if (l == null && l == null)
+                       {
+                           return 0;
+                       }
+                       else if (l == null)
+                       {
+                           return -1;
+                       }
+                       else if (r == null)
+                       {
+                           return 1;
+                       }
+                       if (isAscending)
+                       {
+                           return l.Id - r.Id;
+                       }
+                       else
+                       {
+                           return r.Id - l.Id;
+                       }
+                   });
+            }
+        }
         #endregion
 
         #region Конструкторы/Деструкторы

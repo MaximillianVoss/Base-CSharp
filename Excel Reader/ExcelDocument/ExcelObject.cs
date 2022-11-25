@@ -13,6 +13,7 @@ namespace ExcelReader.ExcelDocument
         #endregion
 
         #region Свойства
+        public int Id { set; get; }
         /// <summary>
         /// Поля объекта
         /// </summary>
@@ -62,8 +63,9 @@ namespace ExcelReader.ExcelDocument
         #endregion
 
         #region Конструкторы/Деструкторы
-        public ExcelObject()
+        public ExcelObject(int id = 0)
         {
+            this.Id = id;
             this.Fields = new List<ExcelField>();
         }
         public ExcelObject(List<ExcelField> headers, List<string> values) : this()
