@@ -1,4 +1,6 @@
-﻿namespace ExcelReader_tests.Tests
+﻿using System.Collections.Generic;
+
+namespace ExcelReader_tests.Tests
 {
     internal static class Common
     {
@@ -23,6 +25,15 @@
             }
 
             return path;
+        }
+        public static List<string> GetStrings(string prefix, int count)
+        {
+            List<string> list = new List<string>();
+            for (int i = 0; i < count; i++)
+            {
+                list.Add(string.Format("{0}{1}", prefix, i));
+            }
+            return list;
         }
     }
 }

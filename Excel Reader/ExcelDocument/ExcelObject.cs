@@ -21,7 +21,7 @@ namespace ExcelReader.ExcelDocument
         /// <summary>
         /// Количество полей
         /// </summary>
-        public int FieldsCount { get { if (Fields == null) { return 0; } return Fields.Count; } }
+        public int FieldsCount { get { if (this.Fields == null) { return 0; } return this.Fields.Count; } }
         #endregion
 
         #region Методы
@@ -46,19 +46,52 @@ namespace ExcelReader.ExcelDocument
         {
             return this.Fields.FirstOrDefault(x => x.Title == fieldName);
         }
-        public string[] GetFieldValues()
-        {
-            string[] values = new string[this.Fields.Count];
-            for (int i = 0; i < this.Fields.Count; i++)
-            {
-                values[i] = this.Fields[i].Value;
-            }
-
-            return values;
-        }
+        /// <summary>
+        /// Проверяет, содержит ли объект указанное поле
+        /// </summary>
+        /// <param name="fieldName">имя поля</param>
+        /// <returns></returns>
         public bool IsContainsKey(string fieldName)
         {
             return this.Fields.Any(x => x.Title == fieldName);
+        }
+        /// <summary>
+        /// Получает словарь, 
+        /// где ключом является название поля,
+        /// а значением - значение поля
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<String, String> ToDictionary()
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            foreach (var field in this.Fields)
+            {
+                result.Add(field.Title, field.Value);
+            }
+
+            return result;
+        }
+        /// <summary>
+        /// Получает список значений полей
+        /// </summary>
+        /// <returns></returns>
+        public List<string> ToList()
+        {
+            List<string> result = new List<string>();
+            foreach (var field in this.Fields)
+            {
+                result.Add(field.Value);
+            }
+
+            return result;
+        }
+        /// <summary>
+        /// Получаем массив значений полей
+        /// </summary>
+        /// <returns></returns>
+        public string[] ToArray()
+        {
+            return this.ToList().ToArray();
         }
         #endregion
 
@@ -67,6 +100,10 @@ namespace ExcelReader.ExcelDocument
         {
             this.Id = id;
             this.Fields = new List<ExcelField>();
+        }
+        public ExcelObject(int id, List<ExcelField> fields) : this(id)
+        {
+            this.Fields = fields;
         }
         public ExcelObject(List<ExcelField> headers, List<string> values) : this()
         {
@@ -81,8 +118,6 @@ namespace ExcelReader.ExcelDocument
 
             this.Fields = this.Fields;
         }
-
-
         #endregion
 
         #region Операторы

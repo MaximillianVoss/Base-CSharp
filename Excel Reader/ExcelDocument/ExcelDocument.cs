@@ -88,7 +88,7 @@ namespace ExcelReader.ExcelDocument
             }
             foreach (var value in this.Rows)
             {
-                dataTable.Rows.Add(value.GetFieldValues());
+                dataTable.Rows.Add(value.ToArray());
             }
             return dataTable;
         }

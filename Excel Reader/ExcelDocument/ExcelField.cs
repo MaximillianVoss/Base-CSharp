@@ -33,18 +33,11 @@ namespace ExcelReader.ExcelDocument
 
         #region Конструкторы/Деструкторы
         /// <summary>
-        /// Создает поле по умолчанию
-        /// </summary>
-        public ExcelField()
-        {
-
-        }
-        /// <summary>
         /// Создает поле с указанными параметрами
         /// </summary>
         /// <param name="title">название</param>
         /// <param name="value">значение</param>
-        public ExcelField(String title = "", String value = "", string description = "") : this()
+        public ExcelField(String title = "", String value = "", string description = "")
         {
             this.Title = title;
             this.Value = value;

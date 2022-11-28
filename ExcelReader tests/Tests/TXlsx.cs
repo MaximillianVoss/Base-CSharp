@@ -6,22 +6,16 @@ using System;
 namespace ExcelReader_tests.Tests
 {
     [TestClass]
-    public class TestXlsx
+    public class TXlsx
     {
-        ExcelParser parser = new ExcelParser();
+        private ExcelParser parser = new ExcelParser();
 
-        string TestsFilesFolder
-        {
-            get
-            {
-                return String.Format("{0}\\{1}", Common.GetParentFoder(AppDomain.CurrentDomain.BaseDirectory, 2), "Test files\\");
-            }
-        }
+        private string TestsFilesFolder => String.Format("{0}\\{1}", Common.GetParentFoder(AppDomain.CurrentDomain.BaseDirectory, 2), "Test files\\");
 
         [TestMethod]
         public void ReadEmpty()
         {
-            ExcelDocument document = parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test empty.xlsx"));
+            ExcelDocument document = this.parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test empty.xlsx"));
             Assert.IsNotNull(document);
             Assert.IsNotNull(document.Headers);
             Assert.IsNotNull(document.Rows);
@@ -32,7 +26,7 @@ namespace ExcelReader_tests.Tests
         [TestMethod]
         public void ReadEmptyWithHeaders()
         {
-            ExcelDocument document = parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test empty only headers.xlsx"));
+            ExcelDocument document = this.parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test empty only headers.xlsx"));
             Assert.IsNotNull(document);
             Assert.IsNotNull(document.Headers);
             Assert.IsNotNull(document.Rows);
@@ -49,7 +43,7 @@ namespace ExcelReader_tests.Tests
         [TestMethod]
         public void ReadEmptyWithHeadersAndDescription()
         {
-            ExcelDocument document = parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test empty only headers and description.xlsx"), ';', "Лист1", true, true);
+            ExcelDocument document = this.parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test empty only headers and description.xlsx"), ';', "Лист1", true, true);
             Assert.IsNotNull(document);
             Assert.IsNotNull(document.Headers);
             Assert.IsNotNull(document.Rows);
@@ -66,7 +60,7 @@ namespace ExcelReader_tests.Tests
         [TestMethod]
         public void ReadSipmle()
         {
-            ExcelDocument document = parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test simple table.xlsx"), ';', "Лист1", true, true);
+            ExcelDocument document = this.parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test simple table.xlsx"), ';', "Лист1", true, true);
             document.Sort();
             Assert.IsNotNull(document);
             Assert.IsNotNull(document.Headers);
@@ -92,7 +86,7 @@ namespace ExcelReader_tests.Tests
         [TestMethod]
         public void ReadLarge()
         {
-            ExcelDocument document = parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test large.xlsx"), ';', "Лист1", true, true);
+            ExcelDocument document = this.parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test large.xlsx"), ';', "Лист1", true, true);
             document.Sort();
             Assert.IsNotNull(document);
             Assert.IsNotNull(document.Headers);
