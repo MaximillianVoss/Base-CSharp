@@ -109,14 +109,20 @@ namespace ExcelReader.ExcelDocument
         {
             if (values.Count != headers.Count)
             {
-                throw new Exception(Common.Strings.Errors.fieldsValuesCountNotMatch);
+                throw new Exception(
+                    String.Format("{0} {1}",
+                    Common.Strings.Errors.fieldsValuesCountNotMatch,
+                    String.Format("Полученное количество значений:{0} количество полей:{1}", values.Count, headers.Count
+                    )));
             }
             for (int j = 0; j < values.Count; j++)
             {
                 this.Add(new ExcelField(headers[j].Title, values[j], headers[j].Description));
             }
-
-            this.Fields = this.Fields;
+        }
+        public ExcelObject(int id, List<ExcelField> headers, List<string> values) : this(headers, values)
+        {
+            this.Id = id;
         }
         #endregion
 

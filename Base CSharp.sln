@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelReader tests", "ExcelReader tests\ExcelReader tests.csproj", "{D28AEA22-B696-4DB3-B8BF-D0D6C0F51FB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{B31EBF35-5627-4E1E-8424-128F41B6C574}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{D28AEA22-B696-4DB3-B8BF-D0D6C0F51FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D28AEA22-B696-4DB3-B8BF-D0D6C0F51FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D28AEA22-B696-4DB3-B8BF-D0D6C0F51FB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B31EBF35-5627-4E1E-8424-128F41B6C574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B31EBF35-5627-4E1E-8424-128F41B6C574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B31EBF35-5627-4E1E-8424-128F41B6C574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B31EBF35-5627-4E1E-8424-128F41B6C574}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

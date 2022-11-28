@@ -89,8 +89,8 @@ namespace ExcelReader.Forms
             this.InitializeComponent();
             this.currentPath = null;
             this.separators = new Dictionary<string, char>() {
-            { "Запятая",','},
-            { "Точка с запятой",';'}
+            { "Точка с запятой",';'},
+            { "Запятая",','}
         };
             this.UpdateComboBox();
             this.UpdateHeadersCheckBox();

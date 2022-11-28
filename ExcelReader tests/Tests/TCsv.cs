@@ -6,16 +6,15 @@ using System;
 namespace ExcelReader_tests.Tests
 {
     [TestClass]
-    public class TXlsx
+    public class TCsv
     {
         private ExcelParser parser = new ExcelParser();
         public ExcelParser Parser { get => this.parser; set => this.parser = value; }
         private string TestsFilesFolder => String.Format("{0}\\{1}", Common.GetParentFoder(AppDomain.CurrentDomain.BaseDirectory, 2), "Test files\\");
-
         [TestMethod]
         public void ReadEmpty()
         {
-            ExcelDocument document = this.Parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test empty.xlsx"));
+            ExcelDocument document = this.Parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test empty.csv"));
             Assert.IsNotNull(document);
             Assert.IsNotNull(document.Headers);
             Assert.IsNotNull(document.Rows);
@@ -26,7 +25,7 @@ namespace ExcelReader_tests.Tests
         [TestMethod]
         public void ReadEmptyWithHeaders()
         {
-            ExcelDocument document = this.Parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test empty only headers.xlsx"));
+            ExcelDocument document = this.Parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test empty only headers.csv"));
             Assert.IsNotNull(document);
             Assert.IsNotNull(document.Headers);
             Assert.IsNotNull(document.Rows);
@@ -43,7 +42,7 @@ namespace ExcelReader_tests.Tests
         [TestMethod]
         public void ReadEmptyWithHeadersAndDescription()
         {
-            ExcelDocument document = this.Parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test empty only headers and description.xlsx"), ';', "Лист1", true, true);
+            ExcelDocument document = this.Parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test empty only headers and description.csv"), ';', "Лист1", true, true);
             Assert.IsNotNull(document);
             Assert.IsNotNull(document.Headers);
             Assert.IsNotNull(document.Rows);
@@ -60,7 +59,7 @@ namespace ExcelReader_tests.Tests
         [TestMethod]
         public void ReadSmall()
         {
-            ExcelDocument document = this.Parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test simple table.xlsx"), ';', "Лист1", true, true);
+            ExcelDocument document = this.Parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test simple table.csv"), ';', "Лист1", true, true);
             Assert.IsNotNull(document);
             Assert.IsNotNull(document.Headers);
             Assert.IsNotNull(document.Rows);
@@ -85,13 +84,13 @@ namespace ExcelReader_tests.Tests
         [TestMethod]
         public void ReadLarge()
         {
-            ExcelDocument document = this.Parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test large.xlsx"), ';', "Лист1", true, true);
+            ExcelDocument document = this.Parser.Parse(String.Format("{0}{1}", this.TestsFilesFolder, "Test large.csv"), ';', "Лист1", true, true);
             Assert.IsNotNull(document);
             Assert.IsNotNull(document.Headers);
             Assert.IsNotNull(document.Rows);
             int testColumnsCount = 35;
             Assert.AreEqual(testColumnsCount, document.HeadersCount);
-            Assert.AreEqual(200, document.RowsCount);
+            Assert.AreEqual(20000, document.RowsCount);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CSV_Reader.Common;
 using ExcelReader.ExcelDocument;
+using Logger;
 using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections;
@@ -11,10 +12,11 @@ using System.Threading.Tasks;
 using ED = ExcelReader.ExcelDocument.ExcelDocument;
 namespace ExcelReader.Parser
 {
-    //TODO: сделать парсинг CVS/XLSX с переключением по расширению
+    /// <summary>
+    /// Парсер для документов Excel: .csv и .xlsx
+    /// </summary>
     public class ExcelParser
     {
-
 
         #region Поля
         private Application xlApp = null;
@@ -23,11 +25,13 @@ namespace ExcelReader.Parser
         private Hashtable sheets;
         private int readCells;
         private int totalCells;
+        Log log = new Log();
         #endregion
 
         #region Свойства
         public int ReadCells => this.readCells;
         public int TotalCells => this.totalCells;
+        public Log Log { get => this.log; }
         #endregion
 
         #region Методы
@@ -103,7 +107,7 @@ namespace ExcelReader.Parser
             var reader = new StreamReader(path);
             for (int i = 0; !reader.EndOfStream; i++)
             {
-                List<string> values = reader.ReadLine().Split(separator).ToList();
+                List<string> values = reader.ReadLine().Replace("\n", "").Split(separator).ToList();
                 if (values == null)
                 {
                     throw new Exception(Common.Strings.Errors.rowParseErroe);
@@ -150,10 +154,18 @@ namespace ExcelReader.Parser
                 #region Вставка обычной строки
                 else
                 {
-                    document.Add(new ExcelObject(document.Headers, values));
+                    try
+                    {
+                        document.Add(new ExcelObject(document.RowsCount, document.Headers, values));
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Log.Add(new LogMessage(String.Format("Не удалось считать строку {0}", i + 1), ex.Message));
+                    }
                 }
                 #endregion
             }
+            document.Sort();
             return document;
         }
         public ED ParseXlsx(string path, string sheetName = "Лист1", bool isHasHeaders = true, bool isHasFieldsDescription = false)
@@ -221,6 +233,7 @@ namespace ExcelReader.Parser
                 Marshal.FinalReleaseComObject(worksheet);
             }
             this.CloseExcel(path);
+            document.Sort();
             return document;
         }
         public ED Parse(string path, char separator = ';', string sheetName = "Лист1", bool isHasHeaders = true, bool isHasFieldsDescription = false)

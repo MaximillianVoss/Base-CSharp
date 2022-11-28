@@ -101,6 +101,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Logger\Logger.csproj">
+      <Project>{b31ebf35-5627-4e1e-8424-128f41b6c574}</Project>
+      <Name>Logger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Windows WF\Windows WF.csproj">
       <Project>{a532d3db-6c91-47a1-868f-68040d76b6ae}</Project>
       <Name>Windows WF</Name>

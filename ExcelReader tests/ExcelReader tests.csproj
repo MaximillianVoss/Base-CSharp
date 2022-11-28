@@ -54,12 +54,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\TExcelObject.cs" />
     <Compile Include="Tests\TExcelField.cs" />
+    <Compile Include="Tests\TCsv.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Test files\Test empty only headers and description.xlsx" />
     <None Include="Test files\Test empty only headers.xlsx" />
     <None Include="Test files\Test empty.xlsx" />
+    <None Include="Test files\Test large.csv" />
     <None Include="Test files\Test large.xlsx" />
     <None Include="Test files\Test simple table.xlsx" />
   </ItemGroup>
