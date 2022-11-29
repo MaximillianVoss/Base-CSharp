@@ -13,7 +13,7 @@ namespace BaseWindow
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginWindow());
+            Application.Run(new LoginWindow("Test window"));
         }
     }
 }

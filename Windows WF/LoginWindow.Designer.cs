@@ -28,48 +28,50 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txbLogin = new System.Windows.Forms.TextBox();
-            this.btnLogin = new System.Windows.Forms.Button();
+            this.gbPrimary = new System.Windows.Forms.GroupBox();
+            this.txbPrimary = new System.Windows.Forms.TextBox();
+            this.btnPrimary = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txbPassword = new System.Windows.Forms.TextBox();
-            this.btnRegister = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.gbSecondary = new System.Windows.Forms.GroupBox();
+            this.txbSecondary = new System.Windows.Forms.TextBox();
+            this.btnSecondary = new System.Windows.Forms.Button();
+            this.gbPrimary.SuspendLayout();
+            this.gbSecondary.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // gbPrimary
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.gbPrimary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.txbLogin);
-            this.groupBox1.Location = new System.Drawing.Point(14, 59);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(5);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(256, 40);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Логин";
+            this.gbPrimary.Controls.Add(this.txbPrimary);
+            this.gbPrimary.Location = new System.Drawing.Point(14, 59);
+            this.gbPrimary.Margin = new System.Windows.Forms.Padding(5);
+            this.gbPrimary.Name = "gbPrimary";
+            this.gbPrimary.Size = new System.Drawing.Size(256, 40);
+            this.gbPrimary.TabIndex = 0;
+            this.gbPrimary.TabStop = false;
+            this.gbPrimary.Text = "Логин";
             // 
-            // txbLogin
+            // txbPrimary
             // 
-            this.txbLogin.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txbLogin.Location = new System.Drawing.Point(3, 16);
-            this.txbLogin.Name = "txbLogin";
-            this.txbLogin.Size = new System.Drawing.Size(250, 20);
-            this.txbLogin.TabIndex = 0;
+            this.txbPrimary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txbPrimary.Location = new System.Drawing.Point(3, 16);
+            this.txbPrimary.Name = "txbPrimary";
+            this.txbPrimary.Size = new System.Drawing.Size(250, 20);
+            this.txbPrimary.TabIndex = 0;
+            this.txbPrimary.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // btnLogin
+            // btnPrimary
             // 
-            this.btnLogin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnPrimary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLogin.Location = new System.Drawing.Point(14, 163);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(258, 40);
-            this.btnLogin.TabIndex = 1;
-            this.btnLogin.Text = "Вход";
-            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnPrimary.Location = new System.Drawing.Point(14, 163);
+            this.btnPrimary.Name = "btnPrimary";
+            this.btnPrimary.Size = new System.Drawing.Size(258, 40);
+            this.btnPrimary.TabIndex = 1;
+            this.btnPrimary.Text = "Primary";
+            this.btnPrimary.UseVisualStyleBackColor = true;
+            this.btnPrimary.Click += new System.EventHandler(this.btnPriamry_Click);
             // 
             // lblTitle
             // 
@@ -81,70 +83,72 @@
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(258, 45);
             this.lblTitle.TabIndex = 3;
-            this.lblTitle.Text = "Вход в систему";
+            this.lblTitle.Text = "Title";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // groupBox2
+            // gbSecondary
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.gbSecondary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.txbPassword);
-            this.groupBox2.Location = new System.Drawing.Point(14, 109);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(5);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(256, 40);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Пароль";
+            this.gbSecondary.Controls.Add(this.txbSecondary);
+            this.gbSecondary.Location = new System.Drawing.Point(14, 109);
+            this.gbSecondary.Margin = new System.Windows.Forms.Padding(5);
+            this.gbSecondary.Name = "gbSecondary";
+            this.gbSecondary.Size = new System.Drawing.Size(256, 40);
+            this.gbSecondary.TabIndex = 4;
+            this.gbSecondary.TabStop = false;
+            this.gbSecondary.Text = "Пароль";
             // 
-            // txbPassword
+            // txbSecondary
             // 
-            this.txbPassword.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txbPassword.Location = new System.Drawing.Point(3, 16);
-            this.txbPassword.Name = "txbPassword";
-            this.txbPassword.Size = new System.Drawing.Size(250, 20);
-            this.txbPassword.TabIndex = 0;
+            this.txbSecondary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txbSecondary.Location = new System.Drawing.Point(3, 16);
+            this.txbSecondary.Name = "txbSecondary";
+            this.txbSecondary.Size = new System.Drawing.Size(250, 20);
+            this.txbSecondary.TabIndex = 0;
+            this.txbSecondary.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // btnRegister
+            // btnSecondary
             // 
-            this.btnRegister.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnSecondary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRegister.Location = new System.Drawing.Point(14, 209);
-            this.btnRegister.Name = "btnRegister";
-            this.btnRegister.Size = new System.Drawing.Size(258, 40);
-            this.btnRegister.TabIndex = 5;
-            this.btnRegister.Text = "Регистрация";
-            this.btnRegister.UseVisualStyleBackColor = true;
+            this.btnSecondary.Location = new System.Drawing.Point(14, 209);
+            this.btnSecondary.Name = "btnSecondary";
+            this.btnSecondary.Size = new System.Drawing.Size(258, 40);
+            this.btnSecondary.TabIndex = 5;
+            this.btnSecondary.Text = "Secondary";
+            this.btnSecondary.UseVisualStyleBackColor = true;
+            this.btnSecondary.Click += new System.EventHandler(this.btnSecondary_Click);
             // 
             // LoginWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.btnRegister);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.btnSecondary);
+            this.Controls.Add(this.gbSecondary);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.btnLogin);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btnPrimary);
+            this.Controls.Add(this.gbPrimary);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "LoginWindow";
-            this.Text = "Авторизация";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.Text = "WindowTitle";
+            this.gbPrimary.ResumeLayout(false);
+            this.gbPrimary.PerformLayout();
+            this.gbSecondary.ResumeLayout(false);
+            this.gbSecondary.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox txbLogin;
-        private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.GroupBox gbPrimary;
+        private System.Windows.Forms.TextBox txbPrimary;
+        private System.Windows.Forms.Button btnPrimary;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox txbPassword;
-        private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.GroupBox gbSecondary;
+        private System.Windows.Forms.TextBox txbSecondary;
+        private System.Windows.Forms.Button btnSecondary;
     }
 }
