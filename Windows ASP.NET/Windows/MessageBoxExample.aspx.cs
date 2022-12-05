@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Windows_ASP.NET.Forms
+namespace Windows_ASP.NET.Windows
 {
-    public partial class LoginWindow : System.Web.UI.Page
+    public partial class MessageBoxExample : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

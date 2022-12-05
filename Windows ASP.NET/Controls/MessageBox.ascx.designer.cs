@@ -7,20 +7,11 @@
 // </автоматически создаваемое>
 //------------------------------------------------------------------------------
 
-namespace Windows_ASP.NET.Forms
+namespace Windows_ASP.NET.Controls
 {
 
 
-    public partial class LoginWindow
+    public partial class MessageBox
     {
-
-        /// <summary>
-        /// loginForm элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически созданное поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm loginForm;
     }
 }
