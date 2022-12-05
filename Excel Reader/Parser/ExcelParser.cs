@@ -105,6 +105,10 @@ namespace ExcelReader.Parser
         {
             ED document = new ED(path);
             var reader = new StreamReader(path);
+            #region Подсчет прогресса выполнения
+            this.totalCells = System.IO.File.ReadAllLines(path).Length;
+            this.readCells = 0;
+            #endregion
             for (int i = 0; !reader.EndOfStream; i++)
             {
                 List<string> values = reader.ReadLine().Replace("\n", "").Split(separator).ToList();
@@ -164,6 +168,7 @@ namespace ExcelReader.Parser
                     }
                 }
                 #endregion
+                this.readCells++;
             }
             document.Sort();
             return document;
@@ -195,6 +200,7 @@ namespace ExcelReader.Parser
                         {
                             document.Add(new ExcelField(String.Format("Столбец {0}", j)));
                         }
+                        this.readCells++;
                     }
                 }
                 #endregion
@@ -210,6 +216,7 @@ namespace ExcelReader.Parser
                         for (int j = 1; j <= range.Columns.Count; j++)
                         {
                             document.Headers[j - 1].Description = this.GetCellData(range, i, j);
+                            this.readCells++;
                         }
                     }
                     #endregion
@@ -224,6 +231,7 @@ namespace ExcelReader.Parser
                         for (int j = 1; j <= range.Columns.Count; j++)
                         {
                             @object.Add(new ExcelField(document.Headers[j - 1].Title, this.GetCellData(range, i, j), document.Headers[j - 1].Description));
+                            this.readCells++;
                         }
                         document.Add(@object);
                     }
