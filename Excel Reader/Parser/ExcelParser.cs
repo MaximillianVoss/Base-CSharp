@@ -104,73 +104,93 @@ namespace ExcelReader.Parser
         public ED ParseCsv(string path, char separator = ';', bool isHasHeaders = true, bool isHasFieldsDescription = false)
         {
             ED document = new ED(path);
-            var reader = new StreamReader(path);
-            #region Подсчет прогресса выполнения
-            this.totalCells = System.IO.File.ReadAllLines(path).Length;
-            this.readCells = 0;
-            #endregion
-            for (int i = 0; !reader.EndOfStream; i++)
+            if (!File.Exists(path))
             {
-                List<string> values = reader.ReadLine().Replace("\n", "").Split(separator).ToList();
-                if (values == null)
-                {
-                    throw new Exception(Common.Strings.Errors.rowParseErroe);
-                }
-                #region Вставка заголовков
-                if (i == 0)
-                {
-                    if (isHasHeaders)
-                    {
-                        foreach (var value in values)
-                        {
-                            document.Add(new ExcelField(value));
-                        }
-                    }
-                    else
-                    {
-                        for (int j = 0; j < values.Count; j++)
-                        {
-                            document.Add(new ExcelField(String.Format("Столбец #{0}", j), String.Empty, "Это автоматически сгенерированное название столбца"));
-                        }
-                        document.Add(new ExcelObject(document.Headers, values));
-                    }
-                }
+                throw new Exception(Common.Strings.Errors.fileNotFound);
+            }
+            try
+            {
+                var reader = new StreamReader(path);
+                #region Подсчет прогресса выполнения
+                this.totalCells = System.IO.File.ReadAllLines(path).Length;
+                this.readCells = 0;
                 #endregion
-                #region Вставка описаний столбцов
-                else if (i == 1)
+                for (int i = 0; !reader.EndOfStream; i++)
                 {
-                    if (isHasFieldsDescription)
+                    List<string> values = reader.ReadLine().Replace("\n", "").Split(separator).ToList();
+                    if (values == null)
                     {
-                        if (values.Count == document.HeadersCount)
+                        throw new Exception(Common.Strings.Errors.rowParseErroe);
+                    }
+                    #region Вставка заголовков
+                    if (i == 0)
+                    {
+                        if (isHasHeaders)
                         {
-                            for (int j = 0; j < document.HeadersCount; j++)
+                            foreach (var value in values)
                             {
-                                document.Headers[j].Description = values[j];
+                                document.Add(new ExcelField(value));
                             }
                         }
+                        else
+                        {
+                            for (int j = 0; j < values.Count; j++)
+                            {
+                                document.Add(new ExcelField(String.Format("Столбец #{0}", j), String.Empty, "Это автоматически сгенерированное название столбца"));
+                            }
+                            document.Add(new ExcelObject(document.Headers, values));
+                        }
                     }
+                    #endregion
+                    #region Вставка описаний столбцов
+                    else if (i == 1)
+                    {
+                        if (isHasFieldsDescription)
+                        {
+                            if (values.Count == document.HeadersCount)
+                            {
+                                for (int j = 0; j < document.HeadersCount; j++)
+                                {
+                                    document.Headers[j].Description = values[j];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            document.Add(new ExcelObject(document.Headers, values));
+                        }
+                    }
+                    #endregion
+                    #region Вставка обычной строки
                     else
                     {
-                        document.Add(new ExcelObject(document.Headers, values));
+                        try
+                        {
+                            //замена запятой на точку, если это дробное число
+                            for (int j = 0; j < values.Count; j++)
+                            {
+                                double f = 0;
+                                if (double.TryParse(values[j], out f))
+                                {
+                                    values[j] = values[j].Replace(",", ".");
+                                }
+                            }
+                            document.Add(new ExcelObject(document.RowsCount, document.Headers, values));
+                        }
+                        catch (Exception ex)
+                        {
+                            this.Log.Add(new LogMessage(String.Format("Документ '{0}' Не удалось считать строку {1}", document.Title, i + 1), ex.Message));
+                        }
                     }
+                    #endregion
+                    this.readCells++;
                 }
-                #endregion
-                #region Вставка обычной строки
-                else
-                {
-                    try
-                    {
-                        document.Add(new ExcelObject(document.RowsCount, document.Headers, values));
-                    }
-                    catch (Exception ex)
-                    {
-                        this.Log.Add(new LogMessage(String.Format("Не удалось считать строку {0}", i + 1), ex.Message));
-                    }
-                }
-                #endregion
-                this.readCells++;
+                document.Sort();
             }
-            document.Sort();
+            catch (Exception ex)
+            {
+                this.Log.Add(new LogMessage(ex.Message, "", MessageType.Error));
+            }
             return document;
         }
         public ED ParseXlsx(string path, string sheetName = "Лист1", bool isHasHeaders = true, bool isHasFieldsDescription = false)
@@ -248,13 +268,20 @@ namespace ExcelReader.Parser
         {
             ED document = null;
             string extension = Path.GetExtension(path);
-            if (extension == Common.Strings.Extensions.csv)
+            try
             {
-                document = ParseCsv(path, separator, isHasHeaders, isHasFieldsDescription);
+                if (extension == Common.Strings.Extensions.csv)
+                {
+                    document = ParseCsv(path, separator, isHasHeaders, isHasFieldsDescription);
+                }
+                if (extension == Common.Strings.Extensions.xlsx)
+                {
+                    document = ParseXlsx(path, sheetName, isHasHeaders, isHasFieldsDescription);
+                }
             }
-            if (extension == Common.Strings.Extensions.xlsx)
+            catch (Exception ex)
             {
-                document = ParseXlsx(path, sheetName, isHasHeaders, isHasFieldsDescription);
+                this.Log.Add(ex.Message);
             }
             return document;
         }

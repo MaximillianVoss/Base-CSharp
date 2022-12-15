@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Threading;
 
 namespace Logger
 {
@@ -14,14 +18,53 @@ namespace Logger
         /// <summary>
         /// Сообщения
         /// </summary>
-        private List<LogMessage> messages;
+        private ObservableCollection<LogMessage> messages;
+        /// <summary>
+        /// Мьютек для контроля коллекции
+        /// </summary>
+        Mutex mutex = new Mutex();
+        /// <summary>
+        /// Запоминает, изменялась коллекция или нет
+        /// </summary>
+        bool isChanged;
         #endregion
 
         #region Свойства
         /// <summary>
         /// Сообщения
         /// </summary>
-        public List<LogMessage> Messages { get => this.messages; }
+        public ObservableCollection<LogMessage> Messages { get => this.messages; }
+        /// <summary>
+        /// Таблица с сообщениями
+        /// </summary>
+        public DataTable Table
+        {
+            get
+            {
+                return this.ToTable();
+            }
+        }
+        /// <summary>
+        /// Получает текущее число сообщений
+        /// </summary>
+        public int MessagesCount
+        {
+            get
+            {
+                return this.messages == null ? 0 : this.messages.Count;
+            }
+        }
+        /// <summary>
+        /// Указывает добавлялись ли новые сообщения
+        /// </summary>
+        public bool IsChanged
+        {
+            get
+            {
+
+                return this.isChanged;
+            }
+        }
         #endregion
 
         #region Методы
@@ -31,15 +74,11 @@ namespace Logger
         /// <param name="message">сообщение</param>
         public void Add(string message)
         {
-            this.messages.Add(new LogMessage(message));
-        }
-        /// <summary>
-        /// Добавляет сообщение в логДобавляет сообщение в лог
-        /// </summary>
-        /// <param name="message">сообщение</param>
-        public void Add(LogMessage message)
-        {
-            this.messages.Add(message);
+            if (message == null)
+            {
+                throw new Exception("Передано пустое сообщение!");
+            }
+            this.Add(new LogMessage(message, "", MessageType.Message, DateTime.Now));
         }
         /// <summary>
         /// Добавляет сообщения в лог
@@ -52,6 +91,56 @@ namespace Logger
                 this.Add(message);
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public void Add(string format, params object[] args)
+        {
+            Add(String.Format(format, args));
+        }
+        /// <summary>
+        /// Добавляет сообщение в логДобавляет сообщение в лог
+        /// </summary>
+        /// <param name="message">сообщение</param>
+        public void Add(LogMessage message)
+        {
+            if (message == null)
+            {
+                throw new Exception("Передано пустое сообщение!");
+            }
+            this.mutex.WaitOne();
+            this.messages.Add(message);
+            this.mutex.ReleaseMutex();
+        }
+        /// <summary>
+        /// Очищает лог
+        /// </summary>
+        public void Clear()
+        {
+            this.mutex.WaitOne();
+            messages.Clear();
+            this.mutex.ReleaseMutex();
+        }
+        /// <summary>
+        /// Получает лог в качестве таблицы
+        /// Столбцы: дата сообщения, текст, описание, тип
+        /// </summary>
+        /// <returns></returns>
+        public DataTable ToTable()
+        {
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("Дата сообщения");
+            dataTable.Columns.Add("Текст");
+            dataTable.Columns.Add("Описание");
+            dataTable.Columns.Add("Тип");
+            for (int i = 0; i < messages.Count; i++)
+            {
+                dataTable.Rows.Add(new object[] { messages[i].CreateDate, messages[i].Text, messages[i].Description, messages[i].type });
+            }
+            return dataTable;
+        }
         #endregion
 
         #region Конструкторы/Деструкторы
@@ -60,7 +149,16 @@ namespace Logger
         /// </summary>
         public Log()
         {
-            this.messages = new List<LogMessage>();
+            this.messages = new ObservableCollection<LogMessage>();
+            this.messages.CollectionChanged += messages_CollectionChanged;
+        }
+        /// <summary>
+        /// Создает лог с указанными сообщениями
+        /// </summary>
+        /// <param name="messages">сообщения</param>
+        public Log(ObservableCollection<LogMessage> messages) : this()
+        {
+            this.messages = messages;
         }
         /// <summary>
         /// Создает лог с указанными сообщениями
@@ -68,7 +166,10 @@ namespace Logger
         /// <param name="messages">сообщения</param>
         public Log(List<LogMessage> messages) : this()
         {
-            this.messages = messages;
+            foreach (LogMessage message in messages)
+            {
+                this.messages.Add(message);
+            }
         }
         #endregion
 
@@ -77,7 +178,18 @@ namespace Logger
         #endregion
 
         #region Обработчики событий
-
+        void messages_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            //list changed - an item was added.
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                //this.isChanged = true;
+            }
+            else
+            {
+                //this.messages.
+            }
+        }
         #endregion
 
     }

@@ -120,7 +120,15 @@ namespace ExcelReader.ExcelDocument
                     {
                         if (this.Rows[i + j].IsContainsKey(column))
                         {
-                            subValuesStr += String.Format("'{0}',", this.Rows[i + j][column].Value);
+                            string cellStrValue = this.Rows[i + j][column].Value;
+                            if (cellStrValue != String.Empty)
+                            {
+                                subValuesStr += String.Format("'{0}',", cellStrValue);
+                            }
+                            else
+                            {
+                                subValuesStr += String.Format("{0},", "NULL");
+                            }
                         }
                     }
                     valuesStr += String.Format("({0}),", subValuesStr.Substring(0, subValuesStr.Length - 1));

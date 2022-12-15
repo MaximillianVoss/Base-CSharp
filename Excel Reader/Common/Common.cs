@@ -6,6 +6,7 @@
         {
             public static class Errors
             {
+                public static string fileNotFound = "Файл по указанному пути не найден!";
                 public static string fieldsCountNotEqual = "Количество полей в объекте и в документе не совпадает";
                 public static string rowParseErroe = "Не удалось получить строку из таблицы документа Excel!";
                 public static string headersCountNotMatch = "Количество столбцов в документе и таблице не совпадает!";
