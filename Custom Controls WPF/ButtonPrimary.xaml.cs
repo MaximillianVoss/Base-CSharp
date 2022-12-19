@@ -25,7 +25,7 @@ namespace CustomControlsWPF
     public partial class ButtonPrimary : UserControl
     {
         #region Поля
-        public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TabItem));
+        public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent("ButtonPrimaryClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TabItem));
         private readonly Dictionary<Colors, SolidColorBrush> brushes;
         #endregion
 

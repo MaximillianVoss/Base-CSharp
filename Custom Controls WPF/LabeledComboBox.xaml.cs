@@ -14,13 +14,15 @@ namespace CustomControlsWPF
     {
 
         #region Поля
-        public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent("SelectionChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TabItem));
+        public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent("LabeledComboBoxSelectionChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TabItem));
+        #endregion
+
+        #region Свойства
         public event RoutedEventHandler SelectionChanged
         {
             add => this.AddHandler(SelectionChangedEvent, value);
             remove => this.RemoveHandler(SelectionChangedEvent, value);
         }
-
         private void ClickHadler(object sender, RoutedEventArgs e)
         {
             this.RaiseEvent(new RoutedEventArgs(SelectionChangedEvent));
@@ -64,13 +66,12 @@ namespace CustomControlsWPF
             set => this.gMain.Background = value;
             get => this.gMain.Background;
         }
-
         public bool IsEditable
         {
             set => this.cbItems.IsEditable = value;
             get => this.cbItems.IsEditable;
         }
-        public Object DataContext
+        public new Object DataContext
         {
             set => this.cbItems.DataContext = value;
             get => this.cbItems.DataContext;
@@ -105,10 +106,6 @@ namespace CustomControlsWPF
             set => this.cbItems.Text = value;
             get => this.cbItems.Text;
         }
-        #endregion
-
-        #region Свойства
-
         #endregion
 
         #region Методы

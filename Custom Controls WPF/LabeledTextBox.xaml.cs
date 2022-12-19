@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -17,6 +18,17 @@ namespace CustomControlsWPF
         #endregion
 
         #region Свойства
+        public static readonly RoutedEvent TextChangedEvent = EventManager.RegisterRoutedEvent("LabeledTextBoxTextChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TabItem));
+        public event RoutedEventHandler TextChanged
+        {
+            add => this.AddHandler(TextChangedEvent, value);
+            remove => this.RemoveHandler(TextChangedEvent, value);
+        }
+
+        private void TextInputHandler(object sender, RoutedEventArgs e)
+        {
+            this.RaiseEvent(new RoutedEventArgs(TextChangedEvent));
+        }
         public string Title
         {
             set => this.lblTitle.Content = value;
@@ -132,6 +144,8 @@ namespace CustomControlsWPF
             this.Text = text ?? throw new ArgumentNullException(nameof(text));
             this.BackgroundColor = backgroundColor;
             this.Error = error;
+            this.txbValue.TextChanged += this.TextInputHandler;
+
         }
         #endregion
 
