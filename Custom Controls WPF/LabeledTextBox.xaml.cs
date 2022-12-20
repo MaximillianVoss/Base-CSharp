@@ -24,7 +24,6 @@ namespace CustomControlsWPF
             add => this.AddHandler(TextChangedEvent, value);
             remove => this.RemoveHandler(TextChangedEvent, value);
         }
-
         private void TextInputHandler(object sender, RoutedEventArgs e)
         {
             this.RaiseEvent(new RoutedEventArgs(TextChangedEvent));

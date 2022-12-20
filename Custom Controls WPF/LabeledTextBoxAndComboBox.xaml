@@ -6,14 +6,19 @@
              xmlns:local="clr-namespace:CustomControlsWPF"
              mc:Ignorable="d">
     <Grid x:Name="gMain" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="lblTitle" Content="Label" VerticalAlignment="Top" Height="25"/>
-        <TextBox x:Name="txbValue" Margin="5,25,5,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Height="20"/>
-        <ComboBox x:Name="cbItems" Margin="5,25,5,0" VerticalAlignment="Top" Grid.Column="1" Height="20"/>
-        <Label x:Name="lblError" Content="Label" Margin="0,45,5,0" VerticalAlignment="Top" Height="25" Background="#00000000" Foreground="#FFDE2020"/>
+        <Label x:Name="lblTitle" Content="Labelg" VerticalAlignment="Bottom" Height="26"/>
+        <TextBox x:Name="txbValue" Margin="5,0,5,0" TextWrapping="Wrap" Text="TextBox" Grid.Row="1"/>
+        <ComboBox x:Name="cbItems" Margin="5,0,5,0" VerticalAlignment="Center" Grid.Column="1" Height="20" Grid.Row="1"/>
+        <Label x:Name="lblError" Content="Labelg" Margin="0,0,5,0" Background="#00000000" Foreground="#FFDE2020" Grid.Row="2" Height="26"/>
 
     </Grid>
 </UserControl>
