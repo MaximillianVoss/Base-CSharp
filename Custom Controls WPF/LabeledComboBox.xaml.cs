@@ -14,13 +14,16 @@ namespace CustomControlsWPF
     {
 
         #region Поля
-        public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent("SelectionChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TabItem));
+        public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent("LabeledComboBoxSelectionChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TabItem));
+        List<object> items;
+        #endregion
+
+        #region Свойства
         public event RoutedEventHandler SelectionChanged
         {
             add => this.AddHandler(SelectionChangedEvent, value);
             remove => this.RemoveHandler(SelectionChangedEvent, value);
         }
-
         private void ClickHadler(object sender, RoutedEventArgs e)
         {
             this.RaiseEvent(new RoutedEventArgs(SelectionChangedEvent));
@@ -30,19 +33,36 @@ namespace CustomControlsWPF
             set => this.lblTitle.Content = value;
             get => this.lblTitle.Content.ToString();
         }
-        public List<String> Items
+        public List<object> Items
         {
             set
             {
                 if (value != null)
                 {
-                    foreach (var item in value)
+                    if (this.items == null)
                     {
-                        this.cbItems.Items.Add(item);
+                        this.items = new List<object>();
                     }
+                    this.items.AddRange(value);
+                    this.Items.Clear();
+                    try
+                    {
+                        foreach (var item in this.items)
+                        {
+                            this.cbItems.Items.Add(this.GetObjectFieldValue(item, "title"));
+                        }
+                    }
+                    catch
+                    {
+                        foreach (var item in this.items)
+                        {
+                            this.cbItems.Items.Add(item.ToString());
+                        }
+                    }
+                    this.Items.AddRange(value);
                 }
             }
-            get => this.cbItems.Items.OfType<string>().ToList();
+            get => this.cbItems.Items.OfType<object>().ToList();
         }
         public string Error
         {
@@ -64,13 +84,12 @@ namespace CustomControlsWPF
             set => this.gMain.Background = value;
             get => this.gMain.Background;
         }
-
         public bool IsEditable
         {
             set => this.cbItems.IsEditable = value;
             get => this.cbItems.IsEditable;
         }
-        public Object DataContext
+        public new Object DataContext
         {
             set => this.cbItems.DataContext = value;
             get => this.cbItems.DataContext;
@@ -107,14 +126,38 @@ namespace CustomControlsWPF
         }
         #endregion
 
-        #region Свойства
-
-        #endregion
-
         #region Методы
+        private object GetObjectFieldValue(object obj, string fieldName)
+        {
+            //TODO: падает при выделении другой таблицы, проверить!
+            var field = obj.GetType().GetProperty(fieldName);
+            if (field == null)
+            {
+                throw new Exception("Поле не найдено");
+            }
+            return field.GetValue(obj, null);
+        }
         public void Add(object item)
         {
             this.cbItems.Items.Add(item);
+        }
+        public void Select(int? id)
+        {
+            if (id != null)
+            {
+                this.SelectedIndex = this.items.FindIndex(x => Convert.ToInt32(this.GetObjectFieldValue(x, "id")) == id);
+            }
+        }
+        public void Select(string value)
+        {
+            this.SelectedIndex = this.items.FindIndex(x => this.GetObjectFieldValue(x, "title").ToString() == value || x.ToString() == value);
+        }
+
+        public void Update(int? itemId, List<object> items)
+        {
+            this.Items = items;
+            this.Select(itemId);
+
         }
         #endregion
 
@@ -124,7 +167,7 @@ namespace CustomControlsWPF
             this.InitializeComponent();
         }
 
-        public LabeledComboBox(string title, List<string> items = null, string error = null, Brush backgroundColor = null, bool isEditable = false)
+        public LabeledComboBox(string title, List<object> items = null, string error = null, Brush backgroundColor = null, bool isEditable = false)
         {
             this.InitializeComponent();
             this.Title = title;

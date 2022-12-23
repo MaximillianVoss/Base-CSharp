@@ -2,13 +2,26 @@
 
 namespace Logger
 {
-    #region Логгер сообщений
+    #region Сообщение
+    /// <summary>
+    /// Тип сообщения
+    /// </summary>
+    public enum MessageType
+    {
+        Message,
+        Error,
+        Warning
+    }
     /// <summary>
     /// Сообщение лога
     /// </summary>
     public class LogMessage
     {
         #region Свойства
+        /// <summary>
+        /// Тип  сообщения
+        /// </summary>
+        public MessageType type { get; set; }
         /// <summary>
         /// Дата создания
         /// </summary>
@@ -20,7 +33,7 @@ namespace Logger
         /// <summary>
         /// Подробное описание
         /// </summary>
-        public string Descrition { get; set; }
+        public string Description { get; set; }
         #endregion
 
         #region Конструкторы
@@ -28,9 +41,9 @@ namespace Logger
         /// Создает сообщение с указанными свойствами
         /// </summary>
         /// <param name="text">текст сообщения</param>
-        /// <param name="descrition">подробное описание</param>
+        /// <param name="description">подробное описание</param>
         /// <param name="createDate">время сообщения</param>
-        public LogMessage(string text = "", string descrition = "", DateTime? createDate = null)
+        public LogMessage(string text = "", string description = "", MessageType type = MessageType.Message, DateTime? createDate = null)
         {
             if (createDate == null)
             {
@@ -41,7 +54,8 @@ namespace Logger
                 this.CreateDate = (DateTime)createDate;
             }
             this.Text = text;
-            this.Descrition = descrition;
+            this.Description = description;
+            this.type = type;
         }
         #endregion
 

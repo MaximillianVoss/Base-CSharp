@@ -50,8 +50,15 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseControl.cs" />
     <Compile Include="ButtonPrimary.xaml.cs">
       <DependentUpon>ButtonPrimary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LabeledCheckBox.xaml.cs">
+      <DependentUpon>LabeledCheckBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LabeledTextBoxAndComboBox.xaml.cs">
+      <DependentUpon>LabeledTextBoxAndComboBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="TicketListViewItem.xaml.cs">
       <DependentUpon>TicketListViewItem.xaml</DependentUpon>
@@ -95,6 +102,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="ButtonPrimary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LabeledCheckBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LabeledTextBoxAndComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

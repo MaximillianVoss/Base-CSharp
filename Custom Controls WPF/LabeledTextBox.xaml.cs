@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -17,6 +18,16 @@ namespace CustomControlsWPF
         #endregion
 
         #region Свойства
+        public static readonly RoutedEvent TextChangedEvent = EventManager.RegisterRoutedEvent("LabeledTextBoxTextChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TabItem));
+        public event RoutedEventHandler TextChanged
+        {
+            add => this.AddHandler(TextChangedEvent, value);
+            remove => this.RemoveHandler(TextChangedEvent, value);
+        }
+        private void TextInputHandler(object sender, RoutedEventArgs e)
+        {
+            this.RaiseEvent(new RoutedEventArgs(TextChangedEvent));
+        }
         public string Title
         {
             set => this.lblTitle.Content = value;
@@ -24,7 +35,11 @@ namespace CustomControlsWPF
         }
         public string Text
         {
-            set => this.txbValue.Text = value;
+            set
+            {
+                this.txbValue.Text = value;
+                this.isValidCheck();
+            }
             get => this.txbValue.Text;
         }
         /// <summary>
@@ -116,6 +131,15 @@ namespace CustomControlsWPF
                 this.Error = String.Empty;
             }
         }
+
+        public void Update(string text, string validationRegEx, string validationError)
+        {
+            this.RegEx = validationRegEx;
+            this.ValidationText = validationError;
+            this.Error = validationError;
+            this.Text = text;
+
+        }
         #endregion
 
         #region Конструкторы/Деструкторы
@@ -132,6 +156,8 @@ namespace CustomControlsWPF
             this.Text = text ?? throw new ArgumentNullException(nameof(text));
             this.BackgroundColor = backgroundColor;
             this.Error = error;
+            this.txbValue.TextChanged += this.TextInputHandler;
+
         }
         #endregion
 
