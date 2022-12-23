@@ -52,7 +52,7 @@ namespace CustomControlsWPF
         /// </summary>
         public string Text
         {
-            set => this.txbValue.Text = value;
+            set { this.txbValue.Text = value; this.isValidCheck(); }
             get => this.txbValue.Text;
         }
         /// <summary>
@@ -207,7 +207,7 @@ namespace CustomControlsWPF
         #endregion
 
         #region Методы
-        public object GetObjectFieldValue(object obj, string fieldName)
+        private object GetObjectFieldValue(object obj, string fieldName)
         {
             //TODO: падает при выделении другой таблицы, проверить!
             var field = obj.GetType().GetProperty(fieldName);
@@ -227,6 +227,14 @@ namespace CustomControlsWPF
         public void Select(string value)
         {
             this.SelectedIndex = this.items.FindIndex(x => this.GetObjectFieldValue(x, "title").ToString() == value || x.ToString() == value);
+        }
+        public void Update(string text, string validationRegEx, string validationError, int? currentItemId, List<object> items)
+        {
+            this.RegEx = validationRegEx;
+            this.validationText = validationError;
+            this.Text = text;
+            this.Items = items;
+            this.Select(currentItemId);
         }
         private void isValidCheck()
         {
@@ -274,5 +282,7 @@ namespace CustomControlsWPF
             this.isValidCheck();
         }
         #endregion
+
+
     }
 }

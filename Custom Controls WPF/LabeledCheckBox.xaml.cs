@@ -78,7 +78,7 @@ namespace CustomControlsWPF
         #endregion
 
         #region Методы
-        void UpdateCheckBox()
+        private void UpdateCheckBox()
         {
             if (this.chbValue != null)
             {
@@ -91,6 +91,14 @@ namespace CustomControlsWPF
                     this.chbValue.Content = this.IsCheckedFalse;
                 }
             }
+        }
+
+        public void Update(bool? value, string isCheckedTrue, string isCheckedFalse)
+        {
+            this.IsCheckedTrue = isCheckedTrue;
+            this.IsCheckedFalse = isCheckedFalse;
+            this.chbValue.IsChecked = (value == null || value == false);
+            this.UpdateCheckBox();
         }
         #endregion
 

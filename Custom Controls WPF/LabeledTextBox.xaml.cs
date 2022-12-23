@@ -35,7 +35,11 @@ namespace CustomControlsWPF
         }
         public string Text
         {
-            set => this.txbValue.Text = value;
+            set
+            {
+                this.txbValue.Text = value;
+                this.isValidCheck();
+            }
             get => this.txbValue.Text;
         }
         /// <summary>
@@ -126,6 +130,15 @@ namespace CustomControlsWPF
             {
                 this.Error = String.Empty;
             }
+        }
+
+        public void Update(string text, string validationRegEx, string validationError)
+        {
+            this.RegEx = validationRegEx;
+            this.ValidationText = validationError;
+            this.Error = validationError;
+            this.Text = text;
+
         }
         #endregion
 
