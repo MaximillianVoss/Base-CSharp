@@ -26,6 +26,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows ASP.NET", "Windows 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows ASP.NET.Tests", "Windows ASP.NET.Tests\Windows ASP.NET.Tests.csproj", "{05D05CA2-C624-45B2-B322-9708166AA01A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Custom Controls WF", "Custom Controls WF\Custom Controls WF.csproj", "{E642D70E-B615-48B7-A04F-CA577EEC3F4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Custom Controls WF.Tests", "Custom Controls WF.Tests\Custom Controls WF.Tests.csproj", "{69A47B7F-19EF-47A5-8476-B2191E39D786}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +72,14 @@ Global
 		{05D05CA2-C624-45B2-B322-9708166AA01A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05D05CA2-C624-45B2-B322-9708166AA01A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05D05CA2-C624-45B2-B322-9708166AA01A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E642D70E-B615-48B7-A04F-CA577EEC3F4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E642D70E-B615-48B7-A04F-CA577EEC3F4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E642D70E-B615-48B7-A04F-CA577EEC3F4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E642D70E-B615-48B7-A04F-CA577EEC3F4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69A47B7F-19EF-47A5-8476-B2191E39D786}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69A47B7F-19EF-47A5-8476-B2191E39D786}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69A47B7F-19EF-47A5-8476-B2191E39D786}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69A47B7F-19EF-47A5-8476-B2191E39D786}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
