@@ -94,10 +94,38 @@ namespace Custom_Controls_WF.Controls
             }
 
         }
+        /// <summary>
+        /// Доступен этот элемент управления для пользователя или нет
+        /// </summary>
+        public new bool Enabled
+        {
+            get
+            {
+                return this.txbValue.Enabled;
+            }
+            set
+            {
+                this.txbValue.Enabled = value;
+            }
+        }
         public Color BackgroundColor
         {
             set => this.BackColor = value;
             get => this.BackColor;
+        }
+        /// <summary>
+        /// Событие происходит при изменении текста в textBox
+        /// </summary>
+        public event EventHandler CurrentTextChanged
+        {
+            add
+            {
+                this.txbValue.TextChanged += value;
+            }
+            remove
+            {
+                this.txbValue.TextChanged -= value;
+            }
         }
         #endregion
 

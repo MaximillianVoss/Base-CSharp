@@ -92,7 +92,7 @@ namespace Custom_Controls_WF.Controls
                 }
             }
         }
-        public string Text
+        public new string Text
         {
             set => this.cbItems.Text = value;
             get => this.cbItems.Text;

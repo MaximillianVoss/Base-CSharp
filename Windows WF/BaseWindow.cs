@@ -82,16 +82,23 @@ namespace BaseWindow
         #endregion
 
         #region Сохранение файлов
-        public string GetSaveFilePath()
+        public string GetSaveFilePath(
+            string filter = "Все файлы (*.*)|*.*",
+            int filterIndex = 1,
+            string defaultExtension = "txt",
+            bool checkFileExists = false,
+            bool checkPathExists = true,
+            string Title = "Сохранение файла"
+            )
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog
             {
-                Title = "Сохранения файла",
-                CheckFileExists = false,
-                CheckPathExists = true,
-                DefaultExt = "txt",
-                Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
-                FilterIndex = 2,
+                Title = Title,
+                CheckFileExists = checkFileExists,
+                CheckPathExists = checkPathExists,
+                DefaultExt = defaultExtension,
+                Filter = filter,
+                FilterIndex = filterIndex,
                 RestoreDirectory = true
             };
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
