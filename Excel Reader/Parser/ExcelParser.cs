@@ -39,7 +39,7 @@ namespace ExcelReader.Parser
         {
             this.xlApp = new Application();
             this.workbooks = this.xlApp.Workbooks;
-            this.workbook = this.workbooks.Open(path);
+            this.workbook = this.workbooks.Open(path, ReadOnly: true, IgnoreReadOnlyRecommended: true);
             this.sheets = new Hashtable();
             #region Сохраняем имена листов в хэш таблицу
             foreach (Worksheet sheet in this.workbook.Sheets)

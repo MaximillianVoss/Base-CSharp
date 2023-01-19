@@ -43,6 +43,10 @@ namespace ExcelReader.ExcelDocument
             this.Value = value;
             this.Description = description;
         }
+        public ExcelField(ExcelField excelField) : this(title: excelField.Title, value: excelField.Value, description: excelField.Description)
+        {
+
+        }
         #endregion
 
         #region Операторы
