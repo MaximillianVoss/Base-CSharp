@@ -25,10 +25,40 @@ namespace ExcelReader.ExcelDocument
         #endregion
 
         #region Методы
+        /// <summary>
+        /// Добавляет указанное поле в объект
+        /// </summary>
+        /// <param name="field"></param>
         public void Add(ExcelField field)
         {
-            this.Fields.Add(field);
+            this.Fields.Add(new ExcelField(field));
         }
+        /// <summary>
+        /// Добавляет указанное поле в объект
+        /// </summary>
+        /// <param name="fieldName">имя поля</param>
+        /// <param name="value">значение</param>
+        public void Add(string fieldName, string value = "")
+        {
+            this.Add(new ExcelField(title: fieldName, value: value));
+        }
+        /// <summary>
+        /// Удаляет указанное поле из объекта
+        /// </summary>
+        /// <param name="field">поле</param>
+        public void Remove(ExcelField field)
+        {
+            this.Fields.RemoveAll(x => x.Title == field.Title);
+        }
+        /// <summary>
+        /// Удаляет указанное поле из объекта
+        /// </summary>
+        /// <param name="fieldName">имя поля</param>
+        public void Remove(string fieldName)
+        {
+            this.Fields.RemoveAll(x => x.Title == fieldName);
+        }
+
         public void Set(string fieldName, string value)
         {
             var field = this.Fields.FirstOrDefault(x => x.Title == fieldName);

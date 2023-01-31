@@ -61,10 +61,46 @@ namespace ExcelReader.ExcelDocument
         /// <summary>
         /// Добавляет заголовок в документ
         /// </summary>
-        /// <param name="field"></param>
+        /// <param name="field">поле</param>
         public void Add(ExcelField field)
         {
             this.Headers.Add(field);
+            for (int i = 0; i < this.Rows.Count; i++)
+            {
+                this.Rows[i].Add(new ExcelField(field));
+            }
+        }
+        /// <summary>
+        /// Добавляет заголовок в документ
+        /// </summary>
+        /// <param name="fieldName">имя поля</param>
+        public void Add(string fieldName)
+        {
+            this.Add(new ExcelField(title: fieldName));
+        }
+        /// <summary>
+        /// Удаляет указанное поле из документа
+        /// </summary>
+        /// <param name="field">поле</param>
+        public void Remove(ExcelField field)
+        {
+            this.Headers.RemoveAll(x => x.Title == field.Title);
+            for (int i = 0; i < this.Rows.Count; i++)
+            {
+                this.Rows[i].Remove(field);
+            }
+        }
+        /// <summary>
+        /// Удаляет указанное поле из документа
+        /// </summary>
+        /// <param name="fieldName">имя поля</param>
+        public void Remove(string fieldName)
+        {
+            this.Headers.RemoveAll(x => x.Title == fieldName);
+            for (int i = 0; i < this.Rows.Count; i++)
+            {
+                this.Rows[i].Remove(new ExcelField(title: fieldName));
+            }
         }
         /// <summary>
         /// Проверяет находится ли указанное поле(столбец) в документе
@@ -92,25 +128,35 @@ namespace ExcelReader.ExcelDocument
             }
             return dataTable;
         }
-        public List<string> ToSQLScript(List<string> dbTableColumnNames, int startRowIndex = 0, int limit = 10)
+
+        public List<string> ToSQLScript(List<string> dbTableColumnNames, string tableName, int startRowIndex = 0, int limit = 10)
         {
             List<string> queries = new List<string>();
             for (int i = startRowIndex; i < this.Rows.Count; i += limit)
             {
-                string query = string.Format("INSERT INTO dbo.[{0}] ", this.Title);
+                string query = string.Format("INSERT INTO dbo.[{0}] ", tableName);
                 string columnsNames = string.Empty;
+                // string columnsNamesOutput = string.Empty;
+                string columnsNamesOutput = String.Format("Inserted.[{0}],", "id");
                 foreach (var column in dbTableColumnNames)
                 {
                     if (this.IsContainsKey(column))
                     {
                         columnsNames += String.Format("[{0}],", column);
+                        columnsNamesOutput += String.Format("Inserted.[{0}],", column);
                     }
                 }
-                if (columnsNames == string.Empty)
+                if (String.IsNullOrEmpty(columnsNames))
                 {
                     return queries;
                 }
-                columnsNames = String.Format("({0})", columnsNames.Substring(0, columnsNames.Length - 1));
+                columnsNames = columnsNames.Substring(0, columnsNames.Length - 1);
+                if (!String.IsNullOrEmpty(columnsNamesOutput))
+                {
+                    columnsNamesOutput = columnsNamesOutput.Substring(0, columnsNamesOutput.Length - 1);
+                }
+
+                columnsNames = String.Format("({0}) OUTPUT {1}", columnsNames, columnsNamesOutput);
                 query = String.Format("{0} {1}", query, columnsNames);
                 string valuesStr = String.Empty;
                 for (int j = 0; j < limit && i + j < this.Rows.Count; j++)
@@ -140,6 +186,11 @@ namespace ExcelReader.ExcelDocument
                 queries.Add(query);
             }
             return queries;
+        }
+
+        public List<string> ToSQLScript(List<string> dbTableColumnNames, int startRowIndex = 0, int limit = 10)
+        {
+            return this.ToSQLScript(dbTableColumnNames, this.Title);
         }
         public void Sort(string fieldName = "", bool isAscending = true)
         {
@@ -204,17 +255,33 @@ namespace ExcelReader.ExcelDocument
         #endregion
 
         #region Конструкторы/Деструкторы
+        public ExcelDocument(string path, List<ExcelField> headers, List<ExcelObject> rows)
+        {
+            this.path = path ?? throw new ArgumentNullException(nameof(path));
+            this.Headers = headers ?? throw new ArgumentNullException(nameof(headers));
+            this.Rows = rows ?? throw new ArgumentNullException(nameof(rows));
+        }
         /// <summary>
         /// Создает объектную модель документа .csv
         /// </summary>
         /// <param Title="path">путь до файла</param>
         /// <param Title="separatorType">тип разделителя, по умолчанию точка с запятой</param>
-        public ExcelDocument(String path)
+        public ExcelDocument(String path) : this(path, new List<ExcelField>(), new List<ExcelObject>())
         {
-            this.path = path;
-            this.Headers = new List<ExcelField>();
-            this.Rows = new List<ExcelObject>();
+
         }
+        public ExcelDocument(List<ExcelField> fields) : this(String.Empty, fields, new List<ExcelObject>())
+        {
+
+        }
+        public ExcelDocument(List<string> fields) : this(String.Empty, new List<ExcelField>(), new List<ExcelObject>())
+        {
+            foreach (var fieldsName in fields)
+            {
+                this.Headers.Add(new ExcelField(fieldsName));
+            }
+        }
+
         #endregion
 
         #region Операторы
