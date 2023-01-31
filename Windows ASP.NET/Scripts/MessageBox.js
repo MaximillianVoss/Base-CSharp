@@ -14,7 +14,7 @@ class MessageBoxButton {
         else
             //TODO: подключить string format
             //"Для кнопки '" + this.id + "' не назначено действие"  
-            this.onClickFunction = "console.log('Для кнопки {0} не назначено действие);".format(this.id);;
+            this.onClickFunction = "console.log('Для кнопки {0} не назначено действие);".format(this.id);
     }
     Create() {
         var btn = document.createElement("button");

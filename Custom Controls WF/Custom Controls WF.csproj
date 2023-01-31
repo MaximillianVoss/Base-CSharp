@@ -62,6 +62,9 @@
       <DependentUpon>Plot.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\PlotPoint.cs" />
+    <Compile Include="Controls\TextProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>

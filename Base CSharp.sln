@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Custom Controls WF", "Custo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Custom Controls WF.Tests", "Custom Controls WF.Tests\Custom Controls WF.Tests.csproj", "{69A47B7F-19EF-47A5-8476-B2191E39D786}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextAnalyzer", "TextAnalyzer\TextAnalyzer.csproj", "{64AD2057-7FD7-46FB-A09E-66C2393EB6C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{69A47B7F-19EF-47A5-8476-B2191E39D786}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69A47B7F-19EF-47A5-8476-B2191E39D786}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69A47B7F-19EF-47A5-8476-B2191E39D786}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64AD2057-7FD7-46FB-A09E-66C2393EB6C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64AD2057-7FD7-46FB-A09E-66C2393EB6C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64AD2057-7FD7-46FB-A09E-66C2393EB6C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64AD2057-7FD7-46FB-A09E-66C2393EB6C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -91,11 +91,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Custom Controls WPF\Custom Controls WPF.csproj">
-      <Project>{CECDF44D-9DEB-4A2C-837C-234A867D03A2}</Project>
-      <Name>Custom Controls WPF</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

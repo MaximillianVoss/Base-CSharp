@@ -15,39 +15,21 @@ namespace Windows_ASP.NET.Forms
     {
 
         /// <summary>
-        /// loginForm элемент управления.
+        /// Bootstrap элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm loginForm;
+        protected global::Windows_ASP.NET.Controls.Bootstrap Bootstrap;
 
         /// <summary>
-        /// txbLogin элемент управления.
+        /// LoginForm элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbLogin;
-
-        /// <summary>
-        /// txbPassword элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически созданное поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbPassword;
-
-        /// <summary>
-        /// btnLogin элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически созданное поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogin;
+        protected global::Windows_ASP.NET.Controls.LoginForm LoginForm;
     }
 }

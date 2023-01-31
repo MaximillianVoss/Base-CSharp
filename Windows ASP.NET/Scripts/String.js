@@ -1,7 +1,4 @@
-﻿window.onload = function () {
-    AddStringFormat();
-}
-// Пример форматирования
+﻿// Пример форматирования
 // "{0} is dead, but {1} is alive! {0} {2}".format("ASP", "ASP.NET")
 function AddStringFormat() {
     //Проверим, не содержит ли класс String реализацию format
@@ -17,4 +14,5 @@ function AddStringFormat() {
         };
     }
 }
+AddStringFormat();
 
