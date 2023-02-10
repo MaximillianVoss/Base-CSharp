@@ -81,6 +81,15 @@ namespace Logger
             this.Add(new LogMessage(message, "", MessageType.Message, DateTime.Now));
         }
         /// <summary>
+        /// Добавляет сообщение указанного типа в лог
+        /// </summary>
+        /// <param name="message">сообщение</param>
+        /// <param name="messageType">тип</param>
+        public void Add(string message, MessageType messageType)
+        {
+            this.Add(new LogMessage(text: message, type: messageType));
+        }
+        /// <summary>
         /// Добавляет сообщения в лог
         /// </summary>
         /// <param name="messages">сообщения</param>
@@ -89,6 +98,17 @@ namespace Logger
             foreach (string message in messages)
             {
                 this.Add(message);
+            }
+        }
+        /// <summary>
+        /// Добавляет сообщения в лог
+        /// </summary>
+        /// <param name="messages">сообщения</param>
+        public void Add(List<LogMessage> messages)
+        {
+            foreach (LogMessage message in messages)
+            {
+                this.messages.Add(message);
             }
         }
         /// <summary>

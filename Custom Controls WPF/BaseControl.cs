@@ -20,7 +20,7 @@ namespace CustomControlsWPF
         {
             set; get;
         }
-        public String Header
+        public String Text
         {
             get; set;
         }

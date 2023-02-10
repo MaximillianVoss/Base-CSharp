@@ -266,6 +266,7 @@ namespace ExcelReader.Parser
         }
         public ED Parse(string path, char separator = ';', string sheetName = "Лист1", bool isHasHeaders = true, bool isHasFieldsDescription = false)
         {
+            this.Log.Clear();
             ED document = null;
             string extension = Path.GetExtension(path);
             try
