@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -146,8 +145,8 @@ namespace CustomControlsWPF
                     {
                         this.items = new List<object>();
                     }
+                    this.items.Clear();
                     this.items.AddRange(value);
-                    this.Items.Clear();
                     try
                     {
                         foreach (var item in this.items)
@@ -162,10 +161,11 @@ namespace CustomControlsWPF
                             this.cbItems.Items.Add(item.ToString());
                         }
                     }
-                    this.Items.AddRange(value);
+                    this.items.AddRange(value);
                 }
             }
-            get => this.cbItems.Items.OfType<object>().ToList();
+            get => this.items;
+            //get => this.cbItems.Items.OfType<object>().ToList();
         }
         public bool IsEditable
         {
@@ -217,11 +217,11 @@ namespace CustomControlsWPF
             }
             return field.GetValue(obj, null);
         }
-        public void Select(int? id)
+        public void Select(int? id, string idFieldName = "id")
         {
             if (id != null)
             {
-                this.SelectedIndex = this.items.FindIndex(x => Convert.ToInt32(this.GetObjectFieldValue(x, "id")) == id);
+                this.SelectedIndex = this.items.FindIndex(x => Convert.ToInt32(this.GetObjectFieldValue(x, idFieldName)) == id);
             }
         }
         public void Select(string value)

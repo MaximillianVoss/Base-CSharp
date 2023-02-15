@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -43,8 +42,8 @@ namespace CustomControlsWPF
                     {
                         this.items = new List<object>();
                     }
+                    this.items.Clear();
                     this.items.AddRange(value);
-                    this.Items.Clear();
                     try
                     {
                         foreach (var item in this.items)
@@ -59,10 +58,11 @@ namespace CustomControlsWPF
                             this.cbItems.Items.Add(item.ToString());
                         }
                     }
-                    this.Items.AddRange(value);
+                    this.items.AddRange(value);
                 }
             }
-            get => this.cbItems.Items.OfType<object>().ToList();
+            get => this.items;
+            //get => this.cbItems.Items.OfType<object>().ToList();
         }
         public string Error
         {
@@ -129,7 +129,6 @@ namespace CustomControlsWPF
         #region Методы
         private object GetObjectFieldValue(object obj, string fieldName)
         {
-            //TODO: падает при выделении другой таблицы, проверить!
             var field = obj.GetType().GetProperty(fieldName);
             if (field == null)
             {
@@ -139,25 +138,24 @@ namespace CustomControlsWPF
         }
         public void Add(object item)
         {
+            this.items.Add(item);
             this.cbItems.Items.Add(item);
         }
-        public void Select(int? id)
+        public void Select(int? id, string idFieldName = "id")
         {
             if (id != null)
             {
-                this.SelectedIndex = this.items.FindIndex(x => Convert.ToInt32(this.GetObjectFieldValue(x, "id")) == id);
+                this.SelectedIndex = this.items.FindIndex(x => Convert.ToInt32(this.GetObjectFieldValue(x, idFieldName)) == id);
             }
         }
         public void Select(string value)
         {
             this.SelectedIndex = this.items.FindIndex(x => this.GetObjectFieldValue(x, "title").ToString() == value || x.ToString() == value);
         }
-
         public void Update(int? itemId, List<object> items)
         {
             this.Items = items;
             this.Select(itemId);
-
         }
         #endregion
 
@@ -170,6 +168,7 @@ namespace CustomControlsWPF
         public LabeledComboBox(string title, List<object> items = null, string error = null, Brush backgroundColor = null, bool isEditable = false)
         {
             this.InitializeComponent();
+            this.items = new List<object>();
             this.Title = title;
             this.Items = items;
             this.Error = error;

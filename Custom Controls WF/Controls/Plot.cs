@@ -91,7 +91,10 @@ namespace Custom_Controls_WF
         public void DrawAxis(int stepX, int stepY, Brush brush, int thikness = 2)
         {
             if (stepX < 1 || stepY < 1)
+            {
                 throw new Exception("Недопустимый шаг разметки осей!");
+            }
+
             this.Draw(new PlotPoint(0, this.Middle.Y, brush), new PlotPoint(this.pbMain.Width, this.Middle.Y, brush), thikness);
             this.Draw(new PlotPoint(this.Middle.X, 0, brush), new PlotPoint(this.Middle.X, this.pbMain.Height, brush), thikness);
             int halfMark = thikness * 2;
