@@ -253,7 +253,18 @@ namespace CustomControlsWPF
         /// <param name="value">строка для выбора в списке</param>
         public void Select(string value)
         {
-            this.SelectedIndex = this.items.FindIndex(x => this.GetObjectFieldValue(x, "title").ToString() == value || x.ToString() == value);
+            if (this.items.Count > 0)
+            {
+                if (this.items[0].GetType() == typeof(string))
+                {
+                    this.SelectedIndex = this.items.FindIndex(x => x.ToString() == value);
+                }
+                if (this.items[0].GetType() == typeof(object))
+                {
+                    this.SelectedIndex = this.items.FindIndex(x => this.GetObjectFieldValue(x, "title").ToString() == value);
+                }
+            }
+
         }
         /// <summary>
         /// Обновляет элемент управления в соответствии с указанными данными
