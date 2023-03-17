@@ -129,7 +129,7 @@ namespace ExcelReader.ExcelDocument
             return dataTable;
         }
 
-        public List<string> ToSQLScript(List<string> dbTableColumnNames, string tableName, int startRowIndex = 0, int limit = 10)
+        public List<string> ToSQLScript_OLD(List<string> dbTableColumnNames, string tableName, int startRowIndex = 0, int limit = 10)
         {
             List<string> queries = new List<string>();
             for (int i = startRowIndex; i < this.Rows.Count; i += limit)
@@ -187,6 +187,75 @@ namespace ExcelReader.ExcelDocument
             }
             return queries;
         }
+
+        public List<string> ToSQLScript(List<string> dbTableColumnNames, string tableName, int startRowIndex = 0, int limit = 10)
+        {
+            List<string> queries = new List<string>();
+            for (int i = startRowIndex; i < this.Rows.Count; i += limit)
+            {
+                string query = string.Format("INSERT INTO dbo.[{0}] ", tableName);
+                string columnsNames = string.Empty;
+                string columnsNamesOutput = String.Format("Inserted.[{0}],", "id");
+
+                string outputColumns = String.Format("[{0}] {1},", "id", "int");
+
+                foreach (var column in dbTableColumnNames)
+                {
+                    if (this.IsContainsKey(column))
+                    {
+                        columnsNames += String.Format("[{0}],", column);
+                        columnsNamesOutput += String.Format("Inserted.[{0}],", column);
+                        outputColumns += String.Format("[{0}] {1},", column, "varchar(2048)");
+                    }
+                }
+
+                if (String.IsNullOrEmpty(columnsNames))
+                {
+                    return queries;
+                }
+                columnsNames = columnsNames.Substring(0, columnsNames.Length - 1);
+                if (!String.IsNullOrEmpty(columnsNamesOutput))
+                {
+                    columnsNamesOutput = columnsNamesOutput.Substring(0, columnsNamesOutput.Length - 1);
+                }
+
+                string outputTableDeclaration = String.Format("DECLARE @OutputTable TABLE ({0})", outputColumns.Substring(0, outputColumns.Length - 1));
+
+                columnsNames = String.Format("({0}) OUTPUT {1}", columnsNames, columnsNamesOutput);
+                query = String.Format("{0} {1}", query, columnsNames);
+                ///query = String.Format("{0} {1}", query, columnsNames);
+                string valuesStr = String.Empty;
+                for (int j = 0; j < limit && i + j < this.Rows.Count; j++)
+                {
+                    string subValuesStr = String.Empty;
+                    foreach (var column in dbTableColumnNames)
+                    {
+                        if (this.Rows[i + j].IsContainsKey(column))
+                        {
+                            string cellStrValue = this.Rows[i + j][column].Value;
+                            if (cellStrValue != String.Empty)
+                            {
+                                subValuesStr += String.Format("'{0}',", cellStrValue);
+                            }
+                            else
+                            {
+                                subValuesStr += String.Format("{0},", "NULL");
+                            }
+                        }
+                    }
+                    valuesStr += String.Format("({0}),", subValuesStr.Substring(0, subValuesStr.Length - 1));
+                }
+                query = String.Format("{0} INTO @OutputTable ", query);
+                if (valuesStr.Length > 0)
+                {
+                    query = String.Format("{0} VALUES {1}", query, valuesStr.Substring(0, valuesStr.Length - 1));
+                }
+                query = String.Format("{0} SELECT * FROM @OutputTable;", query);
+                queries.Add(outputTableDeclaration + "\n" + query);
+            }
+            return queries;
+        }
+
 
         public List<string> ToSQLScript(List<string> dbTableColumnNames, int startRowIndex = 0, int limit = 10)
         {
