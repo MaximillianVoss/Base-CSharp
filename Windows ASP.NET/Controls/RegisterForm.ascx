@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LoginForm.ascx.cs" Inherits="Windows_ASP.NET.Controls.LoginForm" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RegisterForm.ascx.cs" Inherits="Windows_ASP.NET.Controls.RegisterForm" %>
 <style>
     .form-signin {
         max-width: 330px;
@@ -44,13 +44,11 @@
     //#endregion
 
     //#region Отправка email и отпечатка на указанный URL
-    function sendLoginRequest() {
+    function sendRegisterRequest() {
         const email = document.getElementById("txbLogin").value;
         const fingerprint = document.getElementById("hfFingerprint").value;
 
         const url = 'https://localhost:44391/api/Attempts?email=${email}&idVisitor=${fingerprint}';
-
-
         fetch(url, {
             method: "PUT"
         })
@@ -71,12 +69,12 @@
     <main class="form-signin w-100 m-auto">
         <form id="loginForm" runat="server">
             <asp:HiddenField ID="hfFingerprint" ClientIDMode="Static" runat="server" />
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-door-open" viewBox="0 0 16 16">
-                <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z" />
-                <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117zM11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5zM4 1.934V15h6V1.077l-6 .857z" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
             </svg>
             <h1 class="h3 mb-3 fw-normal">
-                <asp:Label ID="lblTitle" AssociatedControlID="loginForm" runat="server"> Please sign in</asp:Label>
+                <asp:Label ID="lblTitle" AssociatedControlID="loginForm" runat="server"> Please sign up</asp:Label>
             </h1>
             <div class="form-floating">
                 <asp:TextBox ID="txbLogin" type="email" class="form-control" placeholder="name@example.com" runat="server" OnTextChanged="txbLogin_TextChanged" AutoPostBack="false"></asp:TextBox>
@@ -90,17 +88,8 @@
             <asp:Label ID="lblError" class="fs-6 fw-light text-danger" AssociatedControlID="loginForm" runat="server">
                 Ошибка авторизации
             </asp:Label>
-            <div class="checkbox mb-3">
-                <asp:Label ID="lblRemeber" AssociatedControlID="loginForm" runat="server">
-                    <asp:CheckBox type="checkbox" value="remember-me" ID="chbRemember" OnCheckedChanged="chbRemember_CheckedChanged" runat="server" AutoPostBack="false" />
-                    Remember me   
-                </asp:Label>
-            </div>
             <div class="row m-2">
-                <asp:Button ID="btnLogin" type="submit" class="w-100 btn btn-lg btn-primary" Text="Sign in" OnClick="btnLogin_Click" OnClientClick="sendLoginRequest()" runat="server"></asp:Button>
-            </div>
-            <div class="row m-2">
-                <asp:Button ID="btnRegister" type="submit" class="w-100 btn btn-lg btn-outline-secondary" Text="Register" OnClick="btnRegister_Click"  OnClientClick="" runat="server"></asp:Button>
+                <asp:Button ID="btnRegister" type="submit" class="w-100 btn btn-lg btn-primary" Text="Register" OnClick="btnRegister_Click" OnClientClick="sendRegisterRequest" runat="server"></asp:Button>
             </div>
             <p class="mt-5 mb-3 text-muted">© <%= DateTime.Now.ToString("yyyy") %></p>
         </form>

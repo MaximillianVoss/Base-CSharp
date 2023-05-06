@@ -11,7 +11,7 @@ namespace Windows_ASP.NET.Forms
         protected void LoginForm_Load(object sender, EventArgs e)
         {
             //this.LoginForm.Login = "dasd";
-            //this.LoginForm.OnLoginClick += this.TestClick;
+            //this.LoginForm.OnRegisterClick += this.TestClick;
         }
     }
 }

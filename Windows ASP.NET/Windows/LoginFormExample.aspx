@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LgoinFormExample.aspx.cs" Inherits="Windows_ASP.NET.Windows.LgoinFormExample" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LoginFormExample.aspx.cs" Inherits="Windows_ASP.NET.Windows.LgoinFormExample" %>
 
 <%@ Register Src="~/Controls/LoginForm.ascx" TagPrefix="uc" TagName="LoginForm" %>
 <%@ Register Src="~/Controls/Bootstrap.ascx" TagPrefix="uc" TagName="Bootstrap" %>

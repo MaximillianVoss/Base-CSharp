@@ -165,6 +165,7 @@
     <Content Include="Controls\Bootstrap.ascx" />
     <Content Include="Controls\LoginForm.ascx" />
     <Content Include="Controls\MessageBox.ascx" />
+    <Content Include="Controls\RegisterForm.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -173,6 +174,7 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Windows\RegisterFormExapmle.aspx" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -180,7 +182,7 @@
     <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
     <Content Include="Scripts\MessageBox.js" />
     <Content Include="Scripts\String.js" />
-    <Content Include="Windows\LgoinFormExample.aspx" />
+    <Content Include="Windows\LoginFormExample.aspx" />
     <Content Include="Windows\LoginWindow.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Windows\MessageBoxExample.aspx" />
@@ -253,6 +255,13 @@
     <Compile Include="Controls\MessageBox.ascx.designer.cs">
       <DependentUpon>MessageBox.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RegisterForm.ascx.cs">
+      <DependentUpon>RegisterForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\RegisterForm.ascx.designer.cs">
+      <DependentUpon>RegisterForm.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -260,12 +269,12 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Windows\LgoinFormExample.aspx.cs">
-      <DependentUpon>LgoinFormExample.aspx</DependentUpon>
+    <Compile Include="Windows\LoginFormExample.aspx.cs">
+      <DependentUpon>LoginFormExample.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Windows\LgoinFormExample.aspx.designer.cs">
-      <DependentUpon>LgoinFormExample.aspx</DependentUpon>
+    <Compile Include="Windows\LoginFormExample.aspx.designer.cs">
+      <DependentUpon>LoginFormExample.aspx</DependentUpon>
     </Compile>
     <Compile Include="Windows\LoginWindow.aspx.cs">
       <DependentUpon>LoginWindow.aspx</DependentUpon>
@@ -305,6 +314,13 @@
     </Compile>
     <Compile Include="Windows\MessageBoxExample.aspx.designer.cs">
       <DependentUpon>MessageBoxExample.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RegisterFormExapmle.aspx.cs">
+      <DependentUpon>RegisterFormExapmle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Windows\RegisterFormExapmle.aspx.designer.cs">
+      <DependentUpon>RegisterFormExapmle.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

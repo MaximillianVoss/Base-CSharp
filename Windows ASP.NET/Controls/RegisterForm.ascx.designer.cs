@@ -11,7 +11,7 @@ namespace Windows_ASP.NET.Controls
 {
 
 
-    public partial class LoginForm
+    public partial class RegisterForm
     {
 
         /// <summary>
@@ -85,33 +85,6 @@ namespace Windows_ASP.NET.Controls
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblError;
-
-        /// <summary>
-        /// lblRemeber элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически созданное поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRemeber;
-
-        /// <summary>
-        /// chbRemember элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически созданное поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chbRemember;
-
-        /// <summary>
-        /// btnLogin элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически созданное поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogin;
 
         /// <summary>
         /// btnRegister элемент управления.

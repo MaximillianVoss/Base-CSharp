@@ -3,10 +3,8 @@ using System.Text.RegularExpressions;
 
 namespace Windows_ASP.NET.Controls
 {
-    public partial class LoginForm : System.Web.UI.UserControl
+    public partial class RegisterForm : System.Web.UI.UserControl
     {
-
-
         #region Поля
         /// <summary>
         /// Регулярные выражения
@@ -105,19 +103,14 @@ namespace Windows_ASP.NET.Controls
             set => this.lblPassword.Text = value;
             get => this.lblPassword.Text;
         }
-        public bool IsRemember
-        {
-            set => this.chbRemember.Checked = value;
-            get => this.chbRemember.Checked;
-        }
         public string LoginError
         {
             set => this.lblError.Text = value;
             get => this.lblError.Text;
         }
-        public EventHandler OnLoginClick
+        public EventHandler OnRegisterClick
         {
-            set => this.btnLogin.Click += value;
+            set => this.btnRegister.Click += value;
             get => null;
         }
         #endregion
@@ -143,12 +136,12 @@ namespace Windows_ASP.NET.Controls
             this.PasswordRegEx = RegularExpressions.Password.reg1;
         }
         /// <summary>
-        /// 
+        /// Регистрация пользователя
         /// </summary>
         /// <param name="login"></param>
         /// <param name="password"></param>
         /// <exception cref="Exception"></exception>
-        private void DoLogin(string login, string password)
+        private void DoRegister(string login, string password)
         {
             if (this.CheckLogin(login, this.LoginRegEx) && this.CheckPassword(password, this.PasswordRegEx))
             {
@@ -164,13 +157,14 @@ namespace Windows_ASP.NET.Controls
             }
 
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="isRemember"></param>
-        private void DoRemember(bool isRemember)
-        {
 
+        /// <summary>
+        /// Действие после регистрации
+        /// </summary>
+        private void AfterRegister()
+        {
+            // Перенаправление на страницу Index.aspx
+            //Response.Redirect("Index.aspx");
         }
         /// <summary>
         /// 
@@ -228,10 +222,7 @@ namespace Windows_ASP.NET.Controls
         #endregion
 
         #region Конструкторы/Деструкторы
-        public LoginForm()
-        {
 
-        }
         #endregion
 
         #region Операторы
@@ -278,35 +269,18 @@ namespace Windows_ASP.NET.Controls
                 this.ShowError(ex);
             }
         }
-        protected void btnLogin_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.DoLogin(this.txbLogin.Text, this.txbPassword.Text);
-            }
-            catch (Exception ex)
-            {
-                this.ShowError(ex);
-            }
-        }
-        protected void chbRemember_CheckedChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                this.DoRemember(this.chbRemember.Checked);
-            }
-            catch (Exception ex)
-            {
-                this.ShowError(ex);
-            }
-        }
         protected void btnRegister_Click(object sender, EventArgs e)
         {
-            // Перенаправление на страницу Index.aspx
-            //Response.Redirect("Index.aspx");
+            try
+            {
+                this.DoRegister(this.txbLogin.Text, this.txbPassword.Text);
+            }
+            catch (Exception ex)
+            {
+                this.ShowError(ex);
+            }
         }
         #endregion
-
 
     }
 }
