@@ -18,20 +18,89 @@ namespace CustomControlsWPF
         #endregion
 
         #region Свойства
+
+        #region События
+        /// <summary>
+        /// Событие, срабатывающее при изменении выделенного элемента
+        /// </summary>
         public event RoutedEventHandler SelectionChanged
         {
             add => this.AddHandler(SelectionChangedEvent, value);
             remove => this.RemoveHandler(SelectionChangedEvent, value);
         }
+        /// <summary>
+        /// Обработчик щелчка мыши
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClickHadler(object sender, RoutedEventArgs e)
         {
             this.RaiseEvent(new RoutedEventArgs(SelectionChangedEvent));
         }
+        #endregion
+
+        #region Основные свойства
+        /// <summary>
+        /// Заголовок
+        /// </summary>
         public string Title
         {
             set => this.lblTitle.Content = value;
             get => this.lblTitle.Content.ToString();
         }
+        /// <summary>
+        /// Текст внутри выпадающего списка
+        /// </summary>
+        public string Text
+        {
+            set => this.cbItems.Text = value;
+            get => this.cbItems.Text;
+        }
+        /// <summary>
+        /// Ошибка (для валидации и проверок).
+        /// Если текст ошибки не null, 
+        /// то её текст будет показан под выпадаюим списком
+        /// </summary>
+        public string Error
+        {
+            set
+            {
+                if (value == null || value == String.Empty)
+                {
+                    this.lblError.Content = String.Empty;
+                }
+                else
+                {
+                    this.lblError.Content = value;
+                }
+            }
+            get => this.lblError.Content.ToString();
+        }
+        /// <summary>
+        /// Можно ли редактировать выпадающий список
+        /// </summary>
+        public bool IsEditable
+        {
+            set => this.cbItems.IsEditable = value;
+            get => this.cbItems.IsEditable;
+        }
+        /// <summary>
+        /// Доступен ли элемент упраления для взаимодействия с пользователем
+        /// </summary>
+        public new bool IsEnabled
+        {
+            set
+            {
+                this.cbItems.IsEnabled = value;
+            }
+            get
+            {
+                return this.cbItems.IsEnabled;
+            }
+        }
+        /// <summary>
+        /// Элементы выпадающего списка
+        /// </summary>
         public List<object> Items
         {
             set
@@ -42,6 +111,7 @@ namespace CustomControlsWPF
                     {
                         this.items = new List<object>();
                     }
+                    this.cbItems.Items.Clear();
                     this.items.Clear();
                     this.items.AddRange(value);
                     try
@@ -58,42 +128,55 @@ namespace CustomControlsWPF
                             this.cbItems.Items.Add(item.ToString());
                         }
                     }
-                    this.items.AddRange(value);
                 }
             }
             get => this.items;
             //get => this.cbItems.Items.OfType<object>().ToList();
         }
-        public string Error
-        {
-            set
-            {
-                if (value == null || value == String.Empty)
-                {
-                    this.lblError.Content = String.Empty;
-                }
-                else
-                {
-                    this.lblError.Content = value;
-                }
-            }
-            get => this.lblError.Content.ToString();
-        }
+        /// <summary>
+        /// Заливка фона
+        /// </summary>
         public Brush BackgroundColor
         {
             set => this.gMain.Background = value;
             get => this.gMain.Background;
         }
-        public bool IsEditable
-        {
-            set => this.cbItems.IsEditable = value;
-            get => this.cbItems.IsEditable;
-        }
+        /// <summary>
+        /// Данные для выпадающиего списка
+        /// </summary>
         public new Object DataContext
         {
             set => this.cbItems.DataContext = value;
             get => this.cbItems.DataContext;
         }
+        #endregion
+
+        #region Выделение в выпадающем списке
+        /// <summary>
+        /// ID выделенного элемента в списке
+        /// </summary>
+        public int? SelectedId
+        {
+            set
+            {
+                this.Select(value);
+            }
+            get
+            {
+                if (this.cbItems.SelectedIndex >= 0)
+                {
+                    string idStr = this.GetObjectFieldValue(this.items[this.SelectedIndex], "id").ToString();
+                    return int.Parse(idStr);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        /// <summary>
+        /// Индекс выделенного элемента в списке
+        /// </summary>
         public int SelectedIndex
         {
             set
@@ -105,6 +188,9 @@ namespace CustomControlsWPF
             }
             get => this.cbItems.SelectedIndex;
         }
+        /// <summary>
+        /// Строка выделенного элемента в списке
+        /// </summary>
         public string SelectedItem
         {
             get
@@ -119,14 +205,18 @@ namespace CustomControlsWPF
                 }
             }
         }
-        public string Text
-        {
-            set => this.cbItems.Text = value;
-            get => this.cbItems.Text;
-        }
+        #endregion
+
         #endregion
 
         #region Методы
+        /// <summary>
+        /// Получает указанное свойство из объекта
+        /// </summary>
+        /// <param name="obj">объект</param>
+        /// <param name="fieldName">имя поля</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         private object GetObjectFieldValue(object obj, string fieldName)
         {
             var field = obj.GetType().GetProperty(fieldName);
@@ -136,11 +226,20 @@ namespace CustomControlsWPF
             }
             return field.GetValue(obj, null);
         }
+        /// <summary>
+        /// Добавляет указанный элемент в выпадающий список
+        /// </summary>
+        /// <param name="item">объект для добавления</param>
         public void Add(object item)
         {
             this.items.Add(item);
             this.cbItems.Items.Add(item);
         }
+        /// <summary>
+        /// Выбирает элемент с указанным ID в выпадающем списке
+        /// </summary>
+        /// <param name="id">id элеметна</param>
+        /// <param name="idFieldName">поле, содержащее идентификатор</param>
         public void Select(int? id, string idFieldName = "id")
         {
             if (id != null)
@@ -148,14 +247,34 @@ namespace CustomControlsWPF
                 this.SelectedIndex = this.items.FindIndex(x => Convert.ToInt32(this.GetObjectFieldValue(x, idFieldName)) == id);
             }
         }
+        /// <summary>
+        /// Выбирает элемент по строковому значению
+        /// </summary>
+        /// <param name="value">строка для выбора в списке</param>
         public void Select(string value)
         {
-            this.SelectedIndex = this.items.FindIndex(x => this.GetObjectFieldValue(x, "title").ToString() == value || x.ToString() == value);
+            if (this.items.Count > 0)
+            {
+                if (this.items[0].GetType() == typeof(string))
+                {
+                    this.SelectedIndex = this.items.FindIndex(x => x.ToString() == value);
+                }
+                if (this.items[0].GetType() == typeof(object))
+                {
+                    this.SelectedIndex = this.items.FindIndex(x => this.GetObjectFieldValue(x, "title").ToString() == value);
+                }
+            }
+
         }
-        public void Update(int? itemId, List<object> items)
+        /// <summary>
+        /// Обновляет элемент управления в соответствии с указанными данными
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="currentItemId"></param>
+        public void Update(List<object> items, int? currentItemId = 1)
         {
             this.Items = items;
-            this.Select(itemId);
+            this.Select(currentItemId);
         }
         #endregion
 
@@ -164,7 +283,6 @@ namespace CustomControlsWPF
         {
             this.InitializeComponent();
         }
-
         public LabeledComboBox(string title, List<object> items = null, string error = null, Brush backgroundColor = null, bool isEditable = false)
         {
             this.InitializeComponent();
@@ -180,8 +298,6 @@ namespace CustomControlsWPF
                 this.cbItems.SelectionChanged += this.ClickHadler;
             }
         }
-
-
         #endregion
 
         #region Операторы
@@ -189,14 +305,9 @@ namespace CustomControlsWPF
         #endregion
 
         #region Обработчики событий
-
         private void cbItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.SelectedIndex = this.cbItems.SelectedIndex;
-        }
-        private void cbItems_DragOver(object sender, System.Windows.DragEventArgs e)
-        {
-
         }
         #endregion
 

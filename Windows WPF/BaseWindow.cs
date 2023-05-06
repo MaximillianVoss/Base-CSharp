@@ -119,10 +119,15 @@ namespace BaseWindow_WPF
         {
             System.Windows.MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-        public void ShowError(Exception ex)
+        public void ShowError(Exception ex, bool isShowInner = true)
         {
-            System.Windows.MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            var message = isShowInner && ex.InnerException != null
+                ? ex.Message + "\n\n" + ex.InnerException.Message
+                : ex.Message;
+
+            System.Windows.MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
         public void ShowMessage(string message, string title = "Уведомление")
         {
             System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
