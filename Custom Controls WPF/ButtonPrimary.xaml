@@ -12,8 +12,6 @@
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
-
         </Button>
-
     </Grid>
 </UserControl>

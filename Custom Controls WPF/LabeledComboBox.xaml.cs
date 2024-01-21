@@ -14,7 +14,7 @@ namespace CustomControlsWPF
 
         #region Поля
         public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent("LabeledComboBoxSelectionChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TabItem));
-        List<object> items;
+        private List<object> items;
         #endregion
 
         #region Свойства
@@ -89,14 +89,8 @@ namespace CustomControlsWPF
         /// </summary>
         public new bool IsEnabled
         {
-            set
-            {
-                this.cbItems.IsEnabled = value;
-            }
-            get
-            {
-                return this.cbItems.IsEnabled;
-            }
+            set => this.cbItems.IsEnabled = value;
+            get => this.cbItems.IsEnabled;
         }
         /// <summary>
         /// Элементы выпадающего списка
@@ -157,10 +151,7 @@ namespace CustomControlsWPF
         /// </summary>
         public int? SelectedId
         {
-            set
-            {
-                this.Select(value);
-            }
+            set => this.Select(value);
             get
             {
                 if (this.cbItems.SelectedIndex >= 0)
@@ -211,6 +202,17 @@ namespace CustomControlsWPF
 
         #region Методы
         /// <summary>
+        /// Очищает элементы выпадающего списка
+        /// </summary>
+        public void Clear()
+        {
+            this.Items?.Clear();
+            if (this.cbItems != null && this.cbItems.Items != null)
+            {
+                this.cbItems.Items.Clear();
+            }
+        }
+        /// <summary>
         /// Получает указанное свойство из объекта
         /// </summary>
         /// <param name="obj">объект</param>
@@ -220,11 +222,7 @@ namespace CustomControlsWPF
         private object GetObjectFieldValue(object obj, string fieldName)
         {
             var field = obj.GetType().GetProperty(fieldName);
-            if (field == null)
-            {
-                throw new Exception("Поле не найдено");
-            }
-            return field.GetValue(obj, null);
+            return field == null ? throw new Exception("Поле не найдено") : field.GetValue(obj, null);
         }
         /// <summary>
         /// Добавляет указанный элемент в выпадающий список
@@ -267,6 +265,16 @@ namespace CustomControlsWPF
 
         }
         /// <summary>
+        /// Выбирает первый элемент в выпадающем списке
+        /// </summary>
+        public void SelectFirst()
+        {
+            if (this.items != null && this.items.Count > 0)
+            {
+                this.SelectedIndex = 0;
+            }
+        }
+        /// <summary>
         /// Обновляет элемент управления в соответствии с указанными данными
         /// </summary>
         /// <param name="items"></param>
@@ -275,6 +283,8 @@ namespace CustomControlsWPF
         {
             this.Items = items;
             this.Select(currentItemId);
+            if (this.SelectedIndex == -1)
+                this.SelectedIndex = 0;
         }
         #endregion
 

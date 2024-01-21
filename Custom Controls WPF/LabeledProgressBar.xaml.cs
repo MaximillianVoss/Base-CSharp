@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+﻿using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CustomControlsWPF
 {
@@ -20,9 +8,93 @@ namespace CustomControlsWPF
     /// </summary>
     public partial class LabeledProgressBar : UserControl
     {
+
+
+        #region Поля
+
+        #endregion
+
+        #region Свойства
+        /// <summary>
+        /// Подпись
+        /// </summary>
+        public string Title
+        {
+            set => this.gbMain.Header = value;
+            get => this.gbMain.Header.ToString();
+        }
+        /// <summary>
+        /// Подпись, дублирует Title для совместимости 
+        /// при замене стандартных элементов управления
+        /// </summary>
+        public string Header
+        {
+            set => this.Title = value;
+            get => this.Title.ToString();
+        }
+        /// <summary>
+        /// Максимум
+        /// </summary>
+        public double Maximum
+        {
+            set => this.pbMain.Maximum = value;
+            get => this.pbMain.Maximum;
+        }
+        /// <summary>
+        /// Минимум
+        /// </summary>
+        public double Minimum
+        {
+            set => this.pbMain.Minimum = value;
+            get => this.pbMain.Minimum;
+        }
+        /// <summary>
+        /// Текущее значение
+        /// </summary>
+        public double Value
+        {
+            set => this.pbMain.Value = value;
+            get => this.pbMain.Value;
+        }
+        /// <summary>
+        /// Цвет прогресс бара при заполнении
+        /// </summary>
+        public Brush ForegroundColor
+        {
+
+            set => this.pbMain.Foreground = value;
+            get => this.pbMain.Foreground;
+        }
+        /// <summary>
+        /// Видимость элемента управления
+        /// </summary>
+        //public new System.Windows.Visibility Visibility
+        //{
+        //    set => this.gbMain.Visibility = value;
+        //    get => this.gbMain.Visibility;
+        //}
+        #endregion
+
+        #region Методы
+
+        #endregion
+
+        #region Конструкторы/Деструкторы
         public LabeledProgressBar()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
+        #endregion
+
+        #region Операторы
+
+        #endregion
+
+        #region Обработчики событий
+
+        #endregion
+
+
+
     }
 }

@@ -17,7 +17,7 @@ namespace CustomControlsWPF
         private string validationText;
         public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent("LabeledTextBoxAndComboBoxSelectionChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TabItem));
         public static readonly RoutedEvent TextChangedEvent = EventManager.RegisterRoutedEvent("LabeledTextBoxAndComboBoxTextChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TabItem));
-        List<object> items;
+        private List<object> items;
         #endregion
 
         #region Свойства
@@ -73,7 +73,11 @@ namespace CustomControlsWPF
         /// </summary>
         public string Text
         {
-            set { this.txbValue.Text = value; this.isValidCheck(); }
+            set
+            {
+                this.txbValue.Text = value;
+                this.isValidCheck();
+            }
             get => this.txbValue.Text;
         }
         /// <summary>
@@ -123,10 +127,7 @@ namespace CustomControlsWPF
                 this.cbItems.IsEnabled = value;
                 this.txbValue.IsEnabled = value;
             }
-            get
-            {
-                return this.cbItems.IsEnabled && this.txbValue.IsEnabled;
-            }
+            get => this.cbItems.IsEnabled && this.txbValue.IsEnabled;
         }
         /// <summary>
         /// Коллекция элементов
@@ -237,10 +238,7 @@ namespace CustomControlsWPF
         /// </summary>
         public int? SelectedId
         {
-            set
-            {
-                this.Select(value);
-            }
+            set => this.Select(value);
             get
             {
                 if (this.cbItems.SelectedIndex >= 0)
@@ -315,11 +313,7 @@ namespace CustomControlsWPF
         {
             //TODO: падает при выделении другой таблицы, проверить!
             var field = obj.GetType().GetProperty(fieldName);
-            if (field == null)
-            {
-                throw new Exception("Поле не найдено");
-            }
-            return field.GetValue(obj, null);
+            return field == null ? throw new Exception("Поле не найдено") : field.GetValue(obj, null);
         }
         /// <summary>
         /// Добавляет указанный элемент в выпадающий список
@@ -349,6 +343,16 @@ namespace CustomControlsWPF
         public void Select(string value)
         {
             this.SelectedIndex = this.items.FindIndex(x => this.GetObjectFieldValue(x, "title").ToString() == value || x.ToString() == value);
+        }
+        /// <summary>
+        /// Выбирает первый элемент в выпадающем списке
+        /// </summary>
+        public void SelectFirst()
+        {
+            if (this.items != null && this.items.Count > 0)
+            {
+                this.SelectedIndex = 0;
+            }
         }
         /// <summary>
         /// Обновляет элемент управления в соответствии с указанными данными

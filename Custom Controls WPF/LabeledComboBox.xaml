@@ -12,7 +12,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label x:Name="lblTitle" Content="Labelg" VerticalAlignment="Center" Height="26"/>
-        <ComboBox x:Name="cbItems" Margin="5,0,5,0" VerticalAlignment="Center" SelectionChanged="cbItems_SelectionChanged" Grid.Row="1" Height="20"/>
+        <ComboBox x:Name="cbItems" Margin="5,0,5,0" VerticalAlignment="Center" SelectionChanged="cbItems_SelectionChanged" Grid.Row="1" Height="22"/>
         <Label x:Name="lblError" Content="Labelg" Foreground="#FFDE2020" Grid.Row="2" Height="26"/>
 
     </Grid>

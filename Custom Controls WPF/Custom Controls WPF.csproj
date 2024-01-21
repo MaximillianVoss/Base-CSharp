@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\База артикулов\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\..\База артикулов\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="..\..\База артикулов\packages\xunit.core.2.6.3\build\xunit.core.props" Condition="Exists('..\..\База артикулов\packages\xunit.core.2.6.3\build\xunit.core.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -52,21 +52,47 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\..\База артикулов\packages\xunit.abstractions.2.0.3\lib\net35\xunit.abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.assert, Version=2.6.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\..\База артикулов\packages\xunit.assert.2.6.3\lib\netstandard1.1\xunit.assert.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.core, Version=2.6.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\..\База артикулов\packages\xunit.extensibility.core.2.6.3\lib\net452\xunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.execution.desktop, Version=2.6.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\..\База артикулов\packages\xunit.extensibility.execution.2.6.3\lib\net452\xunit.execution.desktop.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseControl.cs" />
+    <Compile Include="ButtonImage.xaml.cs">
+      <DependentUpon>ButtonImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ButtonPrimary.xaml.cs">
       <DependentUpon>ButtonPrimary.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ControlState.cs" />
     <Compile Include="LabeledCheckBox.xaml.cs">
       <DependentUpon>LabeledCheckBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="LabeledProgressBar.xaml.cs">
       <DependentUpon>LabeledProgressBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LabeledTextBoxAndButton.xaml.cs">
+      <DependentUpon>LabeledTextBoxAndButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LabeledTextBoxAndComboBox.xaml.cs">
       <DependentUpon>LabeledTextBoxAndComboBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PagedDataGrid.xaml.cs">
+      <DependentUpon>PagedDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PagingControl.xaml.cs">
+      <DependentUpon>PagingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TableData.cs" />
     <Compile Include="TicketListViewItem.xaml.cs">
       <DependentUpon>TicketListViewItem.xaml</DependentUpon>
     </Compile>
@@ -98,17 +124,24 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Тесты\TestsTableData.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Ресурсы\Кнопки.pptx" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ButtonImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ButtonPrimary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,7 +154,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LabeledTextBoxAndButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LabeledTextBoxAndComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PagedDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PagingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -150,13 +195,23 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ресурсы\Кнопка.Влево до конца.png" />
+    <Resource Include="Ресурсы\Кнопка.Влево.png" />
+    <Resource Include="Ресурсы\Кнопка.Вправо до конца.png" />
+    <Resource Include="Ресурсы\Кнопка.Вправо.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\База артикулов\packages\xunit.analyzers.1.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+    <Analyzer Include="..\..\База артикулов\packages\xunit.analyzers.1.7.0\analyzers\dotnet\cs\xunit.analyzers.fixes.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\База артикулов\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\База артикулов\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\..\База артикулов\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\База артикулов\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\..\База артикулов\packages\xunit.core.2.6.3\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\База артикулов\packages\xunit.core.2.6.3\build\xunit.core.props'))" />
+    <Error Condition="!Exists('..\..\База артикулов\packages\xunit.core.2.6.3\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\База артикулов\packages\xunit.core.2.6.3\build\xunit.core.targets'))" />
   </Target>
-  <Import Project="..\..\База артикулов\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\..\База артикулов\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\..\База артикулов\packages\xunit.core.2.6.3\build\xunit.core.targets" Condition="Exists('..\..\База артикулов\packages\xunit.core.2.6.3\build\xunit.core.targets')" />
 </Project>

@@ -26,14 +26,8 @@ namespace CustomControlsWPF
         }
         public new Visibility Visibility
         {
-            get
-            {
-                return base.Visibility;
-            }
-            set
-            {
-                base.Visibility = value;
-            }
+            get => base.Visibility;
+            set => base.Visibility = value;
         }
         #endregion
 

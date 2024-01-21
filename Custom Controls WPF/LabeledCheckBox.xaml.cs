@@ -97,7 +97,7 @@ namespace CustomControlsWPF
         {
             this.IsCheckedTrue = isCheckedTrue;
             this.IsCheckedFalse = isCheckedFalse;
-            this.chbValue.IsChecked = (value == null || value == false);
+            this.chbValue.IsChecked = value == null || value == false;
             this.UpdateCheckBox();
         }
         #endregion
@@ -105,7 +105,7 @@ namespace CustomControlsWPF
         #region Конструкторы/Деструкторы
         public LabeledCheckBox() : this("Заголовок", "Галочка поставлена", "Галочка снята")
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
         public LabeledCheckBox(
             string title,
