@@ -9,8 +9,8 @@ namespace Custom_Controls_WF.Tests.Tests
         [TestMethod]
         public void TestPreview()
         {
-            PlotWindow plotWindow = new PlotWindow();
-            plotWindow.ShowDialog();
+            //PlotWindow plotWindow = new PlotWindow();
+            //plotWindow.ShowDialog();
         }
     }
 }

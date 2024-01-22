@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Custom Controls WF.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextAnalyzer", "TextAnalyzer\TextAnalyzer.csproj", "{64AD2057-7FD7-46FB-A09E-66C2393EB6C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Custom Controls WPF.Tests", "Custom Controls WPF.Tests\Custom Controls WPF.Tests.csproj", "{9DB3F58B-547D-4EB9-8BEF-41C79BD5DCE7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{64AD2057-7FD7-46FB-A09E-66C2393EB6C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64AD2057-7FD7-46FB-A09E-66C2393EB6C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64AD2057-7FD7-46FB-A09E-66C2393EB6C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DB3F58B-547D-4EB9-8BEF-41C79BD5DCE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DB3F58B-547D-4EB9-8BEF-41C79BD5DCE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DB3F58B-547D-4EB9-8BEF-41C79BD5DCE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DB3F58B-547D-4EB9-8BEF-41C79BD5DCE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
