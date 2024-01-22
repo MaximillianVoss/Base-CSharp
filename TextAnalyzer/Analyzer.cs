@@ -31,13 +31,13 @@ namespace TextAnalyzer
                 throw new Exception("Не указан список разделителей!");
             if (wordForms == null)
                 throw new Exception("Не переда словарь со склонениями слов!");
-            Dictionary<string, AnalyzerItem> result = new Dictionary<string, AnalyzerItem>();
-            var words = text.Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
+            var result = new Dictionary<string, AnalyzerItem>();
+            string[] words = text.Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
             #region Инверсия словаря к виду склонение - базовое слово
             var wordFormsInversed = new Dictionary<string, string>();
-            foreach (var basweWordItem in wordForms)
+            foreach (KeyValuePair<string, List<string>> basweWordItem in wordForms)
             {
-                foreach (var declinationWord in basweWordItem.Value)
+                foreach (string declinationWord in basweWordItem.Value)
                 {
                     if (!wordFormsInversed.ContainsKey(declinationWord.ToLower()))
                         wordFormsInversed.Add(declinationWord.ToLower(), basweWordItem.Key);
@@ -45,7 +45,7 @@ namespace TextAnalyzer
             }
 
             #endregion
-            foreach (var word in words)
+            foreach (string word in words)
             {
                 string currentWord = word.ToLower();
                 #region Для слова со склонением (не именительный падеж)
@@ -75,22 +75,22 @@ namespace TextAnalyzer
         /// <returns></returns>
         public DataTable ToTable(Dictionary<string, AnalyzerItem> dictionary, bool isShowKey = false)
         {
-            DataTable dataTable = new DataTable();
+            var dataTable = new DataTable();
             if (isShowKey)
             {
-                dataTable.Columns.Add("Ключ");
+                _ = dataTable.Columns.Add("Ключ");
             }
-            dataTable.Columns.Add("Слово");
-            dataTable.Columns.Add("Число вхождений в тексте");
-            foreach (var item in dictionary)
+            _ = dataTable.Columns.Add("Слово");
+            _ = dataTable.Columns.Add("Число вхождений в тексте");
+            foreach (KeyValuePair<string, AnalyzerItem> item in dictionary)
             {
                 if (isShowKey)
                 {
-                    dataTable.Rows.Add(new String[] { item.Value.Key, item.Value.Value, item.Value.Occurrences.ToString() });
+                    _ = dataTable.Rows.Add(new String[] { item.Value.Key, item.Value.Value, item.Value.Occurrences.ToString() });
                 }
                 else
                 {
-                    dataTable.Rows.Add(new String[] { item.Value.Value, item.Value.Occurrences.ToString() });
+                    _ = dataTable.Rows.Add(new String[] { item.Value.Value, item.Value.Occurrences.ToString() });
                 }
             }
             return dataTable;
@@ -104,10 +104,10 @@ namespace TextAnalyzer
         /// <returns></returns>
         public Dictionary<string, List<string>> GetWordsForm(string path)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.Load(path);
             XmlNodeList list = doc.SelectNodes("annotation/text/paragraphs/paragraph/sentence/tokens/token");
-            Dictionary<string, List<string>> wordsForms = new Dictionary<string, List<string>>();
+            var wordsForms = new Dictionary<string, List<string>>();
             foreach (XmlNode node in list)
             {
                 XmlNode subNode = node.SelectSingleNode("tfr/v/l");

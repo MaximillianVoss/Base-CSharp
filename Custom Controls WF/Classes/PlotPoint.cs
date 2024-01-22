@@ -15,9 +15,18 @@ namespace Custom_Controls_WF.Classes
         #endregion
 
         #region Свойства
-        public double X { get => this.x; set => this.x = value; }
-        public double Y { get => this.y; set => this.y = value; }
-        public Brush brush { get; set; }
+        public double X
+        {
+            get => this.x; set => this.x = value;
+        }
+        public double Y
+        {
+            get => this.y; set => this.y = value;
+        }
+        public Brush brush
+        {
+            get; set;
+        }
         #endregion
 
         #region Методы

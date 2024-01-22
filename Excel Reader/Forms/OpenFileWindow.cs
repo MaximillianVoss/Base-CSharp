@@ -46,9 +46,9 @@ namespace ExcelReader.Forms
         {
             if (this.cbSeparatorType != null)
             {
-                foreach (var item in this.separators)
+                foreach (KeyValuePair<string, char> item in this.separators)
                 {
-                    this.cbSeparatorType.Items.Add(item.Key);
+                    _ = this.cbSeparatorType.Items.Add(item.Key);
                 }
                 this.cbSeparatorType.SelectedIndex = 0;
             }
@@ -68,7 +68,7 @@ namespace ExcelReader.Forms
                 this.currentPath = path;
                 string extension = Path.GetExtension(path);
                 this.cbSeparatorType.Enabled = (extension == Common.Strings.Extensions.csv);
-                ExcelParser excelParser = new ExcelParser();
+                var excelParser = new ExcelParser();
                 ED document = excelParser.Parse(
                     path,
                     this.separators[this.cbSeparatorType.SelectedItem.ToString()],

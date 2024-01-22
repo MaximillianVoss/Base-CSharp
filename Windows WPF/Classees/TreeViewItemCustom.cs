@@ -17,17 +17,23 @@ namespace BaseWindow_WPF.Classes
         /// <summary>
         /// Тип хранимого значения
         /// </summary>
-        public Type ValueType { get; set; }
+        public Type ValueType
+        {
+            get; set;
+        }
         /// <summary>
         /// Хранимое значение
         /// </summary>
-        public object Value { set; get; }
+        public object Value
+        {
+            set; get;
+        }
         #endregion
 
         #region Методы
         public void Add(TreeViewItem child)
         {
-            this.Items.Add(child);
+            _ = this.Items.Add(child);
         }
         #endregion
 
@@ -39,7 +45,7 @@ namespace BaseWindow_WPF.Classes
             this.ValueType = value.GetType();
             if (child != null)
             {
-                this.Items.Add(child);
+                _ = this.Items.Add(child);
             }
         }
         #endregion

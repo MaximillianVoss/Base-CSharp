@@ -4,7 +4,6 @@ using Logger;
 using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -31,7 +30,7 @@ namespace ExcelReader.Parser
         #region Свойства
         public int ReadCells => this.readCells;
         public int TotalCells => this.totalCells;
-        public Log Log { get => this.log; }
+        public Log Log => this.log;
         #endregion
 
         #region Методы
@@ -51,15 +50,15 @@ namespace ExcelReader.Parser
         public void CloseExcel(string path)
         {
             this.workbook.Close(false, path, null); // Close the connection to workbook
-            Marshal.FinalReleaseComObject(this.workbook); // Release unmanaged object references.
+            _ = Marshal.FinalReleaseComObject(this.workbook); // Release unmanaged object references.
             this.workbook = null;
 
             this.workbooks.Close();
-            Marshal.FinalReleaseComObject(this.workbooks);
+            _ = Marshal.FinalReleaseComObject(this.workbooks);
             this.workbooks = null;
 
             this.xlApp.Quit();
-            Marshal.FinalReleaseComObject(this.xlApp);
+            _ = Marshal.FinalReleaseComObject(this.xlApp);
             this.xlApp = null;
         }
         public string GetCellData(string path, string sheetName, string colName, int rowNumber)
@@ -71,7 +70,7 @@ namespace ExcelReader.Parser
 
             if (this.sheets.ContainsValue(sheetName))
             {
-                Worksheet worksheet = this.workbook.Worksheets[sheetName] as Worksheet;
+                var worksheet = this.workbook.Worksheets[sheetName] as Worksheet;
                 Range range = worksheet.UsedRange;
 
                 for (int i = 1; i <= range.Columns.Count; i++)
@@ -86,15 +85,14 @@ namespace ExcelReader.Parser
                 }
 
                 value = Convert.ToString((range.Cells[rowNumber, colNumber] as Range).Value2);
-                Marshal.FinalReleaseComObject(worksheet);
-                worksheet = null;
+                _ = Marshal.FinalReleaseComObject(worksheet);
             }
             this.CloseExcel(path);
             return value;
         }
         public string GetCellData(Range range, int rowIndex, int columnIndex)
         {
-            Range cell = range.Cells[rowIndex, columnIndex] as Range;
+            var cell = range.Cells[rowIndex, columnIndex] as Range;
             if (cell != null && cell.Value2 != null)
             {
                 return cell.Value2.ToString();
@@ -103,7 +101,7 @@ namespace ExcelReader.Parser
         }
         public ED ParseCsv(string path, char separator = ';', bool isHasHeaders = true, bool isHasFieldsDescription = false)
         {
-            ED document = new ED(path);
+            var document = new ED(path);
             if (!File.Exists(path))
             {
                 throw new Exception(Common.Strings.Errors.fileNotFound);
@@ -117,7 +115,7 @@ namespace ExcelReader.Parser
                 #endregion
                 for (int i = 0; !reader.EndOfStream; i++)
                 {
-                    List<string> values = reader.ReadLine().Replace("\n", "").Split(separator).ToList();
+                    var values = reader.ReadLine().Replace("\n", "").Split(separator).ToList();
                     if (values == null)
                     {
                         throw new Exception(Common.Strings.Errors.rowParseErroe);
@@ -127,7 +125,7 @@ namespace ExcelReader.Parser
                     {
                         if (isHasHeaders)
                         {
-                            foreach (var value in values)
+                            foreach (string value in values)
                             {
                                 document.Add(new ExcelField(value));
                             }
@@ -195,11 +193,11 @@ namespace ExcelReader.Parser
         }
         public ED ParseXlsx(string path, string sheetName = "Лист1", bool isHasHeaders = true, bool isHasFieldsDescription = false)
         {
-            ED document = new ED(path);
+            var document = new ED(path);
             this.OpenExcel(path);
             if (this.sheets.ContainsValue(sheetName))
             {
-                Worksheet worksheet = this.workbook.Worksheets[sheetName] as Worksheet;
+                var worksheet = this.workbook.Worksheets[sheetName] as Worksheet;
                 Range range = worksheet.UsedRange;
                 #region Подсчет прогресса выполнения
                 this.totalCells = range.Columns.Count * range.Rows.Count;
@@ -224,7 +222,7 @@ namespace ExcelReader.Parser
                     }
                 }
                 #endregion
-                Parallel.For(2, range.Rows.Count + 1, i =>
+                _ = Parallel.For(2, range.Rows.Count + 1, i =>
                 {
                     #region Получение описаний столбцов
                     if (i == 2 && isHasFieldsDescription)
@@ -247,7 +245,7 @@ namespace ExcelReader.Parser
                         {
                             throw new Exception(Common.Strings.Errors.headersCountNotMatch);
                         }
-                        ExcelObject @object = new ExcelObject(i - 2);
+                        var @object = new ExcelObject(i - 2);
                         for (int j = 1; j <= range.Columns.Count; j++)
                         {
                             @object.Add(new ExcelField(document.Headers[j - 1].Title, this.GetCellData(range, i, j), document.Headers[j - 1].Description));
@@ -258,7 +256,7 @@ namespace ExcelReader.Parser
                     #endregion
                 });
                 #endregion
-                Marshal.FinalReleaseComObject(worksheet);
+                _ = Marshal.FinalReleaseComObject(worksheet);
             }
             this.CloseExcel(path);
             document.Sort();
@@ -273,11 +271,11 @@ namespace ExcelReader.Parser
             {
                 if (extension == Common.Strings.Extensions.csv)
                 {
-                    document = ParseCsv(path, separator, isHasHeaders, isHasFieldsDescription);
+                    document = this.ParseCsv(path, separator, isHasHeaders, isHasFieldsDescription);
                 }
                 if (extension == Common.Strings.Extensions.xlsx)
                 {
-                    document = ParseXlsx(path, sheetName, isHasHeaders, isHasFieldsDescription);
+                    document = this.ParseXlsx(path, sheetName, isHasHeaders, isHasFieldsDescription);
                 }
             }
             catch (Exception ex)

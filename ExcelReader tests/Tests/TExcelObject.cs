@@ -10,7 +10,7 @@ namespace ExcelReader_tests.Tests
         [TestMethod]
         public void TestEmptyConstructor()
         {
-            ExcelObject excelObject = new ExcelObject();
+            var excelObject = new ExcelObject();
             Assert.AreEqual(0, excelObject.Id);
             Assert.IsNotNull(excelObject.Fields);
             Assert.AreEqual(0, excelObject.FieldsCount);
@@ -23,12 +23,12 @@ namespace ExcelReader_tests.Tests
             List<string> titles = Common.GetStrings("title", itemsCount);
             List<string> values = Common.GetStrings("value", itemsCount);
             List<string> descriptions = Common.GetStrings("descriptions", itemsCount);
-            List<ExcelField> fields = new List<ExcelField>();
+            var fields = new List<ExcelField>();
             for (int i = 0; i < itemsCount; i++)
             {
                 fields.Add(new ExcelField(titles[i], values[i], descriptions[i]));
             }
-            ExcelObject excelObject = new ExcelObject(itemsCount, fields);
+            var excelObject = new ExcelObject(itemsCount, fields);
             Assert.AreEqual(itemsCount, excelObject.Fields.Count);
             Assert.AreEqual(itemsCount, excelObject.FieldsCount);
             for (int i = 0; i < itemsCount; i++)

@@ -9,8 +9,14 @@ namespace CustomControlsWPF
     /// </summary>
     public class PageSizeChangedEventArgs : EventArgs
     {
-        public int OldPageSize { get; }
-        public int NewPageSize { get; }
+        public int OldPageSize
+        {
+            get;
+        }
+        public int NewPageSize
+        {
+            get;
+        }
 
         public PageSizeChangedEventArgs(int oldPageSize, int newPageSize)
         {
@@ -24,8 +30,14 @@ namespace CustomControlsWPF
     /// </summary>
     public class PageChangedEventArgs : EventArgs
     {
-        public int OldPage { get; }
-        public int NewPage { get; }
+        public int OldPage
+        {
+            get;
+        }
+        public int NewPage
+        {
+            get;
+        }
 
         public PageChangedEventArgs(int oldPage, int newPage)
         {
@@ -84,7 +96,7 @@ namespace CustomControlsWPF
                 if (value > this.pagesCount)
                     throw new Exception("Номер текущей страницы не может больше числа страниц");
 
-                var oldValue = this.currentPage;
+                int oldValue = this.currentPage;
                 this.currentPage = value;
 
                 this.UpdateCurrentPage();
@@ -105,7 +117,7 @@ namespace CustomControlsWPF
                 if (value < 0)
                     throw new Exception("Число элементов на странице не может быть меньше нуля");
 
-                var oldValue = this.pageSize;
+                int oldValue = this.pageSize;
                 this.pageSize = value;
 
                 // Вызов события при изменении размера страницы
@@ -120,14 +132,17 @@ namespace CustomControlsWPF
                 this.pageSizes = value;
                 if (this.pageSizes != null)
                 {
-                    foreach (var item in this.pageSizes)
+                    foreach (int item in this.pageSizes)
                         this.cmbItemsPerPage.Add(item);
                 }
             }
             get => this.pageSizes;
         }
 
-        public int ItemsCount { get => this.itemsCount; set => this.itemsCount = value; }
+        public int ItemsCount
+        {
+            get => this.itemsCount; set => this.itemsCount = value;
+        }
         #endregion
 
         #region Методы

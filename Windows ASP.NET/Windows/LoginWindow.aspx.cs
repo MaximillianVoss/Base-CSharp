@@ -6,7 +6,7 @@ namespace Windows_ASP.NET.Forms
     {
         private void TestClick(object sender, EventArgs e)
         {
-            string visitorId = this.LoginForm.IdVisitor;
+            _ = this.LoginForm.IdVisitor;
         }
         protected void LoginForm_Load(object sender, EventArgs e)
         {

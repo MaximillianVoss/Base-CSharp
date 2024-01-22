@@ -18,15 +18,24 @@ namespace TextAnalyzer
         /// <summary>
         /// Ключ
         /// </summary>
-        public string Key { set; get; }
+        public string Key
+        {
+            set; get;
+        }
         /// <summary>
         /// Значение
         /// </summary>
-        public string Value { set; get; }
+        public string Value
+        {
+            set; get;
+        }
         /// <summary>
         /// Число вхождений в текст
         /// </summary>
-        public int Occurrences { set; get; }
+        public int Occurrences
+        {
+            set; get;
+        }
         #endregion
 
         #region Методы

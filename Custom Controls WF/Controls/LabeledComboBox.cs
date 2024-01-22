@@ -29,9 +29,9 @@ namespace Custom_Controls_WF.Controls
             {
                 if (value != null)
                 {
-                    foreach (var item in value)
+                    foreach (string item in value)
                     {
-                        this.cbItems.Items.Add(item);
+                        _ = this.cbItems.Items.Add(item);
                     }
                 }
             }
@@ -102,7 +102,7 @@ namespace Custom_Controls_WF.Controls
         #region Методы
         public void Add(object item)
         {
-            this.cbItems.Items.Add(item);
+            _ = this.cbItems.Items.Add(item);
         }
         #endregion
 

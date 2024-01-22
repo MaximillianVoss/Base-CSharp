@@ -1,5 +1,4 @@
-﻿using Custom_Controls_WF.Tests.Forms;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Custom_Controls_WF.Tests.Tests
 {

@@ -13,15 +13,31 @@ namespace ExcelReader.ExcelDocument
         #endregion
 
         #region Свойства
-        public int Id { set; get; }
+        public int Id
+        {
+            set; get;
+        }
         /// <summary>
         /// Поля объекта
         /// </summary>
-        public List<ExcelField> Fields { set; get; }
+        public List<ExcelField> Fields
+        {
+            set; get;
+        }
         /// <summary>
         /// Количество полей
         /// </summary>
-        public int FieldsCount { get { if (this.Fields == null) { return 0; } return this.Fields.Count; } }
+        public int FieldsCount
+        {
+            get
+            {
+                if (this.Fields == null)
+                {
+                    return 0;
+                }
+                return this.Fields.Count;
+            }
+        }
         #endregion
 
         #region Методы
@@ -48,7 +64,7 @@ namespace ExcelReader.ExcelDocument
         /// <param name="field">поле</param>
         public void Remove(ExcelField field)
         {
-            this.Fields.RemoveAll(x => x.Title == field.Title);
+            _ = this.Fields.RemoveAll(x => x.Title == field.Title);
         }
         /// <summary>
         /// Удаляет указанное поле из объекта
@@ -56,12 +72,12 @@ namespace ExcelReader.ExcelDocument
         /// <param name="fieldName">имя поля</param>
         public void Remove(string fieldName)
         {
-            this.Fields.RemoveAll(x => x.Title == fieldName);
+            _ = this.Fields.RemoveAll(x => x.Title == fieldName);
         }
 
         public void Set(string fieldName, string value)
         {
-            var field = this.Fields.FirstOrDefault(x => x.Title == fieldName);
+            ExcelField field = this.Fields.FirstOrDefault(x => x.Title == fieldName);
             if (field == null)
             {
                 throw new Exception(String.Format("Указанное поле '{0}' не найдено!", fieldName));
@@ -93,8 +109,8 @@ namespace ExcelReader.ExcelDocument
         /// <returns></returns>
         public Dictionary<String, String> ToDictionary()
         {
-            Dictionary<string, string> result = new Dictionary<string, string>();
-            foreach (var field in this.Fields)
+            var result = new Dictionary<string, string>();
+            foreach (ExcelField field in this.Fields)
             {
                 result.Add(field.Title, field.Value);
             }
@@ -107,8 +123,8 @@ namespace ExcelReader.ExcelDocument
         /// <returns></returns>
         public List<string> ToList()
         {
-            List<string> result = new List<string>();
-            foreach (var field in this.Fields)
+            var result = new List<string>();
+            foreach (ExcelField field in this.Fields)
             {
                 result.Add(field.Value);
             }

@@ -20,8 +20,14 @@ namespace Custom_Controls_WF
             get => this.plotScale;
             set => this.plotScale = value >= 1 ? value : 1;
         }
-        public int MouseX { set; get; }
-        public int MouseY { set; get; }
+        public int MouseX
+        {
+            set; get;
+        }
+        public int MouseY
+        {
+            set; get;
+        }
         public Point Middle => new Point(this.pbMain.Width / 2, this.pbMain.Height / 2);
         #endregion
 
@@ -33,7 +39,7 @@ namespace Custom_Controls_WF
         }
         public void Clear()
         {
-            Graphics g = Graphics.FromHwnd(this.pbMain.Handle);
+            var g = Graphics.FromHwnd(this.pbMain.Handle);
             g.Clear(Color.Transparent);
             g.Dispose();
         }
@@ -181,7 +187,7 @@ namespace Custom_Controls_WF
         private void pbMain_Click(object sender, EventArgs e)
         {
             this.PlotScale = 20;
-            List<PlotPoint> points = new List<PlotPoint>();
+            var points = new List<PlotPoint>();
             for (double i = 0; i < 100; i += 0.1)
             {
                 points.Add(new PlotPoint(i, Math.Sin(i), new SolidBrush(Color.Red)));

@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Forms;
 using Control = System.Windows.Controls.Control;
 using MenuItem = System.Windows.Controls.MenuItem;
 

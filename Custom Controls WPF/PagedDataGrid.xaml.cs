@@ -50,7 +50,7 @@ namespace CustomControlsWPF
 
                 if (this.selectedItem != null)
                 {
-                    var idProperty = this.selectedItem.GetType()
+                    System.Reflection.PropertyInfo idProperty = this.selectedItem.GetType()
     .GetProperties()
     .FirstOrDefault(p => p.Name.StartsWith("Id", StringComparison.OrdinalIgnoreCase) || p.Name.StartsWith("id"));
 
@@ -84,10 +84,7 @@ namespace CustomControlsWPF
                     this.lblTitle.Content = value;
                 }
             }
-            get
-            {
-                return this.lblTitle.Content.ToString();
-            }
+            get => this.lblTitle.Content.ToString();
         }
         public int CurrentPage
         {
@@ -141,7 +138,7 @@ namespace CustomControlsWPF
         {
             if (this.dgData.Columns.Any(c => (c.Header as string).Replace(" ", "_").Equals(columnName)))
             {
-                this.TableData.ColumnNames.Remove(columnName);
+                _ = this.TableData.ColumnNames.Remove(columnName);
                 this.Update();
             }
         }
@@ -149,7 +146,7 @@ namespace CustomControlsWPF
         public void SetDisplayColumns(List<string> columnNames)
         {
             this.tableData.DisplayColumnNames.Clear();
-            foreach (var item in columnNames)
+            foreach (string item in columnNames)
                 this.AddDisplayColumn(item);
         }
         #endregion
@@ -188,10 +185,10 @@ namespace CustomControlsWPF
                 // Если DisplayColumnNames не заданы, добавляем все колонки из ColumnNames
                 if (tableData.ColumnNames != null && tableData.ItemsAll.Any()) // Добавил проверку на наличие элементов в ItemsAll
                 {
-                    var firstItem = tableData.ItemsAll.FirstOrDefault();
+                    object firstItem = tableData.ItemsAll.FirstOrDefault();
                     if (firstItem != null)
                     {
-                        foreach (var columnName in tableData.ColumnNames)
+                        foreach (string columnName in tableData.ColumnNames)
                         {
                             if (firstItem.GetType().GetProperty(columnName) != null)
                             {
@@ -211,16 +208,16 @@ namespace CustomControlsWPF
                 // В противном случае добавляем только указанные в DisplayColumnNames
                 if (tableData.ItemsAll.Any()) // Добавил проверку на наличие элементов в ItemsAll
                 {
-                    var firstItem = tableData.ItemsAll.FirstOrDefault();
+                    object firstItem = tableData.ItemsAll.FirstOrDefault();
                     if (firstItem != null)
                     {
                         var properties = firstItem.GetType().GetProperties().ToDictionary(p => p.Name.Replace('_', ' ').ToLower(), p => p);
 
-                        foreach (var columnName in tableData.DisplayColumnNames)
+                        foreach (string columnName in tableData.DisplayColumnNames)
                         {
-                            var normalizedColumnName = columnName.Replace('_', ' ').ToLower();
+                            string normalizedColumnName = columnName.Replace('_', ' ').ToLower();
 
-                            if (properties.TryGetValue(normalizedColumnName, out var property))
+                            if (properties.TryGetValue(normalizedColumnName, out System.Reflection.PropertyInfo property))
                             {
                                 var column = new DataGridTextColumn
                                 {
@@ -293,7 +290,7 @@ namespace CustomControlsWPF
 
         private void DgData_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var clickedItem = (sender as DataGrid).SelectedItem;
+            object clickedItem = (sender as DataGrid).SelectedItem;
             if (clickedItem != null)
             {
                 this.SelectedItem = clickedItem;

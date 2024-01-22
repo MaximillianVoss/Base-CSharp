@@ -23,7 +23,10 @@ namespace CustomControlsWPF
             add => this.AddHandler(ClickEvent, value);
             remove => this.RemoveHandler(ClickEvent, value);
         }
-        public Double ButtonFontSize { set => this.btn.FontSize = value; get => this.btn.FontSize; }
+        public Double ButtonFontSize
+        {
+            set => this.btn.FontSize = value; get => this.btn.FontSize;
+        }
         //public String Text { set => this.btn.Content = value; get => this.btn.Content.ToString(); }
 
         public String ImagePath

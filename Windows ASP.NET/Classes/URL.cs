@@ -12,8 +12,14 @@ namespace Windows_ASP.NET.Classes
         #endregion
 
         #region Свойства
-        private string Title { set; get; }
-        private string Value { set; get; }
+        private string Title
+        {
+            set; get;
+        }
+        private string Value
+        {
+            set; get;
+        }
         #endregion
 
         #region Методы
@@ -35,7 +41,7 @@ namespace Windows_ASP.NET.Classes
         /// <param name="str">строка вида TITLE=VALUE</param>
         public URLParam(string str)
         {
-            List<string> items = str.Split('=').ToList();
+            var items = str.Split('=').ToList();
             if (items.Count != 2)
                 throw new Exception("Передана некорректная строка!");
             this.Title = items[0];
@@ -64,7 +70,7 @@ namespace Windows_ASP.NET.Classes
         {
             set
             {
-                List<string> subItems = value.Split('?').ToList();
+                var subItems = value.Split('?').ToList();
                 if (subItems.Count > 2)
                     throw new Exception("В строке запроса не может быть несколько знаков '?'");
                 if (subItems.Count == 0)
@@ -74,20 +80,23 @@ namespace Windows_ASP.NET.Classes
                 if (subItems.Count == 2)
                 {
                     this.urlBase = subItems[0];
-                    List<string> paramsStr = subItems[1].Split('&').ToList();
-                    foreach (var item in paramsStr)
+                    var paramsStr = subItems[1].Split('&').ToList();
+                    foreach (string item in paramsStr)
                         this.Params.Add(new URLParam(item));
                 }
             }
             get => this.UrlBase;
         }
-        private List<URLParam> Params { set; get; }
+        private List<URLParam> Params
+        {
+            set; get;
+        }
         public string Url
         {
             get
             {
                 string result = this.UrlBase + "?";
-                foreach (var param in this.Params)
+                foreach (URLParam param in this.Params)
                 {
                     result += param.ToString() + "&";
                 }

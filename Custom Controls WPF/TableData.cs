@@ -19,24 +19,39 @@ namespace CustomControlsWPF
         /// <summary>
         /// Получает или задает заголовок таблицы.
         /// </summary>
-        public String Title { set; get; }
+        public String Title
+        {
+            set; get;
+        }
         /// <summary>
         /// Получает или задает отображаемый заголовок таблицы.
         /// </summary>
-        public String TitleDisplay { set; get; }
+        public String TitleDisplay
+        {
+            set; get;
+        }
 
         /// <summary>
         /// Получает или задает тип элементов, которые хранятся в коллекции.
         /// </summary>
-        public Type ItemsType { set; get; }
+        public Type ItemsType
+        {
+            set; get;
+        }
         /// <summary>
         /// Получает или задает имена колонок таблицы.
         /// </summary>
-        public List<string> ColumnNames { get; set; }
+        public List<string> ColumnNames
+        {
+            get; set;
+        }
         /// <summary>
         /// Получает или задает отображаемые колонки таблицы.
         /// </summary>
-        public List<string> DisplayColumnNames { get; set; }
+        public List<string> DisplayColumnNames
+        {
+            get; set;
+        }
         /// <summary>
         /// Получает или задает коллекцию всех элементов.
         /// </summary>
@@ -89,7 +104,7 @@ namespace CustomControlsWPF
         {
             var filtered = new ObservableCollection<object>();
 
-            foreach (var item in this.ItemsAll)
+            foreach (object item in this.ItemsAll)
             {
                 if (filterCriteria(item))
                 {
@@ -117,7 +132,7 @@ namespace CustomControlsWPF
         {
             if (this.ItemsAll == null)
                 this.ItemsAll = new ObservableCollection<object>();
-            foreach (var item in items)
+            foreach (object item in items)
             {
                 this.ItemsAll.Add(item);
             }
@@ -133,12 +148,12 @@ namespace CustomControlsWPF
         public void ReplaceItemById(object newItem)
         {
             // Проверяем, имеет ли объект свойство id
-            var idProperty = newItem.GetType().GetProperty("id") ?? throw new ArgumentException("Объект не содержит свойства id.");
+            System.Reflection.PropertyInfo idProperty = newItem.GetType().GetProperty("id") ?? throw new ArgumentException("Объект не содержит свойства id.");
 
             // Получаем значение id для нового элемента
-            var newId = idProperty.GetValue(newItem) ?? throw new ArgumentException("Значение id не может быть null.");
+            object newId = idProperty.GetValue(newItem) ?? throw new ArgumentException("Значение id не может быть null.");
 
-            var itemToReplace = this.ItemsAll.FirstOrDefault(item =>
+            object itemToReplace = this.ItemsAll.FirstOrDefault(item =>
                 item.GetType().GetProperty("id")?.GetValue(item) == newId) ?? throw new ArgumentException($"Элемент с id = {newId} не найден.");
 
             int index = this.ItemsAll.IndexOf(itemToReplace);
@@ -175,7 +190,7 @@ namespace CustomControlsWPF
         /// <param name="displayColumnNames">Список имен колонок для добавления.</param>
         public void AddDisplayColumns(List<string> displayColumnNames)
         {
-            foreach (var item in displayColumnNames)
+            foreach (string item in displayColumnNames)
                 this.AddDisplayColumn(item);
             //this.DisplayColumnNames = displayColumnNames.Where(c => ColumnNames.Contains(c)).ToList();
         }
@@ -198,7 +213,7 @@ namespace CustomControlsWPF
         {
             if (this.DisplayColumnNames.Contains(columnName))
             {
-                this.DisplayColumnNames.Remove(columnName);
+                _ = this.DisplayColumnNames.Remove(columnName);
             }
         }
         #endregion

@@ -23,7 +23,7 @@ namespace BaseWindow
         #region Загрузка файлов
         public string GetFolderPath()
         {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog
+            var folderBrowserDialog = new FolderBrowserDialog
             {
                 Description = "Выберите папку"
             };
@@ -37,8 +37,8 @@ namespace BaseWindow
         }
         public List<string> GetFilesPath(string filter = "Все файлы (*.*)|*.*")
         {
-            List<string> filesList = new List<string>();
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            var filesList = new List<string>();
+            var openFileDialog = new OpenFileDialog
             {
                 Filter = filter,
                 Multiselect = true,
@@ -63,7 +63,7 @@ namespace BaseWindow
             string Title = "Открытие файла"
             )
         {
-            OpenFileDialog saveFileDialog = new OpenFileDialog
+            var saveFileDialog = new OpenFileDialog
             {
                 Title = Title,
                 CheckFileExists = checkFileExists,
@@ -91,7 +91,7 @@ namespace BaseWindow
             string Title = "Сохранение файла"
             )
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog
+            var saveFileDialog1 = new SaveFileDialog
             {
                 Title = Title,
                 CheckFileExists = checkFileExists,
@@ -113,15 +113,15 @@ namespace BaseWindow
         #region Уведомления
         public void ShowError(Exception ex)
         {
-            MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            _ = MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         public void ShowMessage(string message, string title = "Уведомление")
         {
-            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            _ = MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         public void ShowWarning(string message, string title = "Предупреждение")
         {
-            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            _ = MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
         #endregion
 

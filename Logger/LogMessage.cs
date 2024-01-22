@@ -21,19 +21,31 @@ namespace Logger
         /// <summary>
         /// Тип  сообщения
         /// </summary>
-        public MessageType type { get; set; }
+        public MessageType type
+        {
+            get; set;
+        }
         /// <summary>
         /// Дата создания
         /// </summary>
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate
+        {
+            get; set;
+        }
         /// <summary>
         /// Текст сообщения
         /// </summary>
-        public string Text { get; set; }
+        public string Text
+        {
+            get; set;
+        }
         /// <summary>
         /// Подробное описание
         /// </summary>
-        public string Description { get; set; }
+        public string Description
+        {
+            get; set;
+        }
         #endregion
 
         #region Конструкторы

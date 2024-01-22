@@ -9,7 +9,10 @@ namespace ExcelReader_tests.Tests
     public class TCsv
     {
         private ExcelParser parser = new ExcelParser();
-        public ExcelParser Parser { get => this.parser; set => this.parser = value; }
+        public ExcelParser Parser
+        {
+            get => this.parser; set => this.parser = value;
+        }
         private string TestsFilesFolder => String.Format("{0}\\{1}", Common.GetParentFoder(AppDomain.CurrentDomain.BaseDirectory, 2), "Test files\\");
         [TestMethod]
         public void ReadEmpty()
@@ -74,7 +77,7 @@ namespace ExcelReader_tests.Tests
             }
             for (int i = 0; i < document.RowsCount; i++)
             {
-                var row = document.Rows[i];
+                ExcelObject row = document.Rows[i];
                 for (int j = 0; j < document.HeadersCount; j++)
                 {
                     Assert.AreEqual(String.Format("value {0}", i + 1 + j), row[document.Headers[j].Title].Value);

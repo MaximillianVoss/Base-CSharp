@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace Windows_ASP.NET
 {
@@ -14,10 +11,13 @@ namespace Windows_ASP.NET
             // Маршруты Web API
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
+            _ = config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new
+                {
+                    id = RouteParameter.Optional
+                }
             );
         }
     }

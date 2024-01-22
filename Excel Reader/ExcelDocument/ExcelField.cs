@@ -16,15 +16,24 @@ namespace ExcelReader.ExcelDocument
         /// <summary>
         /// Название поля
         /// </summary>
-        public string Title { set; get; }
+        public string Title
+        {
+            set; get;
+        }
         /// <summary>
         /// Описание
         /// </summary>
-        public string Description { set; get; }
+        public string Description
+        {
+            set; get;
+        }
         /// <summary>
         /// Значение поля
         /// </summary>
-        public string Value { set; get; }
+        public string Value
+        {
+            set; get;
+        }
         #endregion
 
         #region Методы

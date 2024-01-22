@@ -18,7 +18,7 @@ namespace Base_Console
         public int GetInt(String message = "")
         {
             string str = this.GetStr(message);
-            int value = 0;
+            int value;
             bool isNumeric = Int32.TryParse(str, out value);
             if (isNumeric)
             {
@@ -33,7 +33,7 @@ namespace Base_Console
         public double GetDouble(String message = "")
         {
             string str = this.GetStr(message);
-            double vlaue = 0;
+            double vlaue;
             bool isNumeric = Double.TryParse(str, out vlaue);
             if (isNumeric)
             {
@@ -59,7 +59,7 @@ namespace Base_Console
 
         public void Print<T>(T[] values, bool newLine = true)
         {
-            foreach (var v in values)
+            foreach (T v in values)
             {
                 this.Print(v, newLine);
             }
@@ -67,7 +67,7 @@ namespace Base_Console
 
         public void Print<T>(List<T> values, bool newLine = true)
         {
-            foreach (var v in values)
+            foreach (T v in values)
             {
                 this.Print(v, newLine);
             }
@@ -80,7 +80,7 @@ namespace Base_Console
         public void Pause(String message = "Press any key to continue...")
         {
             this.Print(message);
-            Console.ReadLine();
+            _ = Console.ReadLine();
         }
     }
 }

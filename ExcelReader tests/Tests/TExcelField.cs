@@ -10,7 +10,7 @@ namespace ExcelReader_tests.Tests
         [TestMethod]
         public void TestEmptyConstructor()
         {
-            ExcelField field = new ExcelField();
+            var field = new ExcelField();
             Assert.AreEqual(string.Empty, field.Title);
             Assert.AreEqual(string.Empty, field.Value);
             Assert.AreEqual(string.Empty, field.Description);
@@ -23,7 +23,7 @@ namespace ExcelReader_tests.Tests
                 string title = String.Format("title {0}", i);
                 string value = String.Format("value {0}", i);
                 string description = String.Format("description {0}", i);
-                ExcelField field = new ExcelField(title, value, description);
+                var field = new ExcelField(title, value, description);
                 Assert.AreEqual(title, field.Title);
                 Assert.AreEqual(value, field.Value);
                 Assert.AreEqual(description, field.Description);

@@ -110,16 +110,16 @@ namespace CustomControlsWPF
                     this.items.AddRange(value);
                     try
                     {
-                        foreach (var item in this.items)
+                        foreach (object item in this.items)
                         {
-                            this.cbItems.Items.Add(this.GetObjectFieldValue(item, "title"));
+                            _ = this.cbItems.Items.Add(this.GetObjectFieldValue(item, "title"));
                         }
                     }
                     catch
                     {
-                        foreach (var item in this.items)
+                        foreach (object item in this.items)
                         {
-                            this.cbItems.Items.Add(item.ToString());
+                            _ = this.cbItems.Items.Add(item.ToString());
                         }
                     }
                 }
@@ -221,7 +221,7 @@ namespace CustomControlsWPF
         /// <exception cref="Exception"></exception>
         private object GetObjectFieldValue(object obj, string fieldName)
         {
-            var field = obj.GetType().GetProperty(fieldName);
+            System.Reflection.PropertyInfo field = obj.GetType().GetProperty(fieldName);
             return field == null ? throw new Exception("Поле не найдено") : field.GetValue(obj, null);
         }
         /// <summary>
@@ -231,7 +231,7 @@ namespace CustomControlsWPF
         public void Add(object item)
         {
             this.items.Add(item);
-            this.cbItems.Items.Add(item);
+            _ = this.cbItems.Items.Add(item);
         }
         /// <summary>
         /// Выбирает элемент с указанным ID в выпадающем списке

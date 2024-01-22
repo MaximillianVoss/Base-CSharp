@@ -39,7 +39,10 @@ namespace CustomControlsWPF
             set => this.lblTransferValue.Content = value;
         }
 
-        public int IdTicket { get => this.idTicket; set => this.idTicket = value; }
+        public int IdTicket
+        {
+            get => this.idTicket; set => this.idTicket = value;
+        }
         #endregion
 
         #region Методы

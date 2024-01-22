@@ -108,7 +108,7 @@ namespace CustomControlsWPF
                     return true;
                 }
 
-                Regex regex = new Regex(this.RegEx);
+                var regex = new Regex(this.RegEx);
                 return regex.IsMatch(this.txbValue.Text);
             }
         }

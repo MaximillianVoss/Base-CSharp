@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CustomControlsWPF
 {
@@ -53,15 +43,9 @@ namespace CustomControlsWPF
         /// </summary>
         public string TitleButton
         {
-            set
-            {
-                this.btnAction.Text = value;
-            }
+            set => this.btnAction.Text = value;
 
-            get
-            {
-                return this.btnAction.Text;
-            }
+            get => this.btnAction.Text;
         }
         public string Text
         {
@@ -138,7 +122,7 @@ namespace CustomControlsWPF
                     return true;
                 }
 
-                Regex regex = new Regex(this.RegEx);
+                var regex = new Regex(this.RegEx);
                 return regex.IsMatch(this.txbValue.Text);
             }
         }
@@ -147,28 +131,16 @@ namespace CustomControlsWPF
         /// </summary>
         public bool IsEnableTextBox
         {
-            set
-            {
-                this.txbValue.IsEnabled = value;
-            }
-            get
-            {
-                return this.txbValue.IsEnabled;
-            }
+            set => this.txbValue.IsEnabled = value;
+            get => this.txbValue.IsEnabled;
         }
         /// <summary>
         /// Доступна кнопка или нет
         /// </summary>
         public bool IsEnableButton
         {
-            set
-            {
-                this.btnAction.IsEnabled = value;
-            }
-            get
-            {
-                return this.btnAction.IsEnabled;
-            }
+            set => this.btnAction.IsEnabled = value;
+            get => this.btnAction.IsEnabled;
         }
         public Brush BackgroundColor
         {

@@ -28,19 +28,45 @@ namespace ExcelReader.ExcelDocument
         /// <summary>
         /// Список колонок
         /// </summary>
-        public List<ExcelField> Headers { set; get; }
+        public List<ExcelField> Headers
+        {
+            set; get;
+        }
         /// <summary>
         /// Список записей таблицы
         /// </summary>
-        public List<ExcelObject> Rows { set; get; }
+        public List<ExcelObject> Rows
+        {
+            set; get;
+        }
         /// <summary>
         /// Количество столбцов
         /// </summary>
-        public int HeadersCount { get { if (this.Headers == null) { return 0; } return this.Headers.Count; } }
+        public int HeadersCount
+        {
+            get
+            {
+                if (this.Headers == null)
+                {
+                    return 0;
+                }
+                return this.Headers.Count;
+            }
+        }
         /// <summary>
         /// Количество строк 
         /// </summary>
-        public int RowsCount { get { if (this.Rows == null) { return 0; } return this.Rows.Count; } }
+        public int RowsCount
+        {
+            get
+            {
+                if (this.Rows == null)
+                {
+                    return 0;
+                }
+                return this.Rows.Count;
+            }
+        }
         #endregion
 
         #region Методы
@@ -84,7 +110,7 @@ namespace ExcelReader.ExcelDocument
         /// <param name="field">поле</param>
         public void Remove(ExcelField field)
         {
-            this.Headers.RemoveAll(x => x.Title == field.Title);
+            _ = this.Headers.RemoveAll(x => x.Title == field.Title);
             for (int i = 0; i < this.Rows.Count; i++)
             {
                 this.Rows[i].Remove(field);
@@ -96,7 +122,7 @@ namespace ExcelReader.ExcelDocument
         /// <param name="fieldName">имя поля</param>
         public void Remove(string fieldName)
         {
-            this.Headers.RemoveAll(x => x.Title == fieldName);
+            _ = this.Headers.RemoveAll(x => x.Title == fieldName);
             for (int i = 0; i < this.Rows.Count; i++)
             {
                 this.Rows[i].Remove(new ExcelField(title: fieldName));
@@ -117,28 +143,28 @@ namespace ExcelReader.ExcelDocument
         /// <returns></returns>
         public DataTable GetTable()
         {
-            DataTable dataTable = new DataTable();
-            foreach (var columnName in this.Headers)
+            var dataTable = new DataTable();
+            foreach (ExcelField columnName in this.Headers)
             {
-                dataTable.Columns.Add(columnName.Title);
+                _ = dataTable.Columns.Add(columnName.Title);
             }
-            foreach (var value in this.Rows)
+            foreach (ExcelObject value in this.Rows)
             {
-                dataTable.Rows.Add(value.ToArray());
+                _ = dataTable.Rows.Add(value.ToArray());
             }
             return dataTable;
         }
 
         public List<string> ToSQLScript_OLD(List<string> dbTableColumnNames, string tableName, int startRowIndex = 0, int limit = 10)
         {
-            List<string> queries = new List<string>();
+            var queries = new List<string>();
             for (int i = startRowIndex; i < this.Rows.Count; i += limit)
             {
                 string query = string.Format("INSERT INTO dbo.[{0}] ", tableName);
                 string columnsNames = string.Empty;
                 // string columnsNamesOutput = string.Empty;
                 string columnsNamesOutput = String.Format("Inserted.[{0}],", "id");
-                foreach (var column in dbTableColumnNames)
+                foreach (string column in dbTableColumnNames)
                 {
                     if (this.IsContainsKey(column))
                     {
@@ -162,7 +188,7 @@ namespace ExcelReader.ExcelDocument
                 for (int j = 0; j < limit && i + j < this.Rows.Count; j++)
                 {
                     string subValuesStr = String.Empty;
-                    foreach (var column in dbTableColumnNames)
+                    foreach (string column in dbTableColumnNames)
                     {
                         if (this.Rows[i + j].IsContainsKey(column))
                         {
@@ -190,7 +216,7 @@ namespace ExcelReader.ExcelDocument
 
         public List<string> ToSQLScript(List<string> dbTableColumnNames, string tableName, int startRowIndex = 0, int limit = 10)
         {
-            List<string> queries = new List<string>();
+            var queries = new List<string>();
             for (int i = startRowIndex; i < this.Rows.Count; i += limit)
             {
                 string query = string.Format("INSERT INTO dbo.[{0}] ", tableName);
@@ -199,7 +225,7 @@ namespace ExcelReader.ExcelDocument
 
                 string outputColumns = String.Format("[{0}] {1},", "id", "int");
 
-                foreach (var column in dbTableColumnNames)
+                foreach (string column in dbTableColumnNames)
                 {
                     if (this.IsContainsKey(column))
                     {
@@ -228,7 +254,7 @@ namespace ExcelReader.ExcelDocument
                 for (int j = 0; j < limit && i + j < this.Rows.Count; j++)
                 {
                     string subValuesStr = String.Empty;
-                    foreach (var column in dbTableColumnNames)
+                    foreach (string column in dbTableColumnNames)
                     {
                         if (this.Rows[i + j].IsContainsKey(column))
                         {
@@ -345,7 +371,7 @@ namespace ExcelReader.ExcelDocument
         }
         public ExcelDocument(List<string> fields) : this(String.Empty, new List<ExcelField>(), new List<ExcelObject>())
         {
-            foreach (var fieldsName in fields)
+            foreach (string fieldsName in fields)
             {
                 this.Headers.Add(new ExcelField(fieldsName));
             }

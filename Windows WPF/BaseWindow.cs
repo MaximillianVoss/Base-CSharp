@@ -24,7 +24,7 @@ namespace BaseWindow_WPF
         #region Загрузка файлов
         public string GetFolderPath()
         {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog
+            var folderBrowserDialog = new FolderBrowserDialog
             {
                 Description = "Выберите папку"
             };
@@ -38,8 +38,8 @@ namespace BaseWindow_WPF
         }
         public List<string> GetFilesPath(string filter = "Все файлы (*.*)|*.*")
         {
-            List<string> filesList = new List<string>();
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            var filesList = new List<string>();
+            var openFileDialog = new OpenFileDialog
             {
                 Filter = filter,
                 Multiselect = true,
@@ -65,7 +65,7 @@ namespace BaseWindow_WPF
             string Title = "Сохранение файла"
             )
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            var openFileDialog = new OpenFileDialog
             {
                 Title = Title,
                 CheckFileExists = checkFileExists,
@@ -95,7 +95,7 @@ namespace BaseWindow_WPF
         #region Сохранение файлов
         public string GetSaveFilePath()
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog
+            var saveFileDialog1 = new SaveFileDialog
             {
                 Title = "Сохранения файла",
                 CheckFileExists = false,
@@ -117,24 +117,24 @@ namespace BaseWindow_WPF
         #region Уведомления
         public void ShowError(string message)
         {
-            System.Windows.MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            _ = System.Windows.MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         public void ShowError(Exception ex, bool isShowInner = true)
         {
-            var message = isShowInner && ex.InnerException != null
+            string message = isShowInner && ex.InnerException != null
                 ? ex.Message + "\n\n" + ex.InnerException.Message
                 : ex.Message;
 
-            System.Windows.MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            _ = System.Windows.MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         public void ShowMessage(string message, string title = "Уведомление")
         {
-            System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+            _ = System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
         }
         public void ShowWarning(string message, string title = "Предупреждение")
         {
-            System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+            _ = System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         #endregion
 

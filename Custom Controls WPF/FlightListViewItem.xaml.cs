@@ -41,9 +41,18 @@ namespace CustomControlsWPF
             get => (string)this.lblTransferValue.Content;
             set => this.lblTransferValue.Content = value;
         }
-        public bool IsBuyClicked { get => this.isBuyClicked; set => this.isBuyClicked = value; }
-        public int IdFlight { get => this.idFlight; set => this.idFlight = value; }
-        public DateTime DepartureDate { get => this.departureDate; set => this.departureDate = value; }
+        public bool IsBuyClicked
+        {
+            get => this.isBuyClicked; set => this.isBuyClicked = value;
+        }
+        public int IdFlight
+        {
+            get => this.idFlight; set => this.idFlight = value;
+        }
+        public DateTime DepartureDate
+        {
+            get => this.departureDate; set => this.departureDate = value;
+        }
         #endregion
 
         #region Методы

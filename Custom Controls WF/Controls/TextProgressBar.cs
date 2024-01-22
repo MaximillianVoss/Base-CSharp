@@ -100,7 +100,9 @@ namespace Custom_Controls_WF.Controls
 
                 return text;
             }
-            set { }
+            set
+            {
+            }
         }
 
         private string _percentageStr => $"{(int)((float)this.Value - this.Minimum) / ((float)this.Maximum - this.Minimum) * 100}%";
@@ -123,7 +125,7 @@ namespace Custom_Controls_WF.Controls
 
             if (this.Value > 0)
             {
-                Rectangle clip = new Rectangle(rect.X, rect.Y, (int)Math.Round((float)this.Value / this.Maximum * rect.Width), rect.Height);
+                var clip = new Rectangle(rect.X, rect.Y, (int)Math.Round((float)this.Value / this.Maximum * rect.Width), rect.Height);
 
                 g.FillRectangle(this._progressColourBrush, clip);
             }
@@ -137,7 +139,7 @@ namespace Custom_Controls_WF.Controls
 
                 SizeF len = g.MeasureString(text, this.TextFont);
 
-                Point location = new Point((this.Width / 2) - ((int)len.Width / 2), (this.Height / 2) - ((int)len.Height / 2));
+                var location = new Point((this.Width / 2) - ((int)len.Width / 2), (this.Height / 2) - ((int)len.Height / 2));
 
                 g.DrawString(text, this.TextFont, this._textColourBrush, location);
             }

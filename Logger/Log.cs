@@ -33,38 +33,19 @@ namespace Logger
         /// <summary>
         /// Сообщения
         /// </summary>
-        public ObservableCollection<LogMessage> Messages { get => this.messages; }
+        public ObservableCollection<LogMessage> Messages => this.messages;
         /// <summary>
         /// Таблица с сообщениями
         /// </summary>
-        public DataTable Table
-        {
-            get
-            {
-                return this.ToTable();
-            }
-        }
+        public DataTable Table => this.ToTable();
         /// <summary>
         /// Получает текущее число сообщений
         /// </summary>
-        public int MessagesCount
-        {
-            get
-            {
-                return this.messages == null ? 0 : this.messages.Count;
-            }
-        }
+        public int MessagesCount => this.messages == null ? 0 : this.messages.Count;
         /// <summary>
         /// Указывает добавлялись ли новые сообщения
         /// </summary>
-        public bool IsChanged
-        {
-            get
-            {
-
-                return this.isChanged;
-            }
-        }
+        public bool IsChanged => this.isChanged;
         #endregion
 
         #region Методы
@@ -118,7 +99,7 @@ namespace Logger
         /// <param name="args"></param>
         public void Add(string format, params object[] args)
         {
-            Add(String.Format(format, args));
+            this.Add(String.Format(format, args));
         }
         /// <summary>
         /// Добавляет сообщение в логДобавляет сообщение в лог
@@ -130,7 +111,7 @@ namespace Logger
             {
                 throw new Exception("Передано пустое сообщение!");
             }
-            this.mutex.WaitOne();
+            _ = this.mutex.WaitOne();
             this.messages.Add(message);
             this.mutex.ReleaseMutex();
         }
@@ -139,8 +120,8 @@ namespace Logger
         /// </summary>
         public void Clear()
         {
-            this.mutex.WaitOne();
-            messages.Clear();
+            _ = this.mutex.WaitOne();
+            this.messages.Clear();
             this.mutex.ReleaseMutex();
         }
         /// <summary>
@@ -150,14 +131,14 @@ namespace Logger
         /// <returns></returns>
         public DataTable ToTable()
         {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("Дата сообщения");
-            dataTable.Columns.Add("Текст");
-            dataTable.Columns.Add("Описание");
-            dataTable.Columns.Add("Тип");
-            for (int i = 0; i < messages.Count; i++)
+            var dataTable = new DataTable();
+            _ = dataTable.Columns.Add("Дата сообщения");
+            _ = dataTable.Columns.Add("Текст");
+            _ = dataTable.Columns.Add("Описание");
+            _ = dataTable.Columns.Add("Тип");
+            for (int i = 0; i < this.messages.Count; i++)
             {
-                dataTable.Rows.Add(new object[] { messages[i].CreateDate, messages[i].Text, messages[i].Description, messages[i].type });
+                _ = dataTable.Rows.Add(new object[] { this.messages[i].CreateDate, this.messages[i].Text, this.messages[i].Description, this.messages[i].type });
             }
             return dataTable;
         }
@@ -170,7 +151,7 @@ namespace Logger
         public Log()
         {
             this.messages = new ObservableCollection<LogMessage>();
-            this.messages.CollectionChanged += messages_CollectionChanged;
+            this.messages.CollectionChanged += this.messages_CollectionChanged;
         }
         /// <summary>
         /// Создает лог с указанными сообщениями

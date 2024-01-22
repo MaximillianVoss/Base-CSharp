@@ -89,7 +89,7 @@ namespace Custom_Controls_WF.Controls
                     return true;
                 }
 
-                Regex regex = new Regex(this.RegEx);
+                var regex = new Regex(this.RegEx);
                 return regex.IsMatch(this.txbValue.Text);
             }
 
@@ -99,14 +99,8 @@ namespace Custom_Controls_WF.Controls
         /// </summary>
         public new bool Enabled
         {
-            get
-            {
-                return this.txbValue.Enabled;
-            }
-            set
-            {
-                this.txbValue.Enabled = value;
-            }
+            get => this.txbValue.Enabled;
+            set => this.txbValue.Enabled = value;
         }
         public Color BackgroundColor
         {
@@ -118,14 +112,8 @@ namespace Custom_Controls_WF.Controls
         /// </summary>
         public event EventHandler CurrentTextChanged
         {
-            add
-            {
-                this.txbValue.TextChanged += value;
-            }
-            remove
-            {
-                this.txbValue.TextChanged -= value;
-            }
+            add => this.txbValue.TextChanged += value;
+            remove => this.txbValue.TextChanged -= value;
         }
         #endregion
 
