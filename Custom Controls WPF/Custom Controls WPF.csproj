@@ -202,6 +202,7 @@
     <Resource Include="Ресурсы\Кнопка.Вправо.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Ресурсы\Нет источника изображения.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

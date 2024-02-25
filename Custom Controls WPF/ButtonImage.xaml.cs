@@ -72,6 +72,7 @@ namespace CustomControlsWPF
         {
             this.InitializeComponent();
             this.brushes = null;
+            this.ImagePath = "/CustomControlsWPF;component/Ресурсы/Нет источника изображения.png";
             if (this.btn != null)
             {
                 this.btn.Click += this.ClickHadler;

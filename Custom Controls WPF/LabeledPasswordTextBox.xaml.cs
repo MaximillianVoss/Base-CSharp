@@ -14,6 +14,7 @@ namespace CustomControlsWPF
         #region Поля
         private string regex;
         private string validationText;
+        private bool isShowPassword;
         #endregion
 
         #region Свойства
@@ -102,6 +103,18 @@ namespace CustomControlsWPF
             set => this.gMain.Background = value;
             get => this.gMain.Background;
         }
+        public bool IsShowPassword
+        {
+            get => this.isShowPassword;
+            set
+            {
+                this.isShowPassword = value;
+                if (this.isShowPassword)
+                {
+                    this.txbValue.PasswordChar = this.isShowPassword ? '●' : '\0';
+                }
+            }
+        }
 
         #endregion
 
@@ -146,6 +159,10 @@ namespace CustomControlsWPF
             this.isValidCheck();
         }
 
+        private void btnShowPassword_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
         #endregion
 
     }

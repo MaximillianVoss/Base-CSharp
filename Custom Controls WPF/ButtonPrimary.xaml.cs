@@ -81,7 +81,7 @@ namespace CustomControlsWPF
         #region Конструкторы/Деструкторы
         public ButtonPrimary()
         {
-            this.InitializeComponent();
+           
             this.brushes = new Dictionary<Colors, SolidColorBrush>() {
                 { Colors.primary,this.GetColorBrush("#ff0d6efd")},
                 { Colors.secondary,this.GetColorBrush("#6c757d")},
@@ -92,6 +92,7 @@ namespace CustomControlsWPF
                 { Colors.light,this.GetColorBrush("#f8f9fa")},
                 { Colors.dark,this.GetColorBrush("#212529")}
             };
+            this.InitializeComponent();
             if (this.btn != null)
             {
                 this.btn.Click += this.ClickHadler;
