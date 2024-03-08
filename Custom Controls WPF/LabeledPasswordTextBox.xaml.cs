@@ -15,6 +15,8 @@ namespace CustomControlsWPF
         private string regex;
         private string validationText;
         private bool isShowPassword;
+        private string text;
+        private char passwordChar;
         #endregion
 
         #region Свойства
@@ -25,8 +27,30 @@ namespace CustomControlsWPF
         }
         public string Text
         {
-            set => this.txbValue.Password = value;
-            get => this.txbValue.Password;
+            set
+            {
+                this.text = value;
+                if (this.text != this.txbValueHidden.Password)
+                    this.txbValueHidden.Password = this.text;
+                if (this.text != this.txbValue.Text)
+                    this.txbValue.Text = this.text;
+            }
+            get => this.text;
+        }
+        public char PasswordChar
+        {
+            get
+            {
+                return passwordChar;
+            }
+            set
+            {
+                if (value == '\0') // Проверка на пустой символ
+                {
+                    throw new ArgumentException("Секретный символ пароля не может быть пустым символом.");
+                }
+                passwordChar = value;
+            }
         }
         /// <summary>
         /// Строка, которая будет показана при ошибке валидации
@@ -89,13 +113,13 @@ namespace CustomControlsWPF
         {
             get
             {
-                if (this.RegEx == null || this.RegEx == String.Empty || this.txbValue.Password == null)
+                if (this.RegEx == null || this.RegEx == String.Empty || this.txbValueHidden.Password == null)
                 {
                     return true;
                 }
 
                 var regex = new Regex(this.RegEx);
-                return regex.IsMatch(this.txbValue.Password);
+                return regex.IsMatch(this.txbValueHidden.Password);
             }
         }
         public Brush BackgroundColor
@@ -109,12 +133,16 @@ namespace CustomControlsWPF
             set
             {
                 this.isShowPassword = value;
-                if (this.isShowPassword)
-                {
-                    this.txbValue.PasswordChar = this.isShowPassword ? '●' : '\0';
-                }
+                this.btnShowPassword.ImagePath = this.isShowPassword ?
+                    "/CustomControlsWPF;component/Ресурсы/показать пароль.png" :
+                    "/CustomControlsWPF;component/Ресурсы/скрыть пароль.png";
+
+                this.txbValue.Visibility = this.isShowPassword ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+                this.txbValueHidden.Visibility = !this.isShowPassword ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+
             }
         }
+
 
         #endregion
 
@@ -145,6 +173,8 @@ namespace CustomControlsWPF
             this.Text = text ?? throw new ArgumentNullException(nameof(text));
             this.BackgroundColor = backgroundColor;
             this.Error = error;
+            this.PasswordChar = '●';
+            this.IsShowPassword = false;
         }
 
         #endregion
@@ -157,12 +187,25 @@ namespace CustomControlsWPF
         private void txbValue_PasswordChanged(object sender, System.Windows.RoutedEventArgs e)
         {
             this.isValidCheck();
+
+            this.Text = this.txbValueHidden.Password;
         }
+
+        private void txbValue_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.isValidCheck();
+
+            this.Text = this.txbValue.Text;
+        }
+
 
         private void btnShowPassword_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-
+            this.IsShowPassword = !this.IsShowPassword;
         }
+
+
+
         #endregion
 
     }

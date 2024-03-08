@@ -36,7 +36,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -68,14 +70,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseControl.cs" />
+    <Compile Include="Классы\BaseControl.cs" />
     <Compile Include="ButtonImage.xaml.cs">
       <DependentUpon>ButtonImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ButtonPrimary.xaml.cs">
       <DependentUpon>ButtonPrimary.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ControlState.cs" />
+    <Compile Include="Классы\Common.cs" />
+    <Compile Include="Классы\ControlState.cs" />
     <Compile Include="LabeledCheckBox.xaml.cs">
       <DependentUpon>LabeledCheckBox.xaml</DependentUpon>
     </Compile>
@@ -94,7 +97,10 @@
     <Compile Include="PagingControl.xaml.cs">
       <DependentUpon>PagingControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TableData.cs" />
+    <Compile Include="Классы\CustomBase.cs" />
+    <Compile Include="Классы\CustomEventArgs.cs" />
+    <Compile Include="Классы\IToObject.cs" />
+    <Compile Include="Классы\TableData.cs" />
     <Compile Include="TicketListViewItem.xaml.cs">
       <DependentUpon>TicketListViewItem.xaml</DependentUpon>
     </Compile>
@@ -203,6 +209,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Ресурсы\Нет источника изображения.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ресурсы\показать пароль.png" />
+    <Resource Include="Ресурсы\скрыть пароль.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Windows WPF\Windows WPF.csproj">
+      <Project>{318BA0C4-4D3C-45DC-B2BE-2EE68C8C9CEB}</Project>
+      <Name>Windows WPF</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework">
+      <Version>6.4.4</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
