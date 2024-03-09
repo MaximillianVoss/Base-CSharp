@@ -55,7 +55,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="WindowButtons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowTestBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowTestComboBoxes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowTestSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowTextInputs.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,8 +79,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="WindowButtons.xaml.cs">
+      <DependentUpon>WindowButtons.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowTestBase.xaml.cs">
+      <DependentUpon>WindowTestBase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowTestComboBoxes.xaml.cs">
+      <DependentUpon>WindowTestComboBoxes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowTestSelection.xaml.cs">
+      <DependentUpon>WindowTestSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowTextInputs.xaml.cs">
+      <DependentUpon>WindowTextInputs.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

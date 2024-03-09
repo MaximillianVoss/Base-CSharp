@@ -39,17 +39,14 @@ namespace CustomControlsWPF
         }
         public char PasswordChar
         {
-            get
-            {
-                return passwordChar;
-            }
+            get => this.passwordChar;
             set
             {
                 if (value == '\0') // Проверка на пустой символ
                 {
                     throw new ArgumentException("Секретный символ пароля не может быть пустым символом.");
                 }
-                passwordChar = value;
+                this.passwordChar = value;
             }
         }
         /// <summary>

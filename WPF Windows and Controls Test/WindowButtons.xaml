@@ -1,0 +1,15 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Windows_and_Controls_Test"
+        xmlns:CustomControlsWPF="clr-namespace:CustomControlsWPF;assembly=CustomControlsWPF" x:Class="WPF_Windows_and_Controls_Test.WindowTestButtons"
+        mc:Ignorable="d"
+        Title="WindowButtons" Height="360" Width="545">
+    <Grid>
+
+        <CustomControlsWPF:ButtonPrimary Margin="10,10,10,0" VerticalAlignment="Top" Height="44" Click="ButtonPrimary_Click"/>
+
+    </Grid>
+</Window>

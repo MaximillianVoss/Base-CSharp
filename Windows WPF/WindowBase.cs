@@ -7,7 +7,17 @@ using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 
 namespace BaseWindow_WPF
 {
-    public class BaseWindow : Window
+    /// <summary>
+    /// Возможные режимы окна или формы
+    /// </summary>
+    public enum EditModes
+    {
+        Create,
+        Update,
+        Delete,
+        None
+    }
+    public class WindowBase : Window
     {
 
         #region Поля
@@ -15,7 +25,13 @@ namespace BaseWindow_WPF
         #endregion
 
         #region Свойства
-
+        /// <summary>
+        /// Текущий режим: создание/редактирование/удаление
+        /// </summary>
+        public EditModes Mode
+        {
+            set; get;
+        }
         #endregion
 
         #region Методы
@@ -146,7 +162,7 @@ namespace BaseWindow_WPF
         #endregion
 
         #region Конструкторы/Деструкторы
-        public BaseWindow()
+        public WindowBase()
         {
             this.SetCenter();
         }

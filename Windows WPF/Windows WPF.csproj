@@ -71,7 +71,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseWindow.cs" />
+    <Compile Include="WindowBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

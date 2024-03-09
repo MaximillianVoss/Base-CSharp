@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -221,18 +223,46 @@ namespace CustomControlsWPF
         /// <exception cref="Exception"></exception>
         private object GetObjectFieldValue(object obj, string fieldName)
         {
-            System.Reflection.PropertyInfo field = obj.GetType().GetProperty(fieldName);
+            System.Reflection.PropertyInfo field = obj.GetType().GetProperty(fieldName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
             return field == null ? throw new Exception("Поле не найдено") : field.GetValue(obj, null);
         }
         /// <summary>
-        /// Добавляет указанный элемент в выпадающий список
+        /// Добавляет указанный элемент в выпадающий список.
+        /// Если объект является коллекцией, то добавляет элементы из коллекции один за другим.
+        /// Если элемент реализует интерфейс IToObject, вызывает метод ToObject() перед добавлением.
         /// </summary>
-        /// <param name="item">объект для добавления</param>
+        /// <param name="item">Объект для добавления.</param>
         public void Add(object item)
         {
-            this.items.Add(item);
-            _ = this.cbItems.Items.Add(item);
+            if (item is IEnumerable collection)
+            {
+                foreach (var element in collection)
+                {
+                    if (element is IToObject toObjectElement)
+                    {
+                        this.items.Add(toObjectElement.ToObject());
+                        _ = this.cbItems.Items.Add(toObjectElement.ToObject());
+                    }
+                    else
+                    {
+                        this.items.Add(element);
+                        _ = this.cbItems.Items.Add(element);
+                    }
+                }
+            }
+            else if (item is IToObject toObjectItem)
+            {
+                this.items.Add(toObjectItem.ToObject());
+                _ = this.cbItems.Items.Add(toObjectItem.ToObject());
+            }
+            else
+            {
+                this.items.Add(item);
+                _ = this.cbItems.Items.Add(item);
+            }
+            this.SelectedIndex = 0;
         }
+
         /// <summary>
         /// Выбирает элемент с указанным ID в выпадающем списке
         /// </summary>

@@ -4,15 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_Windows_and_Controls_Test"
-        xmlns:CustomControlsWPF="clr-namespace:CustomControlsWPF;assembly=CustomControlsWPF" x:Class="WPF_Windows_and_Controls_Test.MainWindow"
+        xmlns:CustomControlsWPF="clr-namespace:CustomControlsWPF;assembly=CustomControlsWPF" x:Class="WPF_Windows_and_Controls_Test.WindowTestTextInputs"
         mc:Ignorable="d"
-        Title="MainWindow" Height="333" Width="509">
+        Title="MainWindow" Height="480" Width="322">
     <Grid>
 
         <CustomControlsWPF:LabeledTextBox x:Name="txbTestInt" Margin="10,10,10,0" VerticalAlignment="Top" Height="78"/>
         <CustomControlsWPF:LabeledTextBox x:Name="txbTestFloatComma" Margin="10,84,10,0" VerticalAlignment="Top" Height="78"/>
         <CustomControlsWPF:LabeledTextBox x:Name="txbTestFloatPoint" Margin="10,159,10,0" VerticalAlignment="Top" Height="78"/>
-        <CustomControlsWPF:LabeledPasswordTextBox Margin="10,223,10,0" VerticalAlignment="Top" Height="84"/>
+        <CustomControlsWPF:LabeledPasswordTextBox x:Name="txbTestPassword" Margin="10,223,10,0" VerticalAlignment="Top" Height="84"/>
+        <CustomControlsWPF:LabeledTextBox x:Name="txbTestEmail" Margin="10,298,10,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

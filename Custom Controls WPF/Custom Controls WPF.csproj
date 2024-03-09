@@ -100,6 +100,7 @@
     <Compile Include="Классы\CustomBase.cs" />
     <Compile Include="Классы\CustomEventArgs.cs" />
     <Compile Include="Классы\IToObject.cs" />
+    <Compile Include="Классы\ObjectExtensions.cs" />
     <Compile Include="Классы\TableData.cs" />
     <Compile Include="TicketListViewItem.xaml.cs">
       <DependentUpon>TicketListViewItem.xaml</DependentUpon>
@@ -132,6 +133,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Классы\TreeViewItemCustom.cs" />
+    <Compile Include="Классы\WindowBase.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

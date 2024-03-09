@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CustomControlsWPF.Классы
+namespace CustomControlsWPF
 {
     public static class Common
     {
@@ -16,11 +16,11 @@ namespace CustomControlsWPF.Классы
                 /// </summary>
                 public static readonly string regInt = @"[0-9]{1,}$";
                 /// <summary>
-                /// Для чисел с плаваоющей точкой - разделитель запятая
+                /// Для чисел с плавающей точкой - разделитель запятая
                 /// </summary>
                 public static readonly string regFloatComma = @"[+-]?([0-9]*[,])?[0-9]+$";
                 /// <summary>
-                /// Для чисел с плаваоющей точкой - разделитель запятая
+                /// Для чисел с плавающей точкой - разделитель запятая
                 /// </summary>
                 public static readonly string regFloatPoint = @"[+-]?([0-9]*[.])?[0-9]+$";
                 /// <summary>
@@ -53,11 +53,12 @@ namespace CustomControlsWPF.Классы
                 public static readonly string fieldIsNotFoundInObject = "Поле не найдено в объекте";
                 public static readonly string incorrectPath = "Указан некорректный путь!";
                 public static readonly string incorrectList = "Передан некорректный список";
-                public static readonly string incorrectIntStr = "Ожидается целое число";
-                public static readonly string incorrectFloatStr = "Ожидается вещественное число";
-                public static readonly string incorrectFloatPointStr = "Ожидается вещественное число с разделителем - точкой.";
-                public static readonly string incorrectFloatCommaStr = "Ожидается вещественное число с разделителем - запятой.";
+                public static readonly string incorrectInt = "Ожидается целое число";
+                public static readonly string incorrectFloat = "Ожидается вещественное число";
+                public static readonly string incorrectFloatPoint = "Ожидается вещественное число с разделителем - точкой.";
+                public static readonly string incorrectFloatComma = "Ожидается вещественное число с разделителем - запятой.";
                 public static readonly string incorrectDescriptorsCount = "Количество дескрипторов не соответствует числу записей!";
+                public static readonly string incorrectEmail = "Ожидается адрес электронной почты";
                 public static readonly string emptyObject = "Передана пустая ссылка на объект!";
                 public static readonly string notFolder = "Элемент не является папкой!";
                 public static readonly string failedToGetParam = "Не получилось извлечь параметр!";

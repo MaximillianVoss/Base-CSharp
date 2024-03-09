@@ -52,7 +52,7 @@ namespace CustomControlsWPF
                 }
                 catch (Exception ex)
                 {
-                    this.btn.Background = this.brushes[Colors.primary];
+                    this.btn.Background = this.brushes[Colors.Primary];
                     this.btn.Content = ex.Message;
                 }
             }
